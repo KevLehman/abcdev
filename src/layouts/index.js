@@ -23,6 +23,7 @@ const TemplateWrapper = ({ location, children }) => {
     if (!exists) {
         visitedRoutes.current.push(children);
     }
+    console.log(children);
     const isBaseRoute = children.key === '/';
     return (
         <div className={!isBaseRoute ? 'full-with-header' : 'full'}>
