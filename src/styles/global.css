@@ -1,0 +1,105 @@
+html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Quicksand', monospace;
+    overflow-x: visible;
+    display: flex;
+    justify-content: center;
+}
+
+div[role="group"][tabindex] {
+    height: 100%;
+    width: 100%;
+}
+
+#___gatsby {
+    width: 100%;
+    height: 100%;
+}
+
+.left {
+    background-color:#65E0CB;
+    height: 100%;
+    width: 39%;
+}
+
+.right {
+    background-color:#006D5B;
+    height: 100%;
+    width: 61%;
+}
+
+.flexible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.centered {
+    max-width: 50%;
+}
+
+.hidden {
+    width: 0;
+}
+
+.hidden-p {
+    display: none;
+}
+
+.grow-square {
+    width: 100%;
+    height: 10%;
+}
+
+.horizontal-li {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.rounded {
+    border-radius: 100%;
+}
+
+.small {
+    width: 30%;
+    height: auto;
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .left {
+        width: 100%;
+        height: 35%;
+    }
+    .right {
+        width: 100%;
+        height: 65%;
+    }
+    .hidden {
+        height: 0;
+    }
+    .grow-square {
+        width: 100%;
+        height: 10%;
+    }
+    .horizontal-li {
+        font-size: 0.4em;
+    }
+}

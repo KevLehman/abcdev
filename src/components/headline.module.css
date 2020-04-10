@@ -1,0 +1,20 @@
+.headline {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.headline > p {
+    text-align: center;
+    color: black;
+}
+
+@media screen and (max-width: 480px) {
+    .headline {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 1.2em;
+        line-height: 1;
+    }
+}
