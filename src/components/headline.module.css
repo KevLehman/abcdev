@@ -10,7 +10,7 @@
     color: black;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
     .headline {
         margin-left: 5px;
         margin-right: 5px;

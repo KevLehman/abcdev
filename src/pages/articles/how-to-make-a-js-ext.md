@@ -68,7 +68,7 @@ Let's add some lines to `manifest.json` file so the browser knows this is our "l
 
 As you may notice, we are including a `script` called `action.js`, but we haven't done it yet! So let's create it! Create a file called `action.js`. This part will be the main point of interaction between our extension and the Tab's DOM.
 
-At the first line, we'll call `document.addEventListener('DOMContentLoaded...` to make sure our script only runs when everything's ready (to avoid some `undefined`s there, ugh). Let's see the first half of the file's content:
+At the first line, we'll wrap our code in `document.addEventListener('DOMContentLoaded...` to make sure our script only runs when everything's ready (to avoid some `undefined`s there, ugh). Let's see the first half of the file's content:
 
 ![action.js's file contents (1)](https://dev-to-uploads.s3.amazonaws.com/i/8uz3t65rtp9z1zajgyl3.png)
 
