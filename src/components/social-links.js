@@ -10,11 +10,11 @@ const socialLogos = [devLogo, fbLogo, githubLogo, twitterLogo];
 const socialUrls = ['https://dev.to/kaleman15', 'https://www.facebook.com/k.alemangarcia', 'https://github.com/KevLehman', 'https://twitter.com/kaleman15'];
 
 export default () => (
-  <div class={containerStyles.logosContainer}>
+  <div className={containerStyles.logosContainer}>
     {socialLogos.map((logo, idx) => (
-      <div style={{ 'margin-right': '5%' }}>
+      <div style={{ 'marginRight': '5%' }} key={`logo-${idx}`}>
         <a href={socialUrls[idx]}>
-          <img class={containerStyles.smallImg} src={logo} alt='' />
+          <img className={containerStyles.smallImg} src={logo} alt='' />
         </a>
       </div>
     ))}

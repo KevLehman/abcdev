@@ -23,18 +23,19 @@ const TemplateWrapper = ({ location, children }) => {
     if (!exists) {
         visitedRoutes.current.push(children);
     }
-    console.log(children);
-    const isBaseRoute = children.key === '/';
+    
+    const isBaseRoute = location.pathname === '/';
+    const className = !isBaseRoute ? 'full-with-header' : 'full';
+    
     return (
-        <div className={!isBaseRoute ? 'full-with-header' : 'full'}>
-        {!isBaseRoute ? <Header /> : <></>}  
+      <div className={className}>
+        <Header shouldShow={!isBaseRoute} />
         {transitions.map(({ item, props, key }) => {
-
           return (
             <animated.div
               key={key}
               style={props}
-              className={!isBaseRoute ? 'full-with-header' : 'full'}
+              className={className}
             >
               {item.pathname === children.key ? (
                 // entering view
