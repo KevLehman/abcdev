@@ -1,0 +1,61 @@
+.link {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.link:hover,
+.link:focus {
+  text-decoration: none;
+}
+
+.list button {
+  position: relative;
+  display: block;
+  padding: .4em .4em .4em .8em;
+  *padding: .4em;
+  margin: .5em 0 .5em 2.5em;
+  background: #F3F3F3;
+  color: #444;
+  text-decoration: none;
+  transition: all .3s ease-out;
+}
+
+.list button:hover{
+  background: #eee;
+}
+
+.list button:before{
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  left: -2.5em;
+  top: 50%;
+  margin-top: -1em;
+  background: #006D5B;
+  color: white;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  text-align: center;
+  font-weight: bold;
+}
+
+.list button:after {
+  position: absolute;
+  content: '';
+  border: .5em solid transparent;
+  left: -1em;
+  top: 50%;
+  margin-top: -.5em;
+  transition: all .3s ease-out;
+}
+
+.list button:hover:after{
+  left: -.5em;
+  border-left-color: #006D5B;
+}

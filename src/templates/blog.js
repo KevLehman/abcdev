@@ -3,13 +3,12 @@ import { Helmet } from "react-helmet"
 import { graphql } from "gatsby"
 import BlogPost from '../components/blog-post';
 
-import '../styles/blog-post.css'; // make it pretty!
+import '../styles/blog-post.css';
 
 export default function Template({
-  data, // this prop will be injected by the GraphQL query we'll write in a bit
+  data,
 }) {
   const { markdownRemark: post } = data // data.markdownRemark holds your post data
-  console.log(post);
   let featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid
   return (
     <article>

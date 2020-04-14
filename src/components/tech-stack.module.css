@@ -28,13 +28,20 @@
 }
 
 .imageContainer > img {
-  width: 30%;
-  height: auto;
+  width: 90px;
+  height: 90px;
 }
 
 @media only screen and (max-width: 600px) {
   .tech {
     min-width: 48%;
     width: 48%;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 600px) {
+  .tech {
+    min-width: 31%;
+    width: 31%;
   }
 }

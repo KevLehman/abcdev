@@ -1,0 +1,23 @@
+input[type='text'] {
+  width: 100%;
+  border: 2px solid #006D5B;
+  padding: 12px 20px;
+  margin-bottom: 1%;
+}
+input[type='email'] {
+  width: 100%;
+  border: 2px solid #006D5B;
+  padding: 12px 20px;
+  margin-bottom: 1%;
+}
+button[type='submit'] {
+  padding: 0.7em;
+  background-color: #006D5B;
+  color: white;
+  border-radius: 10px;
+  border: 0;
+}
+
+form > label {
+  margin-bottom: 2%;
+}

@@ -30,12 +30,14 @@ div[role="group"][tabindex] {
     background-color:#65E0CB;
     height: 100%;
     width: 39%;
+    transition: linear all 0.3s;
 }
 
 .right {
     background-color:#006D5B;
     height: 100%;
     width: 61%;
+    transition: linear all 0.3s;
 }
 
 .flexible {
@@ -86,7 +88,7 @@ div[role="group"][tabindex] {
     }
     .left {
         width: 100%;
-        height: 35%;
+        height: 45%;
     }
     .right {
         width: 100%;

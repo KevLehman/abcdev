@@ -1,29 +1,20 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Helmet } from "react-helmet"
+import { graphql } from "gatsby"
 import '../styles/blog-listing.css';
-import TagList from '../components/tag-list';
-
-
+import BlogPreview from '../components/blog-result';
 
 export default function Index({ data }) {
   const { edges: posts } = data.allMarkdownRemark
   return (
     <div className="blog-posts">
+      <Helmet title="ABCDev - Blog" />
       {posts
         .filter(post => post.node.frontmatter.title.length > 0)
         .filter(post => !post.node.frontmatter.draft)
         .map(({ node: post }) => {
           return (
-            <div className="blog-post-preview" key={post.id}>
-              
-              <div class="title-div">
-              <h3>
-                <Link to={post.frontmatter.path}>{post.frontmatter.title}</Link>
-              </h3> <span class="small-text">Created at {post.frontmatter.date}</span>
-              </div>
-              <TagList tags={post.frontmatter.tags} />
-              <p>{post.excerpt}</p>
-            </div>
+            <BlogPreview post={post} />
           )
         })}
     </div>

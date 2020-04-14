@@ -1,9 +1,12 @@
 import React from "react"
-import TechStack from '../components/tech-stack.js';
+import { Helmet } from "react-helmet"
+import TechStack from '../components/tech-stack';
+import MyHistory from '../components/my-history'
 import '../styles/about.css';
 
 export default () => (
   <div class='about-container'>
+    <Helmet title="ABCDev - About me"></Helmet>
     <div style={{ width: '80%'}}>
       <h1>About me</h1>
       <p>I'm a backend web developer living in El Salvador. <br></br>
@@ -17,15 +20,7 @@ export default () => (
     </div>
     <div class="history-container">
       <h1>My history</h1>
-      <ol class="rectangle-list">
-        <li><button type='button' class='link-button'>Studied Information Systems Technician at 'Pedagogical University of El Salvador'</button></li>
-        <li><button type='button' class='link-button'>Took CS50: Introduction to Computer Science from Harvard University</button></li>
-        <li><button type='button' class='link-button'>Volunteered as Math & Science tutor </button></li>
-        <li><button type='button' class='link-button'>Worked as an assistant while learning to code</button></li>
-        <li><button type='button' class='link-button'>Worked as a web developer. Created an inventory system for a small company</button></li>
-        <li><button type='button' class='link-button'>Started working at Applaudo Studios as a Backend Developer (CSS is my sworn enemy)</button></li>
-        <li><button type='button' class='link-button'>Currently, learning Frontend development & DevOps</button></li>
-      </ol>
+        <MyHistory />
     </div>
   </div>
 )
