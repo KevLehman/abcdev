@@ -33,18 +33,23 @@ export default function Template({
     <article>
       <div className="blog-post-container">
         <Helmet title={`${postTitle} - ABCDev`}>
-          <meta name="title" content={`${post.frontmatter.title} - ABCDev`}></meta>
+          <meta name="title" content={`${postTitle} - ABCDev`} />
+          <meta itemprop="name" content={postTitle} />
+          <meta itemprop="description" content={post.excerpt} />
+          <meta itemprop="image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
           
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content={`${process.env.GATSBY_APP_HOSTNAME}${postPath}`} />
           <meta property="twitter:title" content={postTitle} />
           <meta property="twitter:description" content={post.excerpt} />
           <meta property="twitter:image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
+          <meta property="twitter:creator" content="@kaleman15" />
           <meta name="twitter:label1" value="Reading time" />
           <meta name="twitter:data1" value={readingTime} />
           <meta name="twitter:label2" value="Written by" />
           <meta name="twitter:data2" value="Kevin Aleman @kaleman" />
 
+          <meta property="og:site_name" content="ABCDev blog" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content={`${process.env.GATSBY_APP_HOSTNAME}${postPath}`} />
           <meta property="og:title" content={post.frontmatter.title} />
