@@ -3,7 +3,7 @@ import {Link} from 'gatsby';
 
 import containerStyles from './header.module.css';
 
-export default ({ shouldShow = false }) => (shouldShow && 
+export default () => (
   <div class={containerStyles.header}>
     <Link to='/' key='home' name='home'>Home</Link>
     <Link to='/about' key='about' name='about'>About</Link>

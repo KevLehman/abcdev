@@ -6,6 +6,7 @@ article {
 
 .blog-post-container {
   width: 80%;
+  max-width: 930px;
   display: flex;
   justify-content: center;
   box-shadow: 15px 0px 10px -10px rgba(47,47,47,0.5), -15px 0px 10px -10px rgba(47,47,47,0.5);

@@ -29,7 +29,7 @@ const TemplateWrapper = ({ location, children }) => {
     
     return (
       <div className={className}>
-        <Header shouldShow={!isBaseRoute} />
+        {!isBaseRoute && <Header />}
         {transitions.map(({ item, props, key }) => {
           return (
             <animated.div
