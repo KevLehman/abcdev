@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { useTransition, animated } from 'react-spring';
+import { config, useTransition } from 'react-spring';
+import { Transition } from 'react-spring/renderprops'
 import Header from '../components/header';
 
 import './layout.css';
@@ -30,25 +31,19 @@ const TemplateWrapper = ({ location, children }) => {
     return (
       <div className={className}>
         {!isBaseRoute && <Header />}
-        {transitions.map(({ item, props, key }) => {
-          return (
-            <animated.div
-              key={key}
-              style={props}
-              className={className}
-            >
-              {item.pathname === children.key ? (
-                // entering view
-                children
-              ) : (
-                // again, not sure if this is the best approach
-                // exiting view. or just render children if its the initial render
-                visitedRoutes.current.find(x => x.key === key) || children
-              )}
-            </animated.div>
-          )
-        })}
-
+        <Transition
+          config={config.slow}
+          keys={location.pathname}
+          from={{ position: 'absolute', opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}
+          unique={true}
+          reset={true}
+        >
+          {() => () => (
+            children
+          )}
+        </Transition>
       </div>
     )
 }

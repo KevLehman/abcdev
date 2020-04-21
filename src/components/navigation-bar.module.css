@@ -17,13 +17,13 @@
     background-color:white;
 }
 
+.navlist > li:hover > a {
+    color: #006D5B;
+}
+
 .navlist > li > a {
     color: white;
     text-decoration: none;
     width: 100%;
     font-size: 1.3em;
-}
-
-.navlist > li > a:hover {
-    color: #006D5B;
 }

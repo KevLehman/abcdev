@@ -11,6 +11,11 @@
 .preview > p {
   line-height: 1em;
   word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .preview > div {

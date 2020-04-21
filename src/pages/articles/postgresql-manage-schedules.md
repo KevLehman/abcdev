@@ -5,6 +5,7 @@ title: "Manage scheduling with PostgreSQL"
 tags: "postgresql, databases, scheduling, development"
 featuredImage: ../../images/postgres.jpeg
 draft: false
+featured: true
 ---
 
 How many times you tried to build a scheduling system and found too complex to arrange the dates in a way there are no collisions? Nobody? Only me?

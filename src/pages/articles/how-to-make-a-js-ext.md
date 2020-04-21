@@ -5,6 +5,7 @@ title: "How to: make a Chrome extension"
 tags: chrome, extension, how-to, tutorial, javascript
 featuredImage: ../../images/chrome-banner.png
 draft: false
+featured: true
 ---
 Well, this wasn't born as a blog post at first, but, I wanted to let the world now that I was able to build a Chrome extension! (I didn't publish it, tho)
 
