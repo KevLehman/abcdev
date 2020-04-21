@@ -33,6 +33,7 @@
     "react-spring": "^8.0.27"
   },
   "devDependencies": {
+    "gatsby-remark-emojis": "^0.4.2",
     "prettier": "^1.19.1"
   },
   "repository": {

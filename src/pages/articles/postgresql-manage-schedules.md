@@ -94,7 +94,7 @@ ERROR:  conflicting key value violates exclusion constraint "reservations_room_i
 DETAIL:  Key (room_id, from_to)=(1, ["2020-01-06 00:00:00","2020-01-15 00:00:00"]) conflicts with existing key (room_id, from_to)=(1, ["2020-01-01 00:00:00","2020-01-10 00:00:00"]).
 ```
 
-That means our implementation is correct! :tada:
+That means our implementation is correct! #:tada:
 Since we're using timestamps, you can be even more specific by specifying minutes, seconds and so on and Postgres will also take care of them!
 
 I hope you learned something new! And, if you already knew about those features but didn't know you could use them for this, there you have it!
