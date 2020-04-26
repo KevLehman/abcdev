@@ -29,7 +29,7 @@ export default () => (
     query={featuredQuery}
     render={({ allMarkdownRemark: posts }) => (
       <div className={ContainerStyles.container}>
-        <div className={ContainerStyles.bigText}>404. <br></br> Sorry, that link is broken :(</div>
+        <div className={ContainerStyles.bigText}>Sorry, that link is broken :(</div>
         <div>
           If you were looking for something to read, maybe you find these articles interesting:
         </div>

@@ -2,7 +2,6 @@
   padding: 10px;
   width: 80%;
   max-width: 930px;
-  border: 1px solid #006D5B;
   border-radius: 25px;
   text-overflow: ellipsis;
   margin-top: 2em;
@@ -29,6 +28,7 @@
 
 .preview > div > h3 > * {
   color: #006D5B;
+  font-family: Quicksand;
 }
 
 .small {
