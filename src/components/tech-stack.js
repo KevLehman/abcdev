@@ -19,8 +19,6 @@ import GitLogo from '../images/git.svg';
 import ExpressLogo from '../images/express.svg';
 import LaravelLogo from '../images/laravel.svg';
 
-
-const knownTechnologies = ['Go', 'Javascript', 'Python', 'CSS', 'HTML', 'React', 'Gatsby', 'PHP', 'PostgreSQL', 'MySQL', 'MongoDB', 'Node.JS', 'AWS', 'Azure', 'Heroku', 'Git', 'Express', 'Laravel'];
 const techLogos = [
   GoLogo,
   JsLogo,
@@ -43,13 +41,10 @@ const techLogos = [
 ];
 
 export default () => (
-  <div className={containerStyles.container}>
-    {knownTechnologies.map((v, index) => {
+  <div className={[containerStyles.techContainer, 'container', 'w-4/5'].join(' ')}>
+    {techLogos.map((v) => {
       return (<div className={containerStyles.tech}>
-        <div className={containerStyles.imageContainer}>
-          <img src={techLogos[index]} alt=''/>
-        </div>
-        <h6>{v}</h6>
+        <img className={containerStyles.icon} src={v} alt=''/>
       </div>)
     })}
   </div>

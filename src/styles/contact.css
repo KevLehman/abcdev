@@ -1,9 +1,0 @@
-.form-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 90%;
-  width: 80%;
-  max-width: 930px;
-  margin: auto;
-}

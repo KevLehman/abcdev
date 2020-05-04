@@ -1,29 +1,32 @@
 .navlist {
-    width: 100%;
-    padding: 0;
-    list-style-type: none;
-    font-size: 2em;
-    color:white;
+    @apply
+        w-full
+        text-white
+        list-none;
 }
 
-.navlist > li {
-    transition: 0.3s;
-    width: 100%;
-    height: auto;
-    line-height: 1.3em;
+.navlistItem {
+    @apply
+        ease-linear
+        w-full
+        h-auto
+        leading-tight;
 }
 
-.navlist > li:hover {
-    background-color:white;
+.navlistItem:hover {
+    @apply
+        bg-white;
 }
 
-.navlist > li:hover > a {
-    color: #006D5B;
+.navlistItem:hover > a {
+    @apply
+        text-green-800;
 }
 
-.navlist > li > a {
-    color: white;
-    text-decoration: none;
-    width: 100%;
-    font-size: 1.3em;
+.navlistItem > a {
+    @apply
+        text-white
+        no-underline
+        w-full
+        text-3xl;
 }

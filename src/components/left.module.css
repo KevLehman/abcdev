@@ -1,0 +1,40 @@
+.left {
+  @apply 
+    flex
+    items-center
+    justify-center
+    flex-col
+    bg-teal-400
+    w-full
+    h-45pc;
+}
+
+.wrap {
+  @apply flex items-center justify-center max-w-xs flex-col h-64;
+}
+
+.profileImg {
+  @apply rounded-full w-3/12 h-auto;
+}
+
+@screen md {
+  .left { 
+    @apply w-2/5 h-full;
+  }
+  .profileImg {
+    @apply w-2/5;
+  }
+}
+
+@screen lg {
+  .left {
+    @apply w-2/5 h-full;
+  }
+  .profileImg {
+    @apply w-2/5;
+  }
+}
+
+
+
+

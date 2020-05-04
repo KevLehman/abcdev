@@ -1,20 +1,28 @@
 .headline {
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 1.5em;
-    line-height: 1;
+    @apply
+        ml-2
+        mr-2
+        mb-4
+        text-base
+        leading-none
 }
 
-.headline > p {
-    text-align: center;
-    color: black;
+.centerAligned {
+    @apply
+        text-center
+        text-black;
 }
 
-@media screen and (max-width: 600px) {
+@screen md {
     .headline {
-        margin-left: 5px;
-        margin-right: 5px;
-        font-size: 1.2em;
-        line-height: 1;
+        @apply
+            text-2xl;
+    }
+}
+
+@screen lg {
+    .headline {
+        @apply
+            text-2xl;
     }
 }

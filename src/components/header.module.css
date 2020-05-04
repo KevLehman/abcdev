@@ -1,18 +1,21 @@
-.header {
-  position: sticky;
-  display: flex;
-  height: 5%;
-  background-color: #006D5B;
-  width: 100%;
-  flex-direction: row-reverse;
-  align-items: center;
-  top: 0;
-  z-index: 1;
+.hamburger {
+  @apply flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400;
 }
 
-.header > a {
-  color: white;
-  font-size: 1.3em;
-  margin-left: 1%;
-  margin-right: 1%;
+.styledLink {
+  @apply block mt-4 text-teal-200;
+}
+
+.styledLink:hover {
+  @apply text-white;
+}
+
+.hamburger:hover {
+  @apply text-white border-white;
+}
+
+@screen lg {
+  .styledLink {
+    @apply inline-block mt-0;
+  }
 }

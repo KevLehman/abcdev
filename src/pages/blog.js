@@ -1,13 +1,12 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import { graphql } from "gatsby"
-import '../styles/blog-listing.css';
 import BlogPreview from '../components/blog-result';
 
 export default function Index({ data }) {
   const { edges: posts } = data.allMarkdownRemark
   return (
-    <div className="blog-posts">
+    <div className="container h-full w-4/5 mb-8">
       <Helmet title="ABCDev - Blog" />
       {posts
         .filter(post => post.node.frontmatter.title.length > 0)

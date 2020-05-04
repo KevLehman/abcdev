@@ -1,12 +1,11 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import ContactForm from '../components/contact-form';
-import '../styles/contact.css';
 
 export default () => (
-  <div class="form-container">
+  <div class="flex justify-center flex-col h-full w-3/5 max-w-screen-lg m-auto">
     <Helmet title="ABCDev - Contact" />
-    <h2 style={{ color: '#006D5B' }}>Do you have something in mind? Contact me!</h2>
+    <h2 class="text-teal-600">Do you have something in mind? Contact me!</h2>
       <ContactForm />
   </div>
 )

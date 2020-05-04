@@ -1,111 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arvo:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap');
 
+.clamp {
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 html {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
+    @apply
+        p-0
+        m-0
+        w-full
+        h-full;
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    font-family: 'Quicksand', monospace;
-    overflow-x: visible;
-    display: flex;
-    justify-content: center;
+    @apply
+        p-0
+        m-0
+        h-full
+        w-full
+        font-elements
+        overflow-x-visible
+        flex
+        justify-center;
 }
 
 #gatsby-focus-wrapper {
-    height: 100%;
-    width: 100%;
+    @apply 
+        h-full
+        w-full;
 }
 
 #___gatsby {
-    width: 100%;
-    height: 100%;
+    @apply
+        w-full
+        h-full;
 }
 
-.left {
-    background-color:#65E0CB;
-    height: 100%;
-    width: 39%;
-    transition: linear all 0.3s;
+h1 {
+    @apply text-3xl;
 }
 
-.right {
-    background-color:#006D5B;
-    height: 100%;
-    width: 61%;
-    transition: linear all 0.3s;
+h2 {
+    @apply text-2xl font-bold mb-2 mt-2;
 }
 
-.flexible {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+h3 {
+    @apply text-xl font-bold mb-2 mt-2;
 }
 
-.centered {
-    max-width: 50%;
+p {
+    @apply leading-normal mt-1;
 }
 
-.hidden {
-    width: 0;
+p > img {
+    @apply mt-3;
 }
 
-.hidden-p {
-    display: none;
-}
-
-.grow-square {
-    width: 100%;
-    height: 10%;
-}
-
-.horizontal-li {
-    display: inline-block;
-    list-style-type: none;
-}
-
-.rounded {
-    border-radius: 100%;
-}
-
-.small {
-    width: 30%;
-    height: auto;
-}
-
-@media screen and (max-width: 600px) {
-    .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
-    }
-    .left {
-        width: 100%;
-        height: 45%;
-    }
-    .right {
-        width: 100%;
-        height: 65%;
-    }
-    .hidden {
-        height: 0;
-    }
-    .grow-square {
-        width: 100%;
-        height: 10%;
-    }
-    .horizontal-li {
-        font-size: 0.4em;
-    }
+ul {
+    @apply list-disc list-inside pl-4 mt-4;
 }

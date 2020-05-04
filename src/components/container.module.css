@@ -1,17 +1,20 @@
 .container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
+    @apply
+        flex
+        justify-start
+        w-full
+        h-full
+        flex-col;
 }
 
-@media screen and (max-width: 600px) {
+@screen md {
     .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
+        @apply flex-row;
+    }
+}
+
+@screen lg {
+    .container {
+        @apply flex-row;
     }
 }

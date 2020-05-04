@@ -1,13 +1,3 @@
-.full {
-    width: 100%;
-    height: 100%;
-}
-
-.full-with-header {
-  width: 100%;
-  height: 95%;
-}
-
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -614,10 +604,4 @@ html {
   pre tt:before,
   pre tt:after {
     content: "";
-  }
-  @media only screen and (max-width: 600px) {
-    html {
-      font-size: 100%;
-      width: 100%;
-    }
   }

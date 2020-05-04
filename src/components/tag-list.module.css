@@ -1,7 +1,3 @@
 .tag {
-  border-radius: 10px;
-  background-color: #D3D3D3;
-  display: inline-block;
-  margin-left: 0.2em;
-  padding: 0.1em;
+  @apply inline-block bg-green-400 text-teal-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide;
 }

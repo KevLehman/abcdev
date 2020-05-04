@@ -68,5 +68,6 @@ module.exports = {
         defaultQuality: 75,
       },
     },
+    "gatsby-plugin-postcss"
   ],
-}
+};

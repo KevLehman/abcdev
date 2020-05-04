@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet"
 import { graphql } from "gatsby"
 import BlogPost from '../components/blog-post';
 
-import '../styles/blog-post.css';
-
 export default function Template({
   data,
 }) {
@@ -28,10 +26,9 @@ export default function Template({
       }
     }
   } = post;
-
+  // 
   return (
-    <article>
-      <div className="blog-post-container">
+    <article className="w-full max-w-screen-lg mt-8 mb-8 md:w-9/12 lg:w-9/12">
         <Helmet title={`${postTitle} - ABCDev`}>
           <meta name="title" content={`${postTitle} - ABCDev`} />
           <meta itemprop="name" content={postTitle} />
@@ -56,8 +53,8 @@ export default function Template({
           <meta property="og:description" content={post.excerpt} />
           <meta property="og:image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
         </Helmet>
+
         <BlogPost post={post} headerImg={featuredImgFluid} />
-      </div>
     </article>
   )
 }

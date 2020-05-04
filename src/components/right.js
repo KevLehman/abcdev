@@ -1,8 +1,9 @@
 import React from 'react';
 import NavigationBar from './navigation-bar';
+import moduleStyles from './right.module.css';
 
 export default () => (
-    <div className="right flexible">
+    <div className={[moduleStyles.right].join(' ')}>
         <NavigationBar menuItems={['about', 'blog', 'contact']}/>
     </div>
 )

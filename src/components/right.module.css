@@ -1,0 +1,22 @@
+.right {
+  @apply
+    bg-teal-700
+    w-full
+    flex
+    flex-col
+    items-center
+    justify-center
+    h-55pc;
+}
+
+@screen md {
+  .right { 
+    @apply w-3/5 h-full;
+  }
+}
+
+@screen lg {
+  .right {
+    @apply w-3/5 h-full;
+  }
+}
