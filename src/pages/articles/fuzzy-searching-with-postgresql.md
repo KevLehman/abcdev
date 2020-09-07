@@ -212,7 +212,7 @@ postgres=# select * from t_departments order by 'sn salvador' <-> name limit 3;
 
 ```
 
-And :tada:. By returning the first result, we can tell the user that we know what he was trying to write, and still, return results related to its search, as Google does!
+And #:tada:. By returning the first result, we can tell the user that we know what he was trying to write, and still, return results related to its search, as Google does!
 
 ### Solving our initial problem
 

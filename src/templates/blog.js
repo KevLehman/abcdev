@@ -54,7 +54,7 @@ export default function Template({
           <meta property="og:image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
         </Helmet>
 
-        <BlogPost post={post} headerImg={featuredImgFluid} />
+        <BlogPost post={post} headerImg={featuredImgFluid} tweet={post.tweet} />
     </article>
   )
 }
@@ -69,6 +69,7 @@ export const pageQuery = graphql`
         path
         title
         draft
+        tweet
         featuredImage {
           childImageSharp {
             original {

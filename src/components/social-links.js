@@ -6,10 +6,10 @@ import twitterLogo from '../images/twitter.png';
 
 import containerStyles from './social-links.module.css';
 
-const socialLogos = [devLogo, fbLogo, githubLogo, twitterLogo];
-const socialUrls = ['https://dev.to/kaleman15', 'https://www.facebook.com/k.alemangarcia', 'https://github.com/KevLehman', 'https://twitter.com/kaleman15'];
+const socialLogosDef = [devLogo, fbLogo, githubLogo, twitterLogo];
+const socialUrlsDef = ['https://dev.to/kaleman15', 'https://www.facebook.com/k.alemangarcia', 'https://github.com/KevLehman', 'https://twitter.com/kaleman15'];
 
-export default () => (
+export default ({ socialLogos = socialLogosDef, socialUrls = socialUrlsDef }) => (
   <div className={containerStyles.logosContainer}>
     {socialLogos.map((logo, idx) => (
       <div style={{ 'marginRight': '5%' }} key={`logo-${idx}`}>

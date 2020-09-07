@@ -4,6 +4,7 @@ date: 2020-09-03T17:12:33.962Z
 title: "Algos in real life: Binary Search"
 tags: "git, algorithms, beginners, development, advice"
 featuredImage: ../../images/algos.jpg
+tweet: 'You know about algos, but, do you know how to use them in real life?'
 draft: false
 featured: true
 ---
@@ -36,9 +37,9 @@ Then, someone from above asks the hard question: "Hey, this worked in the past, 
 
 ### The solution
 You have 3 options here:
-1. Cry in a corner
-2. Traverse _all_ your commits until you find one where it was working
-3. Do something good with the knowledge you have
+- Cry in a corner
+- Traverse _all_ your commits until you find one where it was working
+- Do something good with the knowledge you have
 
 Ok, after doing the first we can start thinking on a real solution. And here's where algorithms come handy. Let's remember one of them!
 
@@ -59,9 +60,9 @@ In a binary search, however, you "divide" the list in halves, then compare the m
 ![Binary search](https://d18l82el6cdm1i.cloudfront.net/uploads/bePceUMnSG-binary_search_gif.gif)
 
 To use a binary search, you just have to follow some rules:
-1. Your list must be sorted
-2. Your list must be sorted
-3. Your list _must_ be sorted
+- Your list must be sorted
+- Your list must be sorted
+- Your list _must_ be sorted
 
 Ok. You got this, the list must be sorted. Let's continue with the solution!
 
@@ -77,4 +78,4 @@ You know how the story ends. I was able to verify the whole commit history in li
 
 Moral: if you know how to do something fast, do it! And, algos are also useful in real life!
 
-Hope you liked this history, and let me know if it helped you! Thanks for reading :tada:
+Hope you liked this history, and let me know if it helped you! Thanks for reading #:tada:
