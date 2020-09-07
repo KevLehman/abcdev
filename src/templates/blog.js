@@ -35,12 +35,12 @@ export default function Template({
           <meta itemprop="description" content={post.excerpt} />
           <meta itemprop="image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
           
-          <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url" content={`${process.env.GATSBY_APP_HOSTNAME}${postPath}`} />
-          <meta property="twitter:title" content={postTitle} />
-          <meta property="twitter:description" content={post.excerpt} />
-          <meta property="twitter:image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
-          <meta property="twitter:creator" content="@kaleman15" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:url" content={`${process.env.GATSBY_APP_HOSTNAME}${postPath}`} />
+          <meta name="twitter:title" content={postTitle} />
+          <meta name="twitter:description" content={post.excerpt} />
+          <meta name="twitter:image" content={`${process.env.GATSBY_APP_HOSTNAME}${featuredImgSrc}`} />
+          <meta name="twitter:creator" content="@kaleman15" />
           <meta name="twitter:label1" value="Reading time" />
           <meta name="twitter:data1" value={readingTime} />
           <meta name="twitter:label2" value="Written by" />
