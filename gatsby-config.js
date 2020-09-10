@@ -3,6 +3,8 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
+const path = require('path')
+require('dotenv').config({ path: '.env.development' })
 
 module.exports = {
   siteMetadata: {
@@ -46,7 +48,7 @@ module.exports = {
             // actual pattern (e.g. `#:poop:`).
             escapeCharacter : '#', // (default: '')
             // Select the size (available size: 16, 24, 32, 64)
-            size   : 64,
+            size   : 32,
             // Add custom styles
             styles : {
               display      : 'inline',
@@ -58,6 +60,25 @@ module.exports = {
             }
           }
         }],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-googledrive`,
+      options: {
+        folderId: `11fbg6fvhSwYbPbLAnqp2eaj2ZYxA0raN`,
+        keyInfo: {
+          private_key: process.env.GOOGLE_PRIVATE_KEY,
+          email: process.env.GOOGLE_SERVICE_ACCOUNT,
+        },
+        destination: path.join(__dirname, 'src/talks'),
+        exportMime: 'application/pdf',
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `talks`,
+        path: `${__dirname}/src/talks/`,
       },
     },
     {

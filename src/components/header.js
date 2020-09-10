@@ -21,7 +21,8 @@ export default () => {
         <Link to="/" className={`${containerStyles.styledLink} mr-4`}>Home</Link>
         <Link to="/about" className={`${containerStyles.styledLink} mr-4`}>About</Link>
         <Link to="/blog" className={`${containerStyles.styledLink} mr-4`}>Blog</Link>
-        <Link to="/contact" className={containerStyles.styledLink}>Contact</Link>
+        <Link to="/contact" className={`${containerStyles.styledLink} mr-4`}>Contact</Link>
+        <Link to="/talks" className={containerStyles.styledLink}>Talks!</Link>
       </div>
     </div>
   </nav>

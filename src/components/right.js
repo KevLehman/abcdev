@@ -4,6 +4,6 @@ import moduleStyles from './right.module.css';
 
 export default () => (
     <div className={[moduleStyles.right].join(' ')}>
-        <NavigationBar menuItems={['about', 'blog', 'contact']}/>
+        <NavigationBar menuItems={['about', 'blog', 'contact', 'talks']}/>
     </div>
 )
