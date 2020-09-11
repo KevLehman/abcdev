@@ -34,7 +34,7 @@ export default ({post, headerImg}) => {
         <SocialLogos socialLogos={shareLogo} socialUrls={urlList} />
       </div>
       <div
-        className="w-full"
+        className="w-full blog-data"
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
     </div>

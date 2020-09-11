@@ -70,3 +70,19 @@ p > img {
 ul {
     @apply list-disc list-inside pl-4 mt-4;
 }
+
+.blog-data > p > a {
+    @apply
+        underline
+}
+
+.blog-data > p {
+    @apply
+        mb-4
+}
+
+.blog-data > p > h1, .blog-data > p > h2, .blog-data > p > h3, .blog-data > p > h4 {
+    @apply
+        mt-4
+        mb-4
+}  
