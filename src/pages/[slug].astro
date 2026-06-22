@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await article.render();
+const rt = remarkPluginFrontmatter.minutesRead ?? '1 min read';
+const iso = article.data.date.toISOString().slice(0, 10);
+const ogImage = article.data.featuredImage?.src ?? article.data.coverImage;
+---
+<Base title={`${article.data.title} — ABCDev`} description={article.data.excerpt}
+      canonical={article.data.canonicalUrl} ogImage={ogImage}>
+  <article class="wrap post">
+    <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
+    <h1>{article.data.title}</h1>
+    <div class="readout">
+      <span>date {iso}</span><span>·</span><span>read {rt.replace(' min read', 'm')}</span>
+      <span>·</span><span>tags {article.data.tags.join(',')}</span>
+      {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>also on dev.to ↗</a></>)}
+    </div>
+    {article.data.featuredImage
+      ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800]} />
+      : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} />}
+    <div class="prose"><Content /></div>
+  </article>
+</Base>
+<style>
+  .post { max-width: var(--measure); padding-top: 48px; }
+  .back { font-family: var(--font-mono); font-size: .78rem; text-decoration: none; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.6rem; line-height: 1.08;
+    letter-spacing: -.02em; margin: 18px 0 16px; }
+  .readout { font-family: var(--font-mono); font-size: .76rem; color: var(--slate);
+    display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 0; border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline); }
+  .readout a { color: var(--signal); text-decoration: none; }
+  .hero-img { width: 100%; height: auto; margin: 28px 0; }
+  .prose { font-size: 1.15rem; line-height: 1.7; }
+  .prose :global(h2) { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin: 2rem 0 .6rem; }
+  .prose :global(h3) { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; margin: 1.6rem 0 .5rem; }
+  .prose :global(p) { margin: 0 0 1.1rem; }
+  .prose :global(a) { color: var(--signal); }
+  .prose :global(pre) { font-family: var(--font-mono); font-size: .9rem; padding: 16px;
+    border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
+  .prose :global(code) { font-family: var(--font-mono); font-size: .9em; }
+  .prose :global(blockquote) { border-left: 3px solid var(--signal); padding-left: 1rem; color: var(--slate); }
+  @media (max-width: 640px) { h1 { font-size: 1.9rem; } }
+</style>
