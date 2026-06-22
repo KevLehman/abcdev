@@ -34,7 +34,8 @@ const rtShort = (rt: string) => rt.replace(' min read', 'm').replace(/\s/g, '');
   .title { font-family: var(--font-display); font-weight: 500; font-size: 1rem; }
   @media (max-width: 640px) {
     .listhead { display: none; }
-    .row { grid-template-columns: 1fr; gap: 4px; }
-    .row > :nth-child(1), .row > :nth-child(2), .row > :nth-child(3) { display: inline; }
+    .row { grid-template-columns: auto auto 1fr; gap: 6px 12px; padding: 16px 10px; }
+    .row > :nth-child(4) { grid-column: 1 / -1; }
+    .title { font-size: 1.05rem; }
   }
 </style>
