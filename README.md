@@ -97,3 +97,9 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-hello-world)
 
 <!-- AUTO-GENERATED-CONTENT:END -->
+
+## Importing dev.to articles
+1. Get your dev.to API key (Settings → Extensions → API Keys).
+2. `DEVTO_API_KEY=xxx SITE_URL=https://your-site npm run import:devto`
+3. Re-run anytime — existing files are skipped unless you pass `-- --force`.
+4. Review the new `src/content/articles/*.md`, then commit.
