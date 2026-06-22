@@ -102,4 +102,5 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 1. Get your dev.to API key (Settings → Extensions → API Keys).
 2. `DEVTO_API_KEY=xxx SITE_URL=https://your-site npm run import:devto`
 3. Re-run anytime — existing files are skipped unless you pass `-- --force`.
+   Note: `--force` rewrites existing files and re-assigns `idx` from the current max, so it can renumber posts. Prefer the default (skip) for incremental imports; only use `--force` for a full re-sync and review the diff.
 4. Review the new `src/content/articles/*.md`, then commit.

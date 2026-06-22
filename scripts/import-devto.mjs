@@ -10,7 +10,7 @@ const FORCE = process.argv.includes('--force');
 const OUT = path.resolve('src/content/articles');
 
 function toYaml(fm) {
-  const esc = (s) => `"${String(s).replace(/"/g, '\\"')}"`;
+  const esc = (s) => `"${String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n')}"`;
   const lines = [];
   for (const [k, v] of Object.entries(fm)) {
     if (Array.isArray(v)) lines.push(`${k}: [${v.map(esc).join(', ')}]`);
@@ -45,7 +45,9 @@ async function main() {
     if (list.length === 0) break;
 
     for (const summary of list) {
-      const full = await (await fetch(`${API}/articles/${summary.id}`, { headers: { 'api-key': KEY } })).json();
+      const r = await fetch(`${API}/articles/${summary.id}`, { headers: { 'api-key': KEY } });
+      if (!r.ok) { console.warn(`skip  ${summary.id}: dev.to API ${r.status}`); continue; }
+      const full = await r.json();
       const { slug, frontmatter, body } = mapDevtoArticle(full, { idx: nextIdx, siteUrl: SITE });
       const file = path.join(OUT, `${slug}.md`);
       if (existsSync(file) && !FORCE) { console.log(`skip  ${slug}`); skipped++; continue; }
