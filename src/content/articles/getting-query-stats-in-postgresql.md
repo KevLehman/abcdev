@@ -1,11 +1,13 @@
 ---
-path: "/getting-query-performance-stats-with-pg"
-date: 2020-04-28T17:12:33.962Z
+idx: 5
 title: "Getting query performance stats with PostgreSQL"
-tags: performance, query, sql, postgresql
-featuredImage: ../../images/postgres-monitoring.jpg
+date: 2020-04-28T17:12:33.962Z
+slug: "getting-query-performance-stats-with-pg"
+tags: ["performance", "query", "sql", "postgresql"]
+excerpt: "Use PostgreSQL's built-in maintenance views — pg_stat_user_tables, pg_stat_user_indexes, and pg_stat_statements — to identify slow queries and missing indexes before users do."
 draft: false
 featured: true
+featuredImage: "../../assets/images/postgres-monitoring.jpg"
 ---
 In this article, you will see how to use some hidden features of PostgreSQL to get useful insight into your running queries in PostgreSQL.
 

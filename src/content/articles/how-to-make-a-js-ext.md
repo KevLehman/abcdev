@@ -1,11 +1,13 @@
 ---
-path: "/how-to-make-a-chrome-extension"
-date: 2020-01-12T17:12:33.962Z
+idx: 3
 title: "How to: make a Chrome extension"
-tags: chrome, extension, how-to, tutorial, javascript
-featuredImage: ../../images/chrome-banner.png
+date: 2020-01-12T17:12:33.962Z
+slug: "how-to-make-a-chrome-extension"
+tags: ["chrome", "extension", "how-to", "tutorial", "javascript"]
+excerpt: "A step-by-step walkthrough of building a Chrome extension that highlights Google ads on search results — manifest, background scripts, content scripts, and all."
 draft: false
 featured: true
+featuredImage: "../../assets/images/chrome-banner.png"
 ---
 Well, this wasn't born as a blog post at first, but, I wanted to let the world now that I was able to build a Chrome extension! (I didn't publish it, tho)
 

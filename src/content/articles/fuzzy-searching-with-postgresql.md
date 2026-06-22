@@ -1,11 +1,13 @@
 ---
-path: "/fuzzy-search-with-postgresql"
-date: 2020-05-10T17:12:33.962Z
+idx: 6
 title: "Fuzzy Search with PostgreSQL"
-tags: "postgresql, databases, search, fuzzy, sql"
-featuredImage: ../../images/postgres.jpeg
+date: 2020-05-10T17:12:33.962Z
+slug: "fuzzy-search-with-postgresql"
+tags: ["postgresql", "databases", "search", "fuzzy", "sql"]
+excerpt: "A practical guide to pg_trgm: what trigrams are, how PostgreSQL uses them to measure similarity, and how to build a 'did you mean' engine with a single ORDER BY."
 draft: false
 featured: true
+featuredImage: "../../assets/images/postgres.jpeg"
 ---
 
 # What's fuzzy search?

@@ -1,11 +1,13 @@
 ---
-path: "/develop-js-ts-with-vim"
-date: 2020-06-17T17:12:33.962Z
+idx: 7
 title: "Develop JS/TS with Vim"
-tags: "vim, javascript, typescript, webdev, dev"
-featuredImage: ../../images/vim-8.png
+date: 2020-06-17T17:12:33.962Z
+slug: "develop-js-ts-with-vim"
+tags: ["vim", "javascript", "typescript", "webdev", "dev"]
+excerpt: "How a RAM crisis led me from VSCode to Vim — the shortcuts, plugin manager, and essential plugins that turned Vim into a proper JS/TS IDE."
 draft: false
 featured: true
+featuredImage: "../../assets/images/vim-8.png"
 ---
 
 In the beginning, there were editors. And VIM was an editor. And VIM was _the_ editor.

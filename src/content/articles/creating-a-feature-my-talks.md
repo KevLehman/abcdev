@@ -1,11 +1,13 @@
 ---
-path: "/creation-of-a-feature-showoff-my-talks"
-date: 2020-09-11T17:12:33.962Z
+idx: 9
 title: "Building a new feature: showoff my talks!"
-tags: "gatsby, frontend, pdf, react, webdev, showdev"
-featuredImage: ../../images/feature.jpg
+date: 2020-09-11T17:12:33.962Z
+slug: "creation-of-a-feature-showoff-my-talks"
+tags: ["gatsby", "frontend", "pdf", "react", "webdev", "showdev"]
+excerpt: "I'm a backend developer, so most of the time I'm doing backend things. I feel stressed most of the time when I need to do something at the front."
 draft: false
 featured: false
+featuredImage: "../../assets/images/feature.jpg"
 ---
 
 I'm a backend developer, so most of the time I'm doing backend things. I feel stressed most of the time when I need to do something at the front. 

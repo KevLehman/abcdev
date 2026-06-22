@@ -1,10 +1,13 @@
 ---
-path: "/from-js-to-go-i"
-date: 2019-10-15T17:12:33.962Z
+idx: 1
 title: "From Javascript to Go I"
-tags: golang, javascript, tutorial, opinion
-featuredImage: ../../images/node-vs-go.png
+date: 2019-10-15T17:12:33.962Z
+slug: "from-js-to-go-i"
+tags: ["golang", "javascript", "tutorial", "opinion"]
+excerpt: "A gentle intro to the Go ecosystem for JavaScript developers — what Go is, who uses it, and why you might start writing it."
 draft: false
+featured: false
+featuredImage: "../../assets/images/node-vs-go.png"
 ---
 This article, based on the book [_Go for Javascript developers_](http://www.pazams.com/Go-for-Javascript-Developers) aims to help you understand a little bit of the Golang ecosystem, and, why not, help you to start writing Go code!
 

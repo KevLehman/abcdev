@@ -1,12 +1,14 @@
 ---
-path: "/algorithms-in-real-life-binary-search"
-date: 2020-09-03T17:12:33.962Z
+idx: 8
 title: "Algos in real life: Binary Search"
-tags: "git, algorithms, beginners, development, advice"
-featuredImage: ../../images/algos.jpg
-tweet: 'You know about algos, but, do you know how to use them in real life?'
+date: 2020-09-03T17:12:33.962Z
+slug: "algorithms-in-real-life-binary-search"
+tags: ["git", "algorithms", "beginners", "development", "advice"]
+excerpt: "You probably know about algorithms. You probably don't. So here's a basic definition: an algorithm is a chain of steps for moving from A to B."
 draft: false
 featured: true
+tweet: "You know about algos, but, do you know how to use them in real life?"
+featuredImage: "../../assets/images/algos.jpg"
 ---
 You probably know about algorithms. You probably don't. So here's a basic definition: an algorithm is a chain of steps for moving from A to B.
 

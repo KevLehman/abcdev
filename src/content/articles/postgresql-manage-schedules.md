@@ -1,11 +1,13 @@
 ---
-path: "/manage-scheduling-with-postgresql"
-date: 2020-04-03T17:12:33.962Z
+idx: 4
 title: "Manage scheduling with PostgreSQL"
-tags: "postgresql, databases, scheduling, development"
-featuredImage: ../../images/postgres.jpeg
+date: 2020-04-03T17:12:33.962Z
+slug: "manage-scheduling-with-postgresql"
+tags: ["postgresql", "databases", "scheduling", "development"]
+excerpt: "Learn how GiST indexes, exclusion operators, and ts-ranges combine in PostgreSQL to enforce collision-free scheduling constraints at the database level."
 draft: false
 featured: true
+featuredImage: "../../assets/images/postgres.jpeg"
 ---
 
 How many times you tried to build a scheduling system and found too complex to arrange the dates in a way there are no collisions? Nobody? Only me?
