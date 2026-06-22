@@ -3,6 +3,8 @@ idx: 1
 title: "From Javascript to Go I"
 date: 2019-10-15T17:12:33.962Z
 slug: "from-js-to-go-i"
+canonicalUrl: "https://abcdev.netlify.app/from-js-to-go-i"
+devtoUrl: "https://dev.to/kaleman15/from-javascript-to-go-50ef"
 tags: ["golang", "javascript", "tutorial", "opinion"]
 excerpt: "A gentle intro to the Go ecosystem for JavaScript developers — what Go is, who uses it, and why you might start writing it."
 draft: false

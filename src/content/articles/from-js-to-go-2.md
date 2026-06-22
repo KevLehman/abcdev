@@ -3,6 +3,8 @@ idx: 2
 title: "From Javascript to Go II"
 date: 2019-11-02T17:12:33.962Z
 slug: "from-js-to-go-ii"
+canonicalUrl: "https://abcdev.netlify.app/from-js-to-go-ii"
+devtoUrl: "https://dev.to/kaleman15/from-javascript-to-go-ii-4cmo"
 tags: ["golang", "javascript", "tutorial", "opinion"]
 excerpt: "Continuing the JS-to-Go series: arrays and slices, dictionaries, sets, and first-class functions compared side by side."
 draft: false

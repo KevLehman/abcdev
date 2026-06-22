@@ -1,8 +1,10 @@
 ---
-idx: 7
+idx: 8
 title: "Develop JS/TS with Vim"
 date: 2020-06-17T17:12:33.962Z
 slug: "develop-js-ts-with-vim"
+canonicalUrl: "https://abcdev.netlify.app/develop-js-ts-with-vim"
+devtoUrl: "https://dev.to/kaleman15/developing-js-ts-with-vim-49ke"
 tags: ["vim", "javascript", "typescript", "webdev", "dev"]
 excerpt: "How a RAM crisis led me from VSCode to Vim — the shortcuts, plugin manager, and essential plugins that turned Vim into a proper JS/TS IDE."
 draft: false

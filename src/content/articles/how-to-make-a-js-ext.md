@@ -3,6 +3,8 @@ idx: 3
 title: "How to: make a Chrome extension"
 date: 2020-01-12T17:12:33.962Z
 slug: "how-to-make-a-chrome-extension"
+canonicalUrl: "https://abcdev.netlify.app/how-to-make-a-chrome-extension"
+devtoUrl: "https://dev.to/kaleman15/how-to-make-a-chrome-extension-17g2"
 tags: ["chrome", "extension", "how-to", "tutorial", "javascript"]
 excerpt: "A step-by-step walkthrough of building a Chrome extension that highlights Google ads on search results — manifest, background scripts, content scripts, and all."
 draft: false

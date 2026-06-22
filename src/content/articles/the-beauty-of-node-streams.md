@@ -1,8 +1,10 @@
 ---
-idx: 10
+idx: 11
 title: "The beauty of Node.JS streams"
 date: 2020-10-02T17:12:33.962Z
 slug: "the-beauty-of-node-streams"
+canonicalUrl: "https://abcdev.netlify.app/the-beauty-of-node-streams"
+devtoUrl: "https://dev.to/kaleman15/the-beauty-of-streams-in-node-28d"
 tags: ["nodejs", "javascript", "streams", "beginner"]
 excerpt: "Probably you have heard of them, probably you don't. But they have been around for a while. We're talking about streams, an interesting and often ignored functionality of Node.JS."
 draft: false

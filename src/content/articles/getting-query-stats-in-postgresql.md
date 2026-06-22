@@ -1,8 +1,10 @@
 ---
-idx: 5
+idx: 6
 title: "Getting query performance stats with PostgreSQL"
 date: 2020-04-28T17:12:33.962Z
 slug: "getting-query-performance-stats-with-pg"
+canonicalUrl: "https://abcdev.netlify.app/getting-query-performance-stats-with-pg"
+devtoUrl: "https://dev.to/kaleman15/getting-query-performance-stats-with-postgresql-48po"
 tags: ["performance", "query", "sql", "postgresql"]
 excerpt: "Use PostgreSQL's built-in maintenance views — pg_stat_user_tables, pg_stat_user_indexes, and pg_stat_statements — to identify slow queries and missing indexes before users do."
 draft: false

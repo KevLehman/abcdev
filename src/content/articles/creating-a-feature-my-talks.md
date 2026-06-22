@@ -1,8 +1,10 @@
 ---
-idx: 9
+idx: 10
 title: "Building a new feature: showoff my talks!"
 date: 2020-09-11T17:12:33.962Z
 slug: "creation-of-a-feature-showoff-my-talks"
+canonicalUrl: "https://abcdev.netlify.app/creation-of-a-feature-showoff-my-talks"
+devtoUrl: "https://dev.to/kaleman15/building-a-new-feature-talks-preview-4mp0"
 tags: ["gatsby", "frontend", "pdf", "react", "webdev", "showdev"]
 excerpt: "I'm a backend developer, so most of the time I'm doing backend things. I feel stressed most of the time when I need to do something at the front."
 draft: false

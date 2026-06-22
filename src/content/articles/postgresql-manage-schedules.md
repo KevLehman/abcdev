@@ -1,8 +1,10 @@
 ---
-idx: 4
+idx: 5
 title: "Manage scheduling with PostgreSQL"
 date: 2020-04-03T17:12:33.962Z
 slug: "manage-scheduling-with-postgresql"
+canonicalUrl: "https://abcdev.netlify.app/manage-scheduling-with-postgresql"
+devtoUrl: "https://dev.to/kaleman15/how-to-handle-schedules-with-postgresql-ga2"
 tags: ["postgresql", "databases", "scheduling", "development"]
 excerpt: "Learn how GiST indexes, exclusion operators, and ts-ranges combine in PostgreSQL to enforce collision-free scheduling constraints at the database level."
 draft: false

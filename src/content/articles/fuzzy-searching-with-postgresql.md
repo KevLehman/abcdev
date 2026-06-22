@@ -1,8 +1,10 @@
 ---
-idx: 6
+idx: 7
 title: "Fuzzy Search with PostgreSQL"
 date: 2020-05-10T17:12:33.962Z
 slug: "fuzzy-search-with-postgresql"
+canonicalUrl: "https://abcdev.netlify.app/fuzzy-search-with-postgresql"
+devtoUrl: "https://dev.to/kaleman15/fuzzy-searching-with-postgresql-97o"
 tags: ["postgresql", "databases", "search", "fuzzy", "sql"]
 excerpt: "A practical guide to pg_trgm: what trigrams are, how PostgreSQL uses them to measure similarity, and how to build a 'did you mean' engine with a single ORDER BY."
 draft: false
