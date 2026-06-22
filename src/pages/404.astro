@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="404 — ABCDev" description="Route not found.">
+  <div class="wrap nf">
+    <p class="eyebrow">// error 404</p>
+    <h1>route not found</h1>
+    <p>That entry isn't in the logbook. <a href="/">← back to logbook</a></p>
+  </div>
+</Base>
+<style>
+  .nf { max-width: var(--measure); padding: 80px 0; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.2rem; margin: 14px 0 16px; }
+  .nf p { font-family: var(--font-mono); font-size: .9rem; color: var(--slate); }
+  .nf a { color: var(--signal); text-decoration: none; }
+</style>
