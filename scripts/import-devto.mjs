@@ -20,20 +20,27 @@ function toYaml(fm) {
   return lines.join('\n');
 }
 
-async function currentMaxIdx() {
+const normTitle = (t) => String(t).toLowerCase().replace(/\s+/g, ' ').trim();
+
+async function scanExisting() {
   const files = (await readdir(OUT)).filter((f) => f.endsWith('.md'));
-  let max = 0;
+  let maxIdx = 0;
+  const titles = new Set();
   for (const f of files) {
-    const m = (await readFile(path.join(OUT, f), 'utf8')).match(/^idx:\s*(\d+)/m);
-    if (m) max = Math.max(max, Number(m[1]));
+    const text = await readFile(path.join(OUT, f), 'utf8');
+    const idx = text.match(/^idx:\s*(\d+)/m);
+    if (idx) maxIdx = Math.max(maxIdx, Number(idx[1]));
+    const title = text.match(/^title:\s*"?(.+?)"?\s*$/m);
+    if (title) titles.add(normTitle(title[1]));
   }
-  return max;
+  return { maxIdx, titles };
 }
 
 async function main() {
   if (!KEY) { console.error('Set DEVTO_API_KEY'); process.exit(1); }
   await mkdir(OUT, { recursive: true });
-  let nextIdx = (await currentMaxIdx()) + 1;
+  const { maxIdx, titles } = await scanExisting();
+  let nextIdx = maxIdx + 1;
   let page = 1, written = 0, skipped = 0;
 
   while (true) {
@@ -50,7 +57,11 @@ async function main() {
       const full = await r.json();
       const { slug, frontmatter, body } = mapDevtoArticle(full, { idx: nextIdx, siteUrl: SITE });
       const file = path.join(OUT, `${slug}.md`);
-      if (existsSync(file) && !FORCE) { console.log(`skip  ${slug}`); skipped++; continue; }
+      if (!FORCE && existsSync(file)) { console.log(`skip  ${slug} (file exists)`); skipped++; continue; }
+      if (!FORCE && titles.has(normTitle(frontmatter.title))) {
+        console.log(`skip  ${slug} (title already migrated under a different slug)`); skipped++; continue;
+      }
+      titles.add(normTitle(frontmatter.title));
       await writeFile(file, `---\n${toYaml(frontmatter)}\n---\n\n${body}\n`);
       console.log(`write ${slug} (idx ${nextIdx})`);
       nextIdx++; written++;
