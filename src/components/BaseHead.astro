@@ -1,6 +1,6 @@
 ---
-interface Props { title: string; description: string; canonical?: string; ogImage?: string; }
-const { title, description, canonical, ogImage } = Astro.props;
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string; }
+const { title, description, canonical, ogImage, oembed } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 const ogImageURL = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 ---
@@ -22,3 +22,4 @@ const ogImageURL = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 <meta name="twitter:description" content={description} />
 {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
 <link rel="alternate" type="application/rss+xml" title="ABCDev" href={new URL('feed.xml', Astro.site).href} />
+{oembed && <link rel="alternate" type="application/json+oembed" href={oembed} title={title} />}
