@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import LogbookList from '../components/LogbookList.astro';
+
+const all = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const entries = await Promise.all(all.map(async (a) => {
+  const { remarkPluginFrontmatter } = await a.render();
+  return {
+    idx: a.data.idx, slug: a.slug, date: a.data.date,
+    tags: a.data.tags, title: a.data.title,
+    rt: remarkPluginFrontmatter.minutesRead ?? '1 min read',
+  };
+}));
+---
+<Base title="Kevin Aleman — Logbook" description="A logbook of code, games, and life by Kevin Aleman." active="logbook">
+  <div class="wrap">
+    <section class="hero">
+      <p class="eyebrow">// personal log</p>
+      <h1 class="thesis">I write about life, engineering &amp; <em>games</em>.</h1>
+      <p class="sub">Engineer in El Salvador. A logbook of what I'm building, playing, and figuring out — code, games, and everything around them.</p>
+    </section>
+    <LogbookList entries={entries} />
+  </div>
+</Base>
+<style>
+  .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--hairline); }
+  .thesis { font-family: var(--font-display); font-weight: 500; font-size: 3.1rem;
+    line-height: 1.04; letter-spacing: -.02em; max-width: 18ch; margin-top: 18px; }
+  .thesis em { font-family: var(--font-body); font-style: italic; font-weight: 400; color: var(--signal); }
+  .sub { margin-top: 20px; color: var(--slate); font-size: 1.05rem; max-width: 52ch; }
+  @media (max-width: 640px) { .thesis { font-size: 2.2rem; } }
+</style>

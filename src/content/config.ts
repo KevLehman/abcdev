@@ -15,7 +15,6 @@ const articles = defineCollection({
     tweet: z.string().optional(),
     canonicalUrl: z.string().url().optional(),
     devtoUrl: z.string().url().optional(),
-    slug: z.string(),
   }),
 });
 
