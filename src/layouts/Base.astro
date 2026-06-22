@@ -1,0 +1,17 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; }
+const { title, description, active, canonical, ogImage } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} /></head>
+  <body>
+    <SiteHeader active={active} />
+    <main><slot /></main>
+    <SiteFooter />
+  </body>
+</html>

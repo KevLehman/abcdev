@@ -1,0 +1,22 @@
+---
+const socials = [
+  { href: 'https://dev.to/kaleman15', label: 'dev.to' },
+  { href: 'https://github.com/KevLehman', label: 'github' },
+  { href: 'https://twitter.com/kaleman15', label: 'twitter' },
+  { href: 'https://www.facebook.com/k.alemangarcia', label: 'facebook' },
+];
+---
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Kevin Aleman</span>
+    <span>{socials.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
+  </div>
+</footer>
+<style>
+  footer { border-top: 1px solid var(--hairline); margin-top: 40px; }
+  .foot { display: flex; justify-content: space-between; padding: 26px 0;
+    font-family: var(--font-mono); font-size: .74rem; color: var(--slate); }
+  .foot a { color: var(--slate); text-decoration: none; }
+  .foot a:hover { color: var(--signal); }
+  @media (max-width: 640px) { .foot { flex-direction: column; gap: 8px; } }
+</style>

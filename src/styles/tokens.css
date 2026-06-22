@@ -1,0 +1,14 @@
+:root {
+  --bone: #EFEFEA;
+  --graphite: #15181B;
+  --slate: #565C63;
+  --hairline: #D5D6D0;
+  --signal: #2347FF;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --measure: 68ch;
+  --wrap: 980px;
+}

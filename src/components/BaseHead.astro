@@ -1,0 +1,24 @@
+---
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; }
+const { title, description, canonical, ogImage } = Astro.props;
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
+const ogImageURL = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content="Kevin Aleman" />
+<link rel="canonical" href={canonicalURL.href} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ABCDev" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL.href} />
+{ogImageURL && <meta property="og:image" content={ogImageURL} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@kaleman15" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+<link rel="alternate" type="application/rss+xml" title="ABCDev" href={new URL('feed.xml', Astro.site).href} />
