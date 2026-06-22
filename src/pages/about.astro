@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+const stack = ['JavaScript','TypeScript','Node.js','Go','PostgreSQL','MongoDB','React','AWS','Docker','Vim'];
+---
+<Base title="About — ABCDev" description="Kevin Aleman — backend & systems engineer in El Salvador." active="about">
+  <div class="wrap about">
+    <p class="eyebrow">// about</p>
+    <h1>About me</h1>
+    <p class="lead">I'm a backend & systems developer living in El Salvador. I'm a passionate learner of new
+      technologies and things that make my life easier. My goal is to build tools that help everyone — even in
+      poorer countries like mine — get access to knowledge.</p>
+    <h2>What I work with</h2>
+    <ul class="stack">{stack.map((s) => <li>{s}</li>)}</ul>
+  </div>
+</Base>
+<style>
+  .about { max-width: var(--measure); padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 18px; }
+  h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; margin: 2rem 0 1rem; }
+  .lead { font-size: 1.2rem; line-height: 1.7; }
+  .stack { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack li { font-family: var(--font-mono); font-size: .78rem; color: var(--slate);
+    border: 1px solid var(--hairline); padding: 5px 10px; }
+</style>
