@@ -30,4 +30,8 @@ const iso = (d: Date) => d.toISOString().slice(0, 10);
   .list .date { color: var(--slate); }
   .list .title { font-family: var(--font-display); font-weight: 500; }
   .list a { color: var(--signal); text-decoration: none; margin-left: auto; }
+  @media (max-width: 640px) {
+    .list li { flex-direction: column; gap: 4px; }
+    .list a { margin-left: 0; }
+  }
 </style>

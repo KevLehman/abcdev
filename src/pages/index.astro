@@ -31,5 +31,9 @@ const entries = await Promise.all(all.map(async (a) => {
     line-height: 1.04; letter-spacing: -.02em; max-width: 18ch; margin-top: 18px; }
   .thesis em { font-family: var(--font-body); font-style: italic; font-weight: 400; color: var(--signal); }
   .sub { margin-top: 20px; color: var(--slate); font-size: 1.05rem; max-width: 52ch; }
-  @media (max-width: 640px) { .thesis { font-size: 2.2rem; } }
+  @media (max-width: 640px) {
+    .hero { padding: 40px 0 28px; }
+    .thesis { font-size: 2.2rem; }
+    .sub { font-size: 1rem; }
+  }
 </style>

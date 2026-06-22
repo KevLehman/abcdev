@@ -19,6 +19,7 @@ body {
 a { color: var(--signal); }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
+@media (max-width: 640px) { .wrap { padding: 0 20px; } }
 .eyebrow {
   font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em;
   text-transform: uppercase; color: var(--slate);
