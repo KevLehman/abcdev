@@ -58,6 +58,14 @@ Talks are listed in `src/content/talks/talks.json`.
 The blog is the canonical source; imported articles carry a `devtoUrl` that renders
 an "also on dev.to ↗" mirror link.
 
+## Analytics
+
+Privacy-friendly, cookieless [GoatCounter](https://www.goatcounter.com/). Set the
+`PUBLIC_GOATCOUNTER` environment variable (in the Netlify UI) to your count endpoint,
+e.g. `https://abcdev.goatcounter.com/count`. When unset, no analytics script is
+emitted, so local dev and previews stay tracking-free. The script also skips
+`localhost` on its own. No cookie-consent banner is required.
+
 ## Deploy
 
 Pushed to Netlify via CI. `netlify.toml` pins the build (`npm run build` → `dist/`)

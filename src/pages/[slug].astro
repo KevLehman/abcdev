@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import KeepReading from '../components/KeepReading.astro';
 import { oembedHref } from '../lib/oembed.mjs';
 
 export async function getStaticPaths() {
@@ -15,6 +16,20 @@ const rt = remarkPluginFrontmatter.minutesRead ?? '1 min read';
 const iso = article.data.date.toISOString().slice(0, 10);
 const ogImage = article.data.featuredImage?.src ?? article.data.coverImage;
 const oembed = oembedHref(article.slug, Astro.site);
+
+// "Keep reading" — recommend a random other article. Picked at build time, so it
+// rotates on each deploy rather than per request (this is a static site).
+const others = (await getCollection('articles', ({ data }) => !data.draft))
+  .filter((a) => a.slug !== article.slug);
+const pick = others.length ? others[Math.floor(Math.random() * others.length)] : null;
+let rec = null;
+if (pick) {
+  const { remarkPluginFrontmatter: fm } = await pick.render();
+  rec = {
+    href: `/${pick.slug}`, idx: pick.data.idx, date: pick.data.date,
+    rt: fm.minutesRead ?? '1 min read', title: pick.data.title, tags: pick.data.tags,
+  };
+}
 ---
 <Base title={`${article.data.title} — ABCDev`} description={article.data.excerpt}
       canonical={article.data.canonicalUrl} ogImage={ogImage} oembed={oembed}>
@@ -30,6 +45,7 @@ const oembed = oembedHref(article.slug, Astro.site);
       ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800]} />
       : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} />}
     <div class="prose"><Content /></div>
+    {rec && <KeepReading {...rec} />}
   </article>
 </Base>
 <style>

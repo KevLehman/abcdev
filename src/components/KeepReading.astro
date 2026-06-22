@@ -1,0 +1,27 @@
+---
+interface Props { href: string; idx: number; date: Date; rt: string; title: string; tags: string[]; }
+const { href, idx, date, rt, title, tags } = Astro.props;
+const iso = date.toISOString().slice(0, 10);
+const pad = (n: number) => String(n).padStart(3, '0');
+const meta = [pad(idx), iso, rt.replace(' min read', 'm'), tags.join(',')].filter(Boolean).join(' · ');
+---
+<aside class="keep-reading">
+  <p class="eyebrow">// keep reading</p>
+  <a class="kr-card" href={href}>
+    <span class="kr-title">{title}</span>
+    <span class="kr-meta">{meta}</span>
+  </a>
+</aside>
+<style>
+  .keep-reading { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+  .kr-card { display: block; text-decoration: none; margin-top: 12px; padding: 16px 18px;
+    border: 1px solid var(--hairline); border-left: 3px solid var(--signal);
+    background: var(--surface); transition: background .12s, color .12s; }
+  .kr-card:hover { background: var(--signal); }
+  .kr-card:hover .kr-title { color: var(--on-signal); }
+  .kr-card:hover .kr-meta { color: var(--signal-tint); }
+  .kr-title { display: block; font-family: var(--font-display); font-weight: 500;
+    font-size: 1.15rem; color: var(--graphite); }
+  .kr-meta { display: block; margin-top: 6px; font-family: var(--font-mono);
+    font-size: .76rem; color: var(--slate); word-break: break-word; }
+</style>

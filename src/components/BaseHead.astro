@@ -3,6 +3,11 @@ interface Props { title: string; description: string; canonical?: string; ogImag
 const { title, description, canonical, ogImage, oembed } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 const ogImageURL = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+// GoatCounter — privacy-friendly, cookieless analytics. Set PUBLIC_GOATCOUNTER to
+// your count endpoint (e.g. https://abcdev.goatcounter.com/count) to enable it;
+// left unset, no script loads, so dev/preview stay analytics-free. count.js skips
+// localhost on its own.
+const goatcounter = import.meta.env.PUBLIC_GOATCOUNTER;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,3 +28,4 @@ const ogImageURL = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
 <link rel="alternate" type="application/rss+xml" title="ABCDev" href={new URL('feed.xml', Astro.site).href} />
 {oembed && <link rel="alternate" type="application/json+oembed" href={oembed} title={title} />}
+{goatcounter && <script is:inline async src="//gc.zgo.at/count.js" data-goatcounter={goatcounter}></script>}
