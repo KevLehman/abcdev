@@ -4,7 +4,10 @@ import readingTime from './src/lib/reading-time.mjs';
 export default defineConfig({
   site: 'https://abcdev.netlify.app',
   markdown: {
-    shikiConfig: { theme: 'github-light', wrap: true },
+    shikiConfig: {
+      themes: { light: 'github-light', dark: 'github-dark' },
+      wrap: true,
+    },
     remarkPlugins: [readingTime],
   },
 });

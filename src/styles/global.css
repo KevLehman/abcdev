@@ -23,6 +23,23 @@ a { color: var(--signal); }
   font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em;
   text-transform: uppercase; color: var(--slate);
 }
+body { transition: background .2s, color .2s; }
+
+/* Shiki dual-theme: code blocks render with light colors inline and carry
+   --shiki-dark vars; swap to them when dark mode is active. */
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .astro-code,
+  :root:not([data-theme="light"]) .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

@@ -8,7 +8,13 @@ const { title, description, active, canonical, ogImage } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
-  <head><BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} /></head>
+  <head>
+    <script is:inline>
+      const t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+    </script>
+    <BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} />
+  </head>
   <body>
     <SiteHeader active={active} />
     <main><slot /></main>

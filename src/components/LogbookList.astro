@@ -27,9 +27,9 @@ const rtShort = (rt: string) => rt.replace(' min read', 'm').replace(/\s/g, '');
   .row { font-family: var(--font-mono); font-size: .84rem; align-items: baseline; padding: 15px 10px;
     border-bottom: 1px solid var(--hairline); color: var(--graphite); text-decoration: none;
     transition: background .12s, color .12s; }
-  .row:hover { background: var(--signal); color: var(--surface); }
+  .row:hover { background: var(--signal); color: var(--on-signal); }
   .row:hover .idx, .row:hover .rt, .row:hover .tags { color: var(--signal-tint); }
-  .row:hover .title { color: var(--surface); }
+  .row:hover .title { color: var(--on-signal); }
   .idx, .rt, .tags { color: var(--slate); }
   .title { font-family: var(--font-display); font-weight: 500; font-size: 1rem; }
   @media (max-width: 640px) {
