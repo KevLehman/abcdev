@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Contact — ABCDev" description="Get in touch with Kevin Aleman." active="contact">
+  <div class="wrap contact">
+    <p class="eyebrow">// contact</p>
+    <h1>Got something in mind?</h1>
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden"><label>Don't fill this: <input name="bot-field" /></label></p>
+      <label>Name<input type="text" name="name" required /></label>
+      <label>Email<input type="email" name="email" required /></label>
+      <label>Message<textarea name="message" rows="6" required></textarea></label>
+      <button type="submit">Send →</button>
+    </form>
+  </div>
+</Base>
+<style>
+  .contact { max-width: var(--measure); padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 24px; }
+  form { display: flex; flex-direction: column; gap: 16px; max-width: 32rem; }
+  label { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-mono);
+    font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: var(--slate); }
+  input, textarea { font-family: var(--font-body); font-size: 1rem; padding: 10px 12px;
+    border: 1px solid var(--hairline); background: var(--surface); color: var(--graphite); }
+  input:focus, textarea:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
+  button { font-family: var(--font-mono); font-size: .85rem; align-self: flex-start;
+    background: var(--graphite); color: var(--bone); border: 0; padding: 12px 20px; cursor: pointer; }
+  button:hover { background: var(--signal); }
+  .hidden { display: none; }
+</style>

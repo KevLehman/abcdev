@@ -1,0 +1,43 @@
+:root {
+  --bone: #EFEFEA;
+  --graphite: #15181B;
+  --slate: #565C63;
+  --hairline: #D5D6D0;
+  --signal: #2347FF;
+  --signal-tint: #CDD6FF;
+  --surface: #FFFFFF;
+  --on-signal: #FFFFFF;
+  color-scheme: light;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --measure: 68ch;
+  --wrap: 980px;
+}
+
+/* Dark palette — deep blue-graphite paper, warm off-white ink, brighter signal
+   for contrast. Applied on explicit opt-in and as the system-preference default. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bone: #121519;
+    --graphite: #E7E6E1;
+    --slate: #969CA5;
+    --hairline: #282C32;
+    --signal: #6E8BFF;
+    --signal-tint: #B9C6FF;
+    --surface: #1B1F25;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bone: #121519;
+  --graphite: #E7E6E1;
+  --slate: #969CA5;
+  --hairline: #282C32;
+  --signal: #6E8BFF;
+  --signal-tint: #B9C6FF;
+  --surface: #1B1F25;
+  color-scheme: dark;
+}

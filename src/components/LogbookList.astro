@@ -1,0 +1,40 @@
+---
+interface Entry { idx: number; slug: string; date: Date; tags: string[]; title: string; rt: string; }
+interface Props { entries: Entry[]; }
+const { entries } = Astro.props;
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+const pad = (n: number) => String(n).padStart(3, '0');
+const rtShort = (rt: string) => rt.replace(' min read', 'm').replace(/\s/g, '');
+---
+<section class="listing">
+  <div class="listhead">
+    <span>idx</span><span>date</span><span>rt</span><span>title — tags</span>
+  </div>
+  {entries.map((e) => (
+    <a class="row" href={`/${e.slug}`}>
+      <span class="idx">{pad(e.idx)}</span>
+      <span>{iso(e.date)}</span>
+      <span class="rt">{rtShort(e.rt)}</span>
+      <span><span class="title">{e.title}</span> <span class="tags">{e.tags.join(',')}</span></span>
+    </a>
+  ))}
+</section>
+<style>
+  .listing { padding: 34px 0 20px; }
+  .listhead, .row { display: grid; grid-template-columns: 54px 118px 52px 1fr; gap: 18px; }
+  .listhead { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--slate); padding: 0 10px 12px; border-bottom: 1px solid var(--hairline); }
+  .row { font-family: var(--font-mono); font-size: .84rem; align-items: baseline; padding: 15px 10px;
+    border-bottom: 1px solid var(--hairline); color: var(--graphite); text-decoration: none;
+    transition: background .12s, color .12s; }
+  .row:hover { background: var(--signal); color: var(--on-signal); }
+  .row:hover .idx, .row:hover .rt, .row:hover .tags { color: var(--signal-tint); }
+  .row:hover .title { color: var(--on-signal); }
+  .idx, .rt, .tags { color: var(--slate); }
+  .title { font-family: var(--font-display); font-weight: 500; font-size: 1rem; }
+  @media (max-width: 640px) {
+    .listhead { display: none; }
+    .row { grid-template-columns: 1fr; gap: 4px; }
+    .row > :nth-child(1), .row > :nth-child(2), .row > :nth-child(3) { display: inline; }
+  }
+</style>

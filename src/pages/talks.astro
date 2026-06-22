@@ -1,0 +1,33 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+const entry = await getEntry('talks', 'talks');
+const talks = (entry?.data.talks ?? []).sort((a, b) => b.date.getTime() - a.date.getTime());
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+---
+<Base title="Talks — ABCDev" description="Talks and slides by Kevin Aleman." active="talks">
+  <div class="wrap talks">
+    <p class="eyebrow">// talks</p>
+    <h1>Talks</h1>
+    {talks.length === 0
+      ? <p class="empty">No talks logged yet. Check back soon.</p>
+      : <ul class="list">{talks.map((t) => (
+          <li>
+            <span class="date">{iso(t.date)}</span>
+            <span class="title">{t.title}</span>
+            <span class="event">{t.event}</span>
+            {t.url && <a href={t.url}>slides ↗</a>}
+          </li>))}</ul>}
+  </div>
+</Base>
+<style>
+  .talks { max-width: var(--measure); padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 18px; }
+  .empty { font-family: var(--font-mono); font-size: .85rem; color: var(--slate); }
+  .list { list-style: none; }
+  .list li { display: flex; gap: 14px; align-items: baseline; padding: 14px 0;
+    border-bottom: 1px solid var(--hairline); font-family: var(--font-mono); font-size: .84rem; }
+  .list .date { color: var(--slate); }
+  .list .title { font-family: var(--font-display); font-weight: 500; }
+  .list a { color: var(--signal); text-decoration: none; margin-left: auto; }
+</style>

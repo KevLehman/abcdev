@@ -1,0 +1,37 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+interface Props { active?: string; }
+const { active } = Astro.props;
+const items = [
+  { href: '/', label: 'logbook', key: 'logbook' },
+  { href: '/about', label: 'about', key: 'about' },
+  { href: '/talks', label: 'talks', key: 'talks' },
+  { href: '/contact', label: 'contact', key: 'contact' },
+  { href: '/feed.xml', label: 'feed', key: 'feed' },
+];
+---
+<header>
+  <div class="wrap masthead">
+    <a class="wordmark" href="/">KEVIN&nbsp;ALEMAN <span>— LOGBOOK</span></a>
+    <nav>
+      {items.map((i) => (
+        <a href={i.href} class={active === i.key ? 'active' : ''}>{i.label}</a>
+      ))}
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
+<style>
+  header { border-bottom: 1px solid var(--hairline); }
+  .masthead { display: flex; align-items: baseline; justify-content: space-between; padding: 22px 0; }
+  .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
+    letter-spacing: .02em; color: var(--graphite); text-decoration: none; }
+  .wordmark span { color: var(--slate); font-weight: 500; }
+  nav { font-family: var(--font-mono); font-size: .8rem; }
+  nav a { color: var(--graphite); text-decoration: none; margin-left: 22px; }
+  nav a:hover, nav a.active { color: var(--signal); }
+  @media (max-width: 640px) {
+    .masthead { flex-direction: column; gap: 12px; align-items: flex-start; }
+    nav a { margin-left: 0; margin-right: 18px; }
+  }
+</style>
