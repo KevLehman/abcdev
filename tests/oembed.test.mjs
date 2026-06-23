@@ -9,7 +9,7 @@ describe('buildOembed', () => {
     expect(doc.version).toBe('1.0');
     expect(doc.type).toBe('link');
     expect(doc.title).toBe('My Post');
-    expect(doc.provider_name).toBe('ABCDev');
+    expect(doc.provider_name).toBe("Kev's logbook");
     expect(doc.provider_url).toBe(site);
     expect(doc.author_name).toBe('Kevin Aleman');
     expect('thumbnail_url' in doc).toBe(false);

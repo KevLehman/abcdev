@@ -10,7 +10,7 @@ export function oembedHref(slug, site) {
   return new URL(`${ENDPOINT}/${slug}.json`, site).href;
 }
 
-export function buildOembed({ title, thumbnailUrl } = {}, { site, author = 'Kevin Aleman', provider = 'ABCDev' } = {}) {
+export function buildOembed({ title, thumbnailUrl } = {}, { site, author = 'Kevin Aleman', provider = "Kev's logbook" } = {}) {
   const providerUrl = String(site).replace(/\/$/, '');
   const doc = {
     version: '1.0',
