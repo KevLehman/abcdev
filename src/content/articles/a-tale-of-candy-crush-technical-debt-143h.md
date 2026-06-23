@@ -4,7 +4,7 @@ title: "A tale of Candy Crush & Technical debt"
 date: "2020-03-30T03:50:17Z"
 slug: "a-tale-of-candy-crush-technical-debt-143h"
 tags: ["programming", "techdebt", "scrum", "agile"]
-excerpt: "One day, when I was playing Candy Crush (Soda Saga, to be specific) I came across a very interesting..."
+excerpt: "Candy Crush chocolate multiplies when you ignore it — exactly like technical debt in an agile project. What the game taught me about paying it down."
 draft: false
 featured: false
 canonicalUrl: "https://abcdev.netlify.app/a-tale-of-candy-crush-technical-debt-143h"

@@ -4,7 +4,7 @@ title: "You got selected for GSoC 2026, now what?"
 date: "2026-05-04T04:35:06Z"
 slug: "you-got-selected-for-gsoc-2026-now-what-1bdc"
 tags: ["opensource", "gsoc", "software", "webdev"]
-excerpt: "So your inbox lit up yesterday with the email. The proposal worked, the interviews worked, the..."
+excerpt: "Accepted into GSoC 2026? Here is how to make the most of it: what mentors actually expect, how to work in the open, and how not to waste a rare seat."
 draft: false
 featured: false
 canonicalUrl: "https://abcdev.netlify.app/you-got-selected-for-gsoc-2026-now-what-1bdc"

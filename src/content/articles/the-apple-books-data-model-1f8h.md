@@ -4,7 +4,7 @@ title: "The Apple Books data model"
 date: "2026-06-22T19:54:21Z"
 slug: "the-apple-books-data-model-1f8h"
 tags: ["macos", "sqlite", "programming", "database"]
-excerpt: "Apple Books stores everything about your reading on disk, in plain SQLite. Your books, your..."
+excerpt: "Apple Books keeps your books, highlights, and shelves in plain SQLite on disk. A reference for that data model — where it lives and how the tables connect."
 draft: false
 featured: false
 canonicalUrl: "https://abcdev.netlify.app/the-apple-books-data-model-1f8h"

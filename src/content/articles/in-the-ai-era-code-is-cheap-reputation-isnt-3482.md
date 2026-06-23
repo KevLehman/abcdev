@@ -4,7 +4,7 @@ title: "In the AI Era, Code Is Cheap. Reputation Isn’t."
 date: "2026-03-04T21:01:29Z"
 slug: "in-the-ai-era-code-is-cheap-reputation-isnt-3482"
 tags: ["ai", "opensource", "programming", "software"]
-excerpt: "In the era of AI it's easier than ever to be an Open Source contributor!  But, at the same time, and..."
+excerpt: "AI makes open source contribution mechanically easy but reputationally hard. As agents flood repos with PRs, reputation becomes the thing that scales."
 draft: false
 featured: false
 canonicalUrl: "https://abcdev.netlify.app/in-the-ai-era-code-is-cheap-reputation-isnt-3482"

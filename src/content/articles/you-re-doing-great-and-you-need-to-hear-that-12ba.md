@@ -4,7 +4,7 @@ title: "You're doing great, and you need to hear that :)"
 date: "2021-09-15T16:09:03Z"
 slug: "you-re-doing-great-and-you-need-to-hear-that-12ba"
 tags: ["webdev", "mentalhealth", "beginners"]
-excerpt: "I'm not the kind of person that likes to be \"thanked\" for something. I like to do the things, and..."
+excerpt: "Why recognition matters at work: praise releases dopamine and drives motivation, but it fades when overused. A case for thanking people, timely and often."
 draft: false
 featured: false
 canonicalUrl: "https://abcdev.netlify.app/you-re-doing-great-and-you-need-to-hear-that-12ba"
