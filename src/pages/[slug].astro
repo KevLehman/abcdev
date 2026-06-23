@@ -43,10 +43,29 @@ if (pick) {
     </div>
     {article.data.featuredImage
       ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800]} />
-      : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} />}
+      : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} loading="lazy" decoding="async" />}
     <div class="prose"><Content /></div>
     {rec && <KeepReading {...rec} />}
   </article>
+  <script is:inline>
+    // Progressive enhancement: while an article image is still loading, show a
+    // shimmer placeholder instead of empty space (or a half-painted image). The
+    // class is added/removed only by JS, so no-JS visitors see normal images and
+    // transparent images never keep a stray backdrop after they load.
+    (() => {
+      const enhance = () => {
+        document.querySelectorAll('article img').forEach((img) => {
+          const clear = () => img.classList.remove('is-loading');
+          if (img.complete && img.naturalWidth > 0) return clear();
+          img.classList.add('is-loading');
+          img.addEventListener('load', clear, { once: true });
+          img.addEventListener('error', clear, { once: true });
+        });
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhance);
+      else enhance();
+    })();
+  </script>
 </Base>
 <style>
   .post { max-width: var(--measure); padding-top: 48px; }
@@ -60,6 +79,16 @@ if (pick) {
   .hero-img { width: 100%; height: auto; margin: 28px 0; }
   .prose { font-size: 1.15rem; line-height: 1.7; }
   .prose :global(img) { display: block; width: 100%; height: auto; margin: 1.5rem 0; }
+  /* Loading placeholder: a soft shimmer while the bitmap streams in. The static
+     background-color is the fallback when motion is reduced (animations are
+     globally disabled there), so it degrades to a calm neutral block. */
+  .hero-img.is-loading, .prose :global(img.is-loading) {
+    min-height: 180px; background-color: var(--hairline); background-repeat: no-repeat;
+    background-size: 200% 100%;
+    background-image: linear-gradient(100deg, var(--hairline) 25%, var(--surface) 50%, var(--hairline) 75%);
+    animation: img-shimmer 1.3s ease-in-out infinite;
+  }
+  @keyframes img-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
   .prose :global(h2) { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin: 2rem 0 .6rem; }
   .prose :global(h3) { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; margin: 1.6rem 0 .5rem; }
   .prose :global(p) { margin: 0 0 1.1rem; }
