@@ -92,6 +92,11 @@ if (pick) {
   .prose :global(h2) { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin: 2rem 0 .6rem; }
   .prose :global(h3) { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; margin: 1.6rem 0 .5rem; }
   .prose :global(p) { margin: 0 0 1.1rem; }
+  /* Shrink text blocks to their content so text selection hugs the words
+     instead of painting the empty space out to the column edge. */
+  .prose :global(p), .prose :global(li),
+  .prose :global(h2), .prose :global(h3),
+  .prose :global(blockquote) { width: fit-content; max-width: 100%; }
   .prose :global(a) { color: var(--signal); }
   .prose :global(pre) { font-family: var(--font-mono); font-size: .9rem; padding: 16px;
     border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
