@@ -4,7 +4,7 @@ title: "Gotta Earn 'Em All: The Gym Badges of Agentic Engineering (Part 1)"
 date: "2026-06-17T20:13:57Z"
 slug: "gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-1-5bff"
 tags: ["ai", "agents", "programming", "career"]
-excerpt: "There's a guy who stands at the entrance to the Indigo Plateau and will not let you through. Level 80..."
+excerpt: "The NPC at the Indigo Plateau makes you earn eight gym badges first — the prerequisite grind we skip every time we code with AI agents."
 draft: false
 featured: false
 canonicalUrl: "https://abcdev.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-1-5bff"
