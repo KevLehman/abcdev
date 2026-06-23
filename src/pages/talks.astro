@@ -5,7 +5,7 @@ const entry = await getEntry('talks', 'talks');
 const talks = (entry?.data.talks ?? []).sort((a, b) => b.date.getTime() - a.date.getTime());
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 ---
-<Base title="Talks — ABCDev" description="Talks and slides by Kevin Aleman." active="talks">
+<Base title="Talks — Kev's logbook" description="Talks and slides by Kevin Aleman." active="talks">
   <div class="wrap talks">
     <p class="eyebrow">// talks</p>
     <h1>Talks</h1>
