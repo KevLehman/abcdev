@@ -66,6 +66,47 @@ if (pick) {
       else enhance();
     })();
   </script>
+  <script is:inline>
+    // Custom selection painting: the native highlight fills each line to the
+    // column edge, so we hide it inside .prose and draw our own rectangles from
+    // Range.getClientRects(), which hug the actual text. The real selection is
+    // untouched, so copy/paste and the recolored text still work.
+    (() => {
+      const prose = document.querySelector('.prose');
+      if (!prose || !window.requestAnimationFrame) return;
+      document.documentElement.classList.add('sel-custom');
+      const layer = document.createElement('div');
+      layer.className = 'sel-prose-layer';
+      layer.setAttribute('aria-hidden', 'true');
+      prose.prepend(layer);
+      let raf = 0;
+      const paint = () => {
+        raf = 0;
+        layer.textContent = '';
+        const sel = getSelection();
+        if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+        const range = sel.getRangeAt(0);
+        if (!range.intersectsNode(prose)) return;
+        const base = prose.getBoundingClientRect();
+        const frag = document.createDocumentFragment();
+        for (const r of range.getClientRects()) {
+          if (r.width < 1 || r.height < 1) continue;
+          if (r.bottom < base.top || r.top > base.bottom) continue;
+          if (r.right < base.left || r.left > base.right) continue;
+          const i = document.createElement('i');
+          i.style.left = (r.left - base.left) + 'px';
+          i.style.top = (r.top - base.top) + 'px';
+          i.style.width = r.width + 'px';
+          i.style.height = r.height + 'px';
+          frag.appendChild(i);
+        }
+        layer.appendChild(frag);
+      };
+      const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
+      document.addEventListener('selectionchange', schedule);
+      window.addEventListener('resize', schedule);
+    })();
+  </script>
 </Base>
 <style>
   .post { max-width: var(--measure); padding-top: 48px; }

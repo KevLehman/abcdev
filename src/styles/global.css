@@ -18,6 +18,13 @@ body {
 }
 a { color: var(--signal); }
 ::selection { background: var(--signal); color: var(--selection-ink); }
+/* Inside an article, the native selection highlight fills each line out to the
+   column edge. When JS is active we hide that fill and paint our own rects (from
+   Range.getClientRects()) that hug the text — see the script in [slug].astro. */
+.sel-custom .prose { position: relative; isolation: isolate; }
+.sel-custom .prose ::selection { background: transparent; }
+.sel-prose-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.sel-prose-layer > i { position: absolute; background: var(--signal); }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
 @media (max-width: 640px) { .wrap { padding: 0 20px; } }
