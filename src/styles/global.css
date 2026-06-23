@@ -17,6 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: var(--signal); }
+::selection { background: var(--signal); color: var(--selection-ink); }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
 @media (max-width: 640px) { .wrap { padding: 0 20px; } }
