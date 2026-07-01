@@ -3,7 +3,7 @@ import { buildOembed } from '../../lib/oembed.mjs';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
-  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
 }
 
 export async function GET({ props, site }) {

@@ -3,7 +3,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   PUBLIC_GOATCOUNTER = "https://abcdev.goatcounter.com/count"
 
 # Astro asset filenames are content-hashed, so they can be cached forever.

@@ -69,4 +69,4 @@ emitted, so local dev and previews stay tracking-free. The script also skips
 ## Deploy
 
 Pushed to Netlify via CI. `netlify.toml` pins the build (`npm run build` → `dist/`)
-and Node 20.
+and Node 22.
