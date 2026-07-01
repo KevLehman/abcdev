@@ -1,6 +1,7 @@
 ---
-interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string; }
-const { title, description, canonical, ogImage, oembed } = Astro.props;
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string;
+  article?: { publishedTime: Date; tags: string[] }; }
+const { title, description, canonical, ogImage, oembed, article } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 const ogImageURL = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 // GoatCounter — privacy-friendly, cookieless analytics. Set PUBLIC_GOATCOUNTER to
@@ -18,8 +19,11 @@ const goatcounter = import.meta.env.PUBLIC_GOATCOUNTER;
 <meta name="description" content={description} />
 <meta name="author" content="Kevin Aleman" />
 <link rel="canonical" href={canonicalURL.href} />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={article ? 'article' : 'website'} />
 <meta property="og:site_name" content="Kev's logbook" />
+{article && <meta property="article:published_time" content={article.publishedTime.toISOString()} />}
+{article && <meta property="article:author" content="Kevin Aleman" />}
+{article && article.tags.map((t) => <meta property="article:tag" content={t} />)}
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL.href} />

@@ -13,11 +13,12 @@
     "import:devto": "node scripts/import-devto.mjs"
   },
   "dependencies": {
-    "astro": "^4.16.0",
     "@astrojs/rss": "^4.0.7",
-    "@fontsource/space-grotesk": "^5.0.0",
-    "@fontsource/newsreader": "^5.0.0",
+    "@astrojs/sitemap": "^3.2.1",
     "@fontsource/jetbrains-mono": "^5.0.0",
+    "@fontsource/newsreader": "^5.0.0",
+    "@fontsource/space-grotesk": "^5.0.0",
+    "astro": "^4.16.0",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0"
   },

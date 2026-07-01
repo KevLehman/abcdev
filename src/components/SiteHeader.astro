@@ -13,7 +13,7 @@ const items = [
 <header>
   <div class="wrap masthead">
     <a class="wordmark" href="/">KEVIN&nbsp;ALEMAN <span>— LOGBOOK</span></a>
-    <nav>
+    <nav aria-label="Site">
       {items.map((i) => (
         <a href={i.href} class={active === i.key ? 'active' : ''}>{i.label}</a>
       ))}

@@ -5,3 +5,17 @@
 [build.environment]
   NODE_VERSION = "20"
   PUBLIC_GOATCOUNTER = "https://abcdev.goatcounter.com/count"
+
+# Astro asset filenames are content-hashed, so they can be cached forever.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
