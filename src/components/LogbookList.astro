@@ -36,7 +36,7 @@ const tags = [...counts.entries()]
       <span class="idx">{pad(e.idx)}</span>
       <span>{iso(e.date)}</span>
       <span class="rt">{rtShort(e.rt)}</span>
-      <span><span class="title">{e.title}</span> <span class="tags">{e.tags.join(',')}</span></span>
+      <span><span class="title">{e.title}</span> <span class="tags">{e.tags.map((t, i) => (<>{i > 0 && <>,<wbr /></>}{t}</>))}</span></span>
     </a>
   ))}
 </section>
@@ -101,6 +101,10 @@ const tags = [...counts.entries()]
   .row:hover .idx, .row:hover .rt, .row:hover .tags { color: var(--signal-tint); }
   .row:hover .title { color: var(--on-signal); }
   .idx, .rt, .tags { color: var(--slate); }
+  /* The tag list is a comma-joined mono string with no spaces; <wbr> after each
+     comma lets it wrap at tag boundaries on narrow screens, and anywhere is the
+     fallback so a single long tag can never force horizontal overflow. */
+  .tags { overflow-wrap: anywhere; }
   .title { font-family: var(--font-display); font-weight: 500; font-size: 1rem; }
   @media (max-width: 640px) {
     .listhead { display: none; }
