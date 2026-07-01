@@ -206,6 +206,7 @@ But, the main point is: AI is not human, but maintainers and contributors are. S
 Welcome to Open Source!
 
 If u want to read more:
+
 {% embed https://www.jeffgeerling.com/blog/2026/ai-is-destroying-open-source/ %}
 
 

@@ -143,5 +143,36 @@ if (pick) {
     border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
   .prose :global(code) { font-family: var(--font-mono); font-size: .9em; }
   .prose :global(blockquote) { border-left: 3px solid var(--signal); padding-left: 1rem; color: var(--slate); }
+  /* Link card for `{% embed url %}` tags — mirrors the mono/hairline brand. */
+  .prose :global(.embed-card) {
+    display: flex; align-items: stretch; gap: 0; margin: 1.5rem 0; width: 100%; max-width: 100%;
+    border: 1px solid var(--hairline); text-decoration: none; color: inherit;
+    background: var(--surface); overflow: hidden; transition: border-color .15s ease;
+  }
+  .prose :global(.embed-card:hover) { border-color: var(--signal); }
+  .prose :global(.embed-card__text) {
+    display: flex; flex-direction: column; gap: 6px; padding: 16px; min-width: 0; flex: 1;
+  }
+  .prose :global(.embed-card__provider) {
+    font-family: var(--font-mono); font-size: .72rem; letter-spacing: .02em;
+    text-transform: lowercase; color: var(--slate);
+  }
+  .prose :global(.embed-card__title) {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.25;
+    color: var(--graphite);
+  }
+  .prose :global(.embed-card__desc) {
+    font-size: .92rem; line-height: 1.45; color: var(--slate);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .prose :global(.embed-card__thumb) {
+    flex: 0 0 34%; max-width: 200px; margin: 0 !important; object-fit: cover; align-self: stretch;
+    border-left: 1px solid var(--hairline);
+  }
+  @media (max-width: 520px) {
+    .prose :global(.embed-card) { flex-direction: column-reverse; }
+    .prose :global(.embed-card__thumb) { flex-basis: 160px; max-width: 100%; width: 100%;
+      border-left: 0; border-bottom: 1px solid var(--hairline); }
+  }
   @media (max-width: 640px) { h1 { font-size: 1.9rem; } }
 </style>

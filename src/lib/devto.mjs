@@ -1,5 +1,12 @@
 import { normalizeTags } from './frontmatter.mjs';
 
+// dev.to `{% embed <url> %}` tags are block-level, but authors sometimes glue them
+// to an adjacent line. Isolate each onto its own paragraph so our embed remark
+// plugin (which matches standalone paragraphs) can turn it into a link card.
+export function isolateEmbeds(md) {
+  return md.replace(/^[ \t]*(\{%\s*embed\s+\S+\s*%\})[ \t]*$/gm, '\n$1\n');
+}
+
 export function mapDevtoArticle(a, { idx, siteUrl }) {
   const slug = a.slug;
   const frontmatter = {
@@ -15,5 +22,5 @@ export function mapDevtoArticle(a, { idx, siteUrl }) {
     devtoUrl: a.url,
     ...(a.cover_image ? { coverImage: a.cover_image } : {}),
   };
-  return { slug, frontmatter, body: a.body_markdown ?? '' };
+  return { slug, frontmatter, body: isolateEmbeds(a.body_markdown ?? '') };
 }
