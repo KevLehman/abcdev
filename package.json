@@ -13,17 +13,19 @@
     "import:devto": "node scripts/import-devto.mjs"
   },
   "dependencies": {
-    "astro": "^4.16.0",
-    "@astrojs/rss": "^4.0.7",
-    "@fontsource/space-grotesk": "^5.0.0",
-    "@fontsource/newsreader": "^5.0.0",
+    "@astrojs/markdown-remark": "^7.2.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/jetbrains-mono": "^5.0.0",
+    "@fontsource/newsreader": "^5.0.0",
+    "@fontsource/space-grotesk": "^5.0.0",
+    "astro": "^7.0.5",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.0",
+    "@astrojs/check": "^0.9.9",
     "typescript": "^5.6.0",
-    "vitest": "^2.1.0"
+    "vitest": "^4.1.9"
   }
 }

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
@@ -7,32 +7,33 @@ import { oembedHref } from '../lib/oembed.mjs';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
-  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
 }
 
 const { article } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await article.render();
+const { Content, remarkPluginFrontmatter } = await render(article);
 const rt = remarkPluginFrontmatter.minutesRead ?? '1 min read';
 const iso = article.data.date.toISOString().slice(0, 10);
 const ogImage = article.data.featuredImage?.src ?? article.data.coverImage;
-const oembed = oembedHref(article.slug, Astro.site);
+const oembed = oembedHref(article.id, Astro.site);
 
 // "Keep reading" — recommend a random other article. Picked at build time, so it
 // rotates on each deploy rather than per request (this is a static site).
 const others = (await getCollection('articles', ({ data }) => !data.draft))
-  .filter((a) => a.slug !== article.slug);
+  .filter((a) => a.id !== article.id);
 const pick = others.length ? others[Math.floor(Math.random() * others.length)] : null;
 let rec = null;
 if (pick) {
-  const { remarkPluginFrontmatter: fm } = await pick.render();
+  const { remarkPluginFrontmatter: fm } = await render(pick);
   rec = {
-    href: `/${pick.slug}`, idx: pick.data.idx, date: pick.data.date,
+    href: `/${pick.id}`, idx: pick.data.idx, date: pick.data.date,
     rt: fm.minutesRead ?? '1 min read', title: pick.data.title, tags: pick.data.tags,
   };
 }
 ---
 <Base title={`${article.data.title} — Kev's logbook`} description={article.data.excerpt}
-      canonical={article.data.canonicalUrl} ogImage={ogImage} oembed={oembed}>
+      canonical={article.data.canonicalUrl} ogImage={ogImage} oembed={oembed}
+      article={{ publishedTime: article.data.date, tags: article.data.tags }}>
   <article class="wrap post">
     <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
     <h1>{article.data.title}</h1>
@@ -42,8 +43,9 @@ if (pick) {
       {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>also on dev.to ↗</a></>)}
     </div>
     {article.data.featuredImage
-      ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800]} />
-      : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} loading="lazy" decoding="async" />}
+      ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800, 1200]}
+          sizes="(max-width: 680px) calc(100vw - 40px), 620px" loading="eager" fetchpriority="high" />
+      : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} loading="eager" fetchpriority="high" decoding="async" />}
     <div class="prose"><Content /></div>
     {rec && <KeepReading {...rec} />}
   </article>
@@ -132,17 +134,28 @@ if (pick) {
   @keyframes img-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
   .prose :global(h2) { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin: 2rem 0 .6rem; }
   .prose :global(h3) { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; margin: 1.6rem 0 .5rem; }
+  .prose :global(h4) { font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; margin: 1.4rem 0 .5rem; }
   .prose :global(p) { margin: 0 0 1.1rem; }
+  /* The global reset zeroes list padding; restore it so markers sit inside the
+     column instead of hanging into the page margin (and clipping on phones). */
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1rem; padding-left: 1.5rem; }
+  .prose :global(li) { margin-bottom: .35rem; }
+  .prose :global(li ul), .prose :global(li ol) { margin: .35rem 0 0; }
+  .prose :global(hr) { border: 0; border-top: 1px solid var(--hairline); margin: 2rem 0; }
+  .prose :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 1.2rem; font-size: .98rem; line-height: 1.45; }
+  .prose :global(th) { font-family: var(--font-mono); font-weight: 400; font-size: .72rem;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--slate); text-align: left; }
+  .prose :global(th), .prose :global(td) { padding: 9px 14px 9px 0; border-bottom: 1px solid var(--hairline); vertical-align: top; }
   /* Shrink text blocks to their content so text selection hugs the words
      instead of painting the empty space out to the column edge. */
   .prose :global(p), .prose :global(li),
-  .prose :global(h2), .prose :global(h3),
+  .prose :global(h2), .prose :global(h3), .prose :global(h4),
   .prose :global(blockquote) { width: fit-content; max-width: 100%; }
   .prose :global(a) { color: var(--signal); }
   .prose :global(pre) { font-family: var(--font-mono); font-size: .9rem; padding: 16px;
     border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
   .prose :global(code) { font-family: var(--font-mono); font-size: .9em; }
-  .prose :global(blockquote) { border-left: 3px solid var(--signal); padding-left: 1rem; color: var(--slate); }
+  .prose :global(blockquote) { border-left: 3px solid var(--signal); padding-left: 1rem; color: var(--slate); margin-bottom: 1.1rem; }
   /* Link card for `{% embed url %}` tags — mirrors the mono/hairline brand. */
   .prose :global(.embed-card) {
     display: flex; align-items: stretch; gap: 0; margin: 1.5rem 0; width: 100%; max-width: 100%;
