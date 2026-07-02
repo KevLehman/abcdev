@@ -1,0 +1,138 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const arts = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const entries = await Promise.all(arts.map(async (a) => {
+  const { remarkPluginFrontmatter } = await render(a);
+  const minutes = parseInt(remarkPluginFrontmatter.minutesRead ?? '1', 10) || 1;
+  // Word count from the raw markdown, so it's approximate (includes code).
+  const words = a.body ? a.body.split(/\s+/).filter(Boolean).length : 0;
+  return { id: a.id, idx: a.data.idx, title: a.data.title, date: a.data.date, tags: a.data.tags, minutes, words };
+}));
+
+const totalWords = entries.reduce((s, e) => s + e.words, 0);
+const totalMinutes = entries.reduce((s, e) => s + e.minutes, 0);
+const fmtWords = totalWords >= 1000 ? `${(totalWords / 1000).toFixed(1)}k` : String(totalWords);
+const fmtTime = totalMinutes >= 60 ? `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m` : `${totalMinutes}m`;
+
+// Posts per year, including the quiet years — gaps are part of the log.
+const firstYear = entries[0]?.date.getUTCFullYear() ?? new Date().getUTCFullYear();
+const lastYear = entries.at(-1)?.date.getUTCFullYear() ?? firstYear;
+const byYear = [];
+for (let y = firstYear; y <= lastYear; y++) {
+  byYear.push({ year: y, count: entries.filter((e) => e.date.getUTCFullYear() === y).length });
+}
+const maxCount = Math.max(...byYear.map((y) => y.count), 1);
+
+const tagCounts = new Map();
+for (const e of entries) for (const t of e.tags) tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
+const maxTag = topTags[0]?.[1] ?? 1;
+
+const longest = entries.reduce((m, e) => (e.minutes > m.minutes ? e : m), entries[0]);
+const busiest = byYear.reduce((m, y) => (y.count > m.count ? y : m), byYear[0]);
+
+const tiles = [
+  { label: 'entries', value: String(entries.length) },
+  { label: 'words (approx)', value: fmtWords },
+  { label: 'total read time', value: fmtTime },
+  { label: 'logging since', value: String(firstYear) },
+];
+---
+<Base title="Stats — Kev's logbook" description="Numbers from the logbook: entries, words, read time, years, and tags." active="stats">
+  <div class="wrap stats">
+    <p class="eyebrow">// stats</p>
+    <h1>The log, in numbers</h1>
+
+    <div class="tiles">
+      {tiles.map((t) => (
+        <div class="tile">
+          <span class="tile-value">{t.value}</span>
+          <span class="tile-label">{t.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <section>
+      <h2 class="eyebrow">entries per year</h2>
+      <div class="chart" role="img" aria-label={`Entries per year: ${byYear.map((y) => `${y.year}, ${y.count}`).join('; ')}`}>
+        {byYear.map((y) => (
+          <div class="bar-row">
+            <span class="bar-year">{y.year}</span>
+            <span class="bar-track"><span class="bar" style={`width:${(y.count / maxCount) * 100}%`}></span></span>
+            <span class="bar-count">{y.count}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="eyebrow">recurring tags</h2>
+      <div class="chart">
+        {topTags.map(([tag, count], i) => (
+          <a class="bar-row tag-row" href={`/#${encodeURIComponent(tag)}`}>
+            <span class="bar-year">{String(i + 1).padStart(2, '0')}</span>
+            <span class="tag-name">{tag}</span>
+            <span class="bar-track"><span class="bar" style={`width:${(count / maxTag) * 100}%`}></span></span>
+            <span class="bar-count">{count}</span>
+          </a>
+        ))}
+      </div>
+      <p class="footnote">tags link to the filtered logbook</p>
+    </section>
+
+    <section>
+      <h2 class="eyebrow">records</h2>
+      <ul class="records">
+        <li><span>longest entry</span><a href={`/${longest.id}`}>{longest.title}</a><span class="rec-val">{longest.minutes}m</span></li>
+        <li><span>busiest year</span><span class="rec-main">{busiest.year}</span><span class="rec-val">{busiest.count} entries</span></li>
+        <li><span>most-used tag</span><a href={`/#${encodeURIComponent(topTags[0]?.[0] ?? '')}`}>{topTags[0]?.[0]}</a><span class="rec-val">{topTags[0]?.[1]}×</span></li>
+      </ul>
+    </section>
+  </div>
+</Base>
+<style>
+  .stats { max-width: var(--measure); padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 28px; }
+  section { margin-top: 40px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--hairline); background: var(--surface); }
+  .tile { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; }
+  .tile + .tile { border-left: 1px solid var(--hairline); }
+  .tile-value { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; letter-spacing: -.01em; }
+  .tile-label { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--slate); }
+
+  .chart { margin-top: 14px; border-top: 1px solid var(--hairline); }
+  .bar-row { display: grid; grid-template-columns: 52px 1fr 34px; gap: 14px; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid var(--hairline); font-family: var(--font-mono); font-size: .8rem; }
+  .tag-row { grid-template-columns: 28px 132px 1fr 34px; color: inherit; text-decoration: none; }
+  .tag-row:hover .tag-name { color: var(--signal); }
+  .bar-year { color: var(--slate); }
+  .tag-name { color: var(--graphite); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { display: block; height: 12px; }
+  .bar { display: block; height: 100%; background: var(--signal); min-width: 0; }
+  .bar-count { text-align: right; color: var(--graphite); }
+  .footnote { margin-top: 10px; font-family: var(--font-mono); font-size: .7rem; color: var(--slate); }
+
+  .records { list-style: none; margin-top: 14px; border-top: 1px solid var(--hairline); }
+  .records li { display: flex; gap: 14px; align-items: baseline; padding: 11px 0;
+    border-bottom: 1px solid var(--hairline); font-family: var(--font-mono); font-size: .8rem; }
+  .records li > span:first-child { color: var(--slate); flex: 0 0 132px; }
+  .records a, .rec-main { font-family: var(--font-display); font-weight: 500; font-size: .95rem;
+    color: var(--graphite); text-decoration: none; }
+  .records a:hover { color: var(--signal); }
+  .rec-val { margin-left: auto; color: var(--slate); }
+
+  @media (max-width: 640px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .tile:nth-child(3) { border-left: 0; }
+    .tile:nth-child(n + 3) { border-top: 1px solid var(--hairline); }
+    .tag-row { grid-template-columns: 28px 96px 1fr 34px; }
+    .records li > span:first-child { flex-basis: 96px; }
+  }
+</style>

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import SearchPalette from '../components/SearchPalette.astro';
 interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; oembed?: string;
   article?: { publishedTime: Date; tags: string[] }; }
 const { title, description, active, canonical, ogImage, oembed, article } = Astro.props;
@@ -20,5 +21,6 @@ const { title, description, active, canonical, ogImage, oembed, article } = Astr
     <SiteHeader active={active} />
     <main><slot /></main>
     <SiteFooter />
+    <SearchPalette />
   </body>
 </html>

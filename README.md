@@ -9,7 +9,11 @@ styled with a custom "Engineering Logbook" editorial design, and deployed to Net
 - Hand-written CSS design tokens (no Tailwind) — light mode, three typefaces
   (Space Grotesk / Newsreader / JetBrains Mono) self-hosted via `@fontsource`
 - **Shiki** for code highlighting, `remark-reading-time` for read times
-- RSS via `@astrojs/rss`; contact form via Netlify Forms
+- RSS via `@astrojs/rss`; sitemap via `@astrojs/sitemap`; contact form via Netlify Forms
+- Per-article social share cards rendered at build time with **satori** + **resvg**
+  (`src/pages/og/[slug].png.js`); `public/og-default.png` covers the non-article pages
+- Client-side ⌘K search palette (`SearchPalette.astro`) over an inlined index — no backend
+- `/stats` — the log in numbers (entries, words, read time, per-year and tag breakdowns)
 
 ## Develop
 

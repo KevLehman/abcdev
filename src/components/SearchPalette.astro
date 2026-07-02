@@ -1,0 +1,170 @@
+---
+// Command-palette search over the whole logbook. The index is tiny (title, tags,
+// excerpt per entry) and inlined into every page at build time, so search is
+// instant and needs no backend. Opens with ⌘K / ctrl+K / "/", or the nav button.
+import { getCollection } from 'astro:content';
+
+const arts = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const index = arts.map((a) => ({
+  slug: a.id,
+  idx: a.data.idx,
+  date: a.data.date.toISOString().slice(0, 10),
+  title: a.data.title,
+  tags: a.data.tags,
+  excerpt: a.data.excerpt,
+}));
+---
+<dialog id="search" aria-label="Search the logbook">
+  <div class="search-head">
+    <input id="search-input" type="text" placeholder="search entries…" autocomplete="off"
+      spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results"
+      aria-label="Search entries" />
+    <span class="search-count" data-search-count aria-live="polite"></span>
+  </div>
+  <ol id="search-results" role="listbox" aria-label="Results"></ol>
+  <div class="search-foot">
+    <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+  </div>
+</dialog>
+<script type="application/json" id="search-data" set:html={JSON.stringify(index)}></script>
+<script is:inline>
+  (() => {
+    const dialog = document.getElementById('search');
+    if (!dialog || !dialog.showModal) return;
+    const input = document.getElementById('search-input');
+    const list = document.getElementById('search-results');
+    const count = dialog.querySelector('[data-search-count]');
+    const data = JSON.parse(document.getElementById('search-data').textContent);
+    let results = [];
+    let active = 0;
+
+    const score = (e, tokens) => {
+      const title = e.title.toLowerCase();
+      const tags = e.tags.join(' ').toLowerCase();
+      const excerpt = e.excerpt.toLowerCase();
+      let total = 0;
+      for (const t of tokens) {
+        let s = 0;
+        if (title.startsWith(t)) s = 4;
+        else if (title.includes(t)) s = 3;
+        else if (tags.includes(t)) s = 2;
+        else if (excerpt.includes(t)) s = 1;
+        if (!s) return 0; // every token must match somewhere
+        total += s;
+      }
+      return total;
+    };
+
+    const renderRows = () => {
+      list.textContent = '';
+      results.forEach((e, i) => {
+        const li = document.createElement('li');
+        li.role = 'option';
+        li.id = `search-opt-${i}`;
+        li.setAttribute('aria-selected', String(i === active));
+        if (i === active) li.classList.add('active');
+        const a = document.createElement('a');
+        a.href = `/${e.slug}`;
+        a.tabIndex = -1;
+        const mk = (cls, text) => {
+          const s = document.createElement('span');
+          s.className = cls; s.textContent = text;
+          return s;
+        };
+        a.append(
+          mk('r-idx', String(e.idx).padStart(3, '0')),
+          mk('r-date', e.date),
+          mk('r-title', e.title),
+          mk('r-tags', e.tags.join(',')),
+        );
+        li.addEventListener('mousemove', () => { if (active !== i) { active = i; renderRows(); } });
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      input.setAttribute('aria-activedescendant', results.length ? `search-opt-${active}` : '');
+      count.textContent = `${results.length} ${results.length === 1 ? 'entry' : 'entries'}`;
+      if (!results.length) {
+        const li = document.createElement('li');
+        li.className = 'empty';
+        li.textContent = 'no entries match';
+        list.appendChild(li);
+      }
+    };
+
+    const search = () => {
+      const tokens = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      results = !tokens.length ? [...data]
+        : data.map((e) => [score(e, tokens), e]).filter(([s]) => s > 0)
+            .sort((a, b) => b[0] - a[0]).map(([, e]) => e);
+      active = 0;
+      renderRows();
+    };
+
+    const open = () => { dialog.showModal(); input.select(); search(); };
+    const toggle = () => (dialog.open ? dialog.close() : open());
+
+    input.addEventListener('input', search);
+    input.addEventListener('keydown', (ev) => {
+      if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+        ev.preventDefault();
+        if (!results.length) return;
+        active = (active + (ev.key === 'ArrowDown' ? 1 : -1) + results.length) % results.length;
+        renderRows();
+        list.querySelector('.active')?.scrollIntoView({ block: 'nearest' });
+      } else if (ev.key === 'Enter' && results[active]) {
+        location.href = `/${results[active].slug}`;
+      }
+    });
+    // Close when the backdrop (the dialog element itself) is clicked.
+    dialog.addEventListener('click', (ev) => { if (ev.target === dialog) dialog.close(); });
+
+    document.addEventListener('keydown', (ev) => {
+      if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === 'k') { ev.preventDefault(); toggle(); }
+      else if (ev.key === '/' && !dialog.open && !/^(input|textarea|select)$/i.test(ev.target.tagName)) {
+        ev.preventDefault(); open();
+      }
+    });
+
+    const btn = document.getElementById('search-open');
+    if (btn) {
+      btn.hidden = false;
+      const kbd = btn.querySelector('kbd');
+      if (kbd && !/mac/i.test(navigator.platform)) kbd.textContent = 'ctrl k';
+      btn.addEventListener('click', open);
+    }
+  })();
+</script>
+<style>
+  #search { width: min(640px, calc(100vw - 40px)); margin: 12vh auto auto; padding: 0;
+    background: var(--bone); color: var(--graphite); border: 1px solid var(--hairline); }
+  #search::backdrop { background: rgba(21, 24, 27, .45); }
+  .search-head { display: flex; align-items: baseline; gap: 14px; padding: 16px 18px;
+    border-bottom: 1px solid var(--hairline); }
+  #search-input { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: .95rem;
+    background: none; border: 0; color: var(--graphite); }
+  #search-input:focus { outline: none; }
+  #search-input::placeholder { color: var(--slate); }
+  .search-count { font-family: var(--font-mono); font-size: .7rem; color: var(--slate); white-space: nowrap; }
+  #search-results { list-style: none; margin: 0; padding: 0; max-height: 46vh; overflow-y: auto; }
+  #search-results :global(li) { border-bottom: 1px solid var(--hairline); }
+  #search-results :global(a) { display: grid; grid-template-columns: 38px 92px 1fr; gap: 6px 14px;
+    align-items: baseline; padding: 11px 18px; font-family: var(--font-mono); font-size: .78rem;
+    color: var(--graphite); text-decoration: none; }
+  #search-results :global(.r-idx), #search-results :global(.r-date), #search-results :global(.r-tags) { color: var(--slate); }
+  #search-results :global(.r-title) { font-family: var(--font-display); font-weight: 500; font-size: .95rem; }
+  #search-results :global(.r-tags) { grid-column: 3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #search-results :global(li.active a) { background: var(--signal); color: var(--on-signal); }
+  #search-results :global(li.active .r-idx), #search-results :global(li.active .r-date),
+  #search-results :global(li.active .r-tags) { color: var(--signal-tint); }
+  #search-results :global(li.empty) { padding: 16px 18px; font-family: var(--font-mono);
+    font-size: .8rem; color: var(--slate); }
+  .search-foot { display: flex; gap: 18px; padding: 10px 18px; border-top: 1px solid var(--hairline);
+    font-family: var(--font-mono); font-size: .68rem; color: var(--slate); }
+  @media (max-width: 520px) {
+    #search-results :global(a) { grid-template-columns: 38px 1fr; }
+    #search-results :global(.r-date) { display: none; }
+    #search-results :global(.r-tags) { grid-column: 2; }
+    .search-foot { display: none; }
+  }
+</style>
