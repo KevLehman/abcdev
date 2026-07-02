@@ -8,7 +8,7 @@
   #theme-toggle {
     font-family: var(--font-mono); font-size: .76rem; letter-spacing: .02em;
     background: none; border: 1px solid var(--hairline); padding: 5px 10px;
-    margin-left: 22px; cursor: pointer; color: var(--graphite);
+    cursor: pointer; color: var(--graphite);
     transition: border-color .12s, color .12s;
   }
   #theme-toggle:hover { color: var(--signal); border-color: var(--signal); }
@@ -19,7 +19,6 @@
     :root:not([data-theme="light"]) .on-light { display: none; }
     :root:not([data-theme="light"]) .on-dark { display: inline; }
   }
-  @media (max-width: 640px) { #theme-toggle { margin-left: 0; } }
 </style>
 <script is:inline>
   (() => {

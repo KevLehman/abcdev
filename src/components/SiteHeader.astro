@@ -25,22 +25,27 @@ const items = [
 </header>
 <style>
   header { border-bottom: 1px solid var(--hairline); }
-  .masthead { display: flex; align-items: baseline; justify-content: space-between; padding-block: 22px; }
+  .masthead { display: flex; align-items: center; justify-content: space-between;
+    gap: 12px 20px; padding-block: 22px; }
   .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
     letter-spacing: .02em; color: var(--graphite); text-decoration: none; }
   .wordmark span { color: var(--slate); font-weight: 500; }
-  nav { font-family: var(--font-mono); font-size: .8rem; }
-  nav a { color: var(--graphite); text-decoration: none; margin-left: 22px; }
+  /* Flex so every item is its own box: links wrap at item boundaries on narrow
+     screens (inline links with no whitespace between them can't break), and the
+     bordered toggle centers against the text links instead of sitting on a
+     mismatched baseline. */
+  nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
+    font-family: var(--font-mono); font-size: .8rem; }
+  nav a { color: var(--graphite); text-decoration: none; }
   nav a:hover, nav a.active { color: var(--signal); }
   #search-open { font-family: var(--font-mono); font-size: .8rem; background: none; border: 0;
-    padding: 0; margin-left: 22px; color: var(--graphite); cursor: pointer; }
+    padding: 0; color: var(--graphite); cursor: pointer; }
   #search-open:hover { color: var(--signal); }
   #search-open kbd { font-family: var(--font-mono); font-size: .68rem; color: var(--slate);
     border: 1px solid var(--hairline); padding: 1px 5px; margin-left: 2px; }
   @media (max-width: 640px) {
-    .masthead { flex-direction: column; gap: 12px; align-items: flex-start; }
-    nav a { margin-left: 0; margin-right: 18px; }
-    #search-open { margin-left: 0; margin-right: 18px; }
+    .masthead { flex-direction: column; align-items: flex-start; }
+    nav { gap: 10px 16px; }
     #search-open kbd { display: none; }
   }
 </style>
