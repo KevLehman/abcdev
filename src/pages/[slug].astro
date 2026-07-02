@@ -11,10 +11,15 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await render(article);
+const { Content, headings, remarkPluginFrontmatter } = await render(article);
 const rt = remarkPluginFrontmatter.minutesRead ?? '1 min read';
+// Contents index for longer entries: top-level sections only, and only when
+// there are enough of them for navigation to be worth the space.
+const toc = headings.filter((h) => h.depth === 2);
+const showToc = toc.length >= 3;
 const iso = article.data.date.toISOString().slice(0, 10);
-const ogImage = article.data.featuredImage?.src ?? article.data.coverImage;
+// Branded share card generated per article at build time (see pages/og/).
+const ogImage = `/og/${article.id}.png`;
 const oembed = oembedHref(article.id, Astro.site);
 
 // "Keep reading" — recommend a random other article. Picked at build time, so it
@@ -46,6 +51,16 @@ if (pick) {
       ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800, 1200]}
           sizes="(max-width: 680px) calc(100vw - 40px), 620px" loading="eager" fetchpriority="high" />
       : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} loading="eager" fetchpriority="high" decoding="async" />}
+    {showToc && (
+      <nav class="toc" aria-label="Contents">
+        <p class="eyebrow">// contents</p>
+        <ol>
+          {toc.map((h, i) => (
+            <li><a href={`#${h.slug}`}><span class="toc-idx">{String(i + 1).padStart(2, '0')}</span>{h.text}</a></li>
+          ))}
+        </ol>
+      </nav>
+    )}
     <div class="prose"><Content /></div>
     {rec && <KeepReading {...rec} />}
   </article>
@@ -66,6 +81,36 @@ if (pick) {
       };
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhance);
       else enhance();
+    })();
+  </script>
+  <script is:inline>
+    // Copy buttons on code blocks. Each pre is wrapped so the button can anchor
+    // to the box instead of scrolling away with wide code. JS-only, so no-JS
+    // readers just see plain code blocks.
+    (() => {
+      if (!navigator.clipboard) return;
+      document.querySelectorAll('.prose pre.astro-code').forEach((pre) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'code-wrap';
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'code-copy';
+        btn.textContent = 'copy';
+        btn.setAttribute('aria-label', 'Copy code to clipboard');
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText((pre.querySelector('code') ?? pre).innerText.trimEnd() + '\n');
+            btn.textContent = 'copied ✓';
+            btn.classList.add('did');
+          } catch {
+            btn.textContent = 'failed';
+          }
+          setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('did'); }, 1600);
+        });
+        wrap.appendChild(btn);
+      });
     })();
   </script>
   <script is:inline>
@@ -120,7 +165,17 @@ if (pick) {
     border-bottom: 1px solid var(--hairline); }
   .readout a { color: var(--signal); text-decoration: none; }
   .hero-img { width: 100%; height: auto; margin: 28px 0; }
+  .toc { margin-top: 28px; padding: 16px 0 6px; border-top: 1px solid var(--hairline); }
+  .toc ol { list-style: none; margin-top: 10px; }
+  .toc li { border-bottom: 1px solid var(--hairline); }
+  .toc li:last-child { border-bottom: 0; }
+  .toc a { display: flex; gap: 14px; align-items: baseline; padding: 9px 0;
+    font-family: var(--font-display); font-weight: 500; font-size: .95rem;
+    color: var(--graphite); text-decoration: none; }
+  .toc a:hover { color: var(--signal); }
+  .toc-idx { font-family: var(--font-mono); font-weight: 400; font-size: .74rem; color: var(--slate); }
   .prose { font-size: 1.15rem; line-height: 1.7; }
+  .prose :global(h2), .prose :global(h3) { scroll-margin-top: 24px; }
   .prose :global(img) { display: block; width: 100%; height: auto; margin: 1.5rem 0; }
   /* Loading placeholder: a soft shimmer while the bitmap streams in. The static
      background-color is the fallback when motion is reduced (animations are
@@ -154,6 +209,17 @@ if (pick) {
   .prose :global(a) { color: var(--signal); }
   .prose :global(pre) { font-family: var(--font-mono); font-size: .9rem; padding: 16px;
     border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
+  .prose :global(.code-wrap) { position: relative; margin: 0 0 1.2rem; }
+  .prose :global(.code-wrap pre) { margin: 0; }
+  .prose :global(.code-copy) { position: absolute; top: 8px; right: 8px;
+    font-family: var(--font-mono); font-size: .68rem; letter-spacing: .02em; padding: 4px 9px;
+    border: 1px solid var(--hairline); background: var(--surface); color: var(--slate);
+    cursor: pointer; opacity: 0; transition: opacity .12s, color .12s, border-color .12s; }
+  .prose :global(.code-wrap:hover .code-copy), .prose :global(.code-copy:focus-visible),
+  .prose :global(.code-copy.did) { opacity: 1; }
+  .prose :global(.code-copy:hover) { color: var(--signal); border-color: var(--signal); }
+  .prose :global(.code-copy.did) { color: var(--signal); border-color: var(--signal); }
+  @media (hover: none) { .prose :global(.code-copy) { opacity: 1; } }
   .prose :global(code) { font-family: var(--font-mono); font-size: .9em; }
   .prose :global(blockquote) { border-left: 3px solid var(--signal); padding-left: 1rem; color: var(--slate); margin-bottom: 1.1rem; }
   /* Link card for `{% embed url %}` tags — mirrors the mono/hairline brand. */
