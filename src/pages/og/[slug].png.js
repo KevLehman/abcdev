@@ -49,7 +49,7 @@ function card({ idx, date, minutes, title, tags }) {
         el('span', { fontWeight: 700 }, 'KEVIN ALEMAN'),
         el('span', { fontWeight: 500, color: SLATE, marginLeft: '12px' }, '— LOGBOOK'),
       ),
-      el('div', { display: 'flex', fontFamily: 'JetBrains Mono', fontSize: '22px', color: SLATE }, 'abcdev.netlify.app'),
+      el('div', { display: 'flex', fontFamily: 'JetBrains Mono', fontSize: '22px', color: SLATE }, 'kaleman.netlify.app'),
     ),
     el('div', { display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center' },
       el('div', { display: 'flex', fontFamily: 'JetBrains Mono', fontSize: '22px', letterSpacing: '0.1em' },

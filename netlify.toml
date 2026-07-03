@@ -4,7 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  PUBLIC_GOATCOUNTER = "https://abcdev.goatcounter.com/count"
+  PUBLIC_GOATCOUNTER = "https://kaleman.goatcounter.com/count"
 
 # Astro asset filenames are content-hashed, so they can be cached forever.
 [[headers]]

@@ -7,7 +7,7 @@ tags: ["opensource", "gsoc", "software", "webdev"]
 excerpt: "Accepted into GSoC 2026? Here is how to make the most of it: what mentors actually expect, how to work in the open, and how not to waste a rare seat."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/you-got-selected-for-gsoc-2026-now-what-1bdc"
+canonicalUrl: "https://kaleman.netlify.app/you-got-selected-for-gsoc-2026-now-what-1bdc"
 devtoUrl: "https://dev.to/kaleman15/you-got-selected-for-gsoc-2026-now-what-1bdc"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fzcem945ddycp6hv28ln0.png"
 ---

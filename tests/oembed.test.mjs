@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { buildOembed, oembedHref } from '../src/lib/oembed.mjs';
 
-const site = 'https://abcdev.netlify.app';
+const site = 'https://kaleman.netlify.app';
 
 describe('buildOembed', () => {
   it('builds a spec-compliant link-type document', () => {

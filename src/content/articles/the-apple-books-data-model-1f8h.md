@@ -7,7 +7,7 @@ tags: ["macos", "sqlite", "programming", "database"]
 excerpt: "Apple Books keeps your books, highlights, and shelves in plain SQLite on disk. A reference for that data model — where it lives and how the tables connect."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/the-apple-books-data-model-1f8h"
+canonicalUrl: "https://kaleman.netlify.app/the-apple-books-data-model-1f8h"
 devtoUrl: "https://dev.to/kaleman15/the-apple-books-data-model-1f8h"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fzdsd2dackdju15su4pik.png"
 ---

@@ -1,4 +1,4 @@
-# ABCDev — Kevin Aleman's blog
+# Kev's logbook — Kevin Aleman's blog
 
 A personal blog about life, engineering, and games. Built with [Astro](https://astro.build),
 styled with a custom "Engineering Logbook" editorial design, and deployed to Netlify.
@@ -66,7 +66,7 @@ an "also on dev.to ↗" mirror link.
 
 Privacy-friendly, cookieless [GoatCounter](https://www.goatcounter.com/). Set the
 `PUBLIC_GOATCOUNTER` environment variable (in the Netlify UI) to your count endpoint,
-e.g. `https://abcdev.goatcounter.com/count`. When unset, no analytics script is
+e.g. `https://kaleman.goatcounter.com/count`. When unset, no analytics script is
 emitted, so local dev and previews stay tracking-free. The script also skips
 `localhost` on its own. No cookie-consent banner is required.
 

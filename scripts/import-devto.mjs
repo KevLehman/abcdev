@@ -6,7 +6,7 @@ import { mapDevtoArticle } from '../src/lib/devto.mjs';
 const API = 'https://dev.to/api';
 const KEY = process.env.DEVTO_API_KEY;          // optional — public username fetch works without it
 const USERNAME = process.env.DEVTO_USERNAME ?? 'kaleman15';
-const SITE = process.env.SITE_URL ?? 'https://abcdev.netlify.app';
+const SITE = process.env.SITE_URL ?? 'https://kaleman.netlify.app';
 const FORCE = process.argv.includes('--force');
 const OUT = path.resolve('src/content/articles');
 const authHeaders = KEY ? { 'api-key': KEY } : {};
