@@ -7,7 +7,7 @@ tags: ["ai", "opensource", "programming", "software"]
 excerpt: "AI makes open source contribution mechanically easy but reputationally hard. As agents flood repos with PRs, reputation becomes the thing that scales."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/in-the-ai-era-code-is-cheap-reputation-isnt-3482"
+canonicalUrl: "https://kaleman.netlify.app/in-the-ai-era-code-is-cheap-reputation-isnt-3482"
 devtoUrl: "https://dev.to/kaleman15/in-the-ai-era-code-is-cheap-reputation-isnt-3482"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fm0b25t9rnk2hseb0o8qx.png"
 ---

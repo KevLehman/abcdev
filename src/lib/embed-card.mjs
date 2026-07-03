@@ -8,7 +8,7 @@
 
 export const EMBED_RE = /^\{%\s*embed\s+(\S+)\s*%\}$/;
 
-const UA = 'Mozilla/5.0 (compatible; KevLogbook/1.0; +https://abcdev.netlify.app)';
+const UA = 'Mozilla/5.0 (compatible; KevLogbook/1.0; +https://kaleman.netlify.app)';
 
 const NAMED_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", '#39': "'" };
 

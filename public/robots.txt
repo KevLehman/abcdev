@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abcdev.netlify.app/sitemap-index.xml
+Sitemap: https://kaleman.netlify.app/sitemap-index.xml

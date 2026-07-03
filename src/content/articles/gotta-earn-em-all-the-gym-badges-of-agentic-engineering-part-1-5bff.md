@@ -7,7 +7,7 @@ tags: ["ai", "agents", "programming", "career"]
 excerpt: "The NPC at the Indigo Plateau makes you earn eight gym badges first — the prerequisite grind we skip every time we code with AI agents."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-1-5bff"
+canonicalUrl: "https://kaleman.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-1-5bff"
 devtoUrl: "https://dev.to/kaleman15/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-1-5bff"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8dbl7p43l6racd5q6joi.png"
 ---

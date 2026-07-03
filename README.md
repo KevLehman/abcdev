@@ -1,4 +1,4 @@
-# ABCDev — Kevin Aleman's blog
+# Kev's logbook — Kevin Aleman's blog
 
 A personal blog about life, engineering, and games. Built with [Astro](https://astro.build),
 styled with a custom "Engineering Logbook" editorial design, and deployed to Netlify.

@@ -7,7 +7,7 @@ tags: ["programming", "techdebt", "scrum", "agile"]
 excerpt: "Candy Crush chocolate multiplies when you ignore it — exactly like technical debt in an agile project. What the game taught me about paying it down."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/a-tale-of-candy-crush-technical-debt-143h"
+canonicalUrl: "https://kaleman.netlify.app/a-tale-of-candy-crush-technical-debt-143h"
 devtoUrl: "https://dev.to/kaleman15/a-tale-of-candy-crush-technical-debt-143h"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Faaqq9bag9dkshcx7pq5b.jpeg"
 ---

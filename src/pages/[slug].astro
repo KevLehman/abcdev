@@ -18,8 +18,9 @@ const rt = remarkPluginFrontmatter.minutesRead ?? '1 min read';
 const toc = headings.filter((h) => h.depth === 2);
 const showToc = toc.length >= 3;
 const iso = article.data.date.toISOString().slice(0, 10);
-// Branded share card generated per article at build time (see pages/og/).
-const ogImage = `/og/${article.id}.png`;
+// Share image: the article's own cover when it has one; otherwise the branded
+// card generated at build time (see pages/og/) so a share never goes imageless.
+const ogImage = article.data.featuredImage?.src ?? article.data.coverImage ?? `/og/${article.id}.png`;
 const oembed = oembedHref(article.id, Astro.site);
 
 // "Keep reading" — recommend a random other article. Picked at build time, so it

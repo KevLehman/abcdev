@@ -7,7 +7,7 @@ tags: ["webdev", "mentalhealth", "beginners"]
 excerpt: "Why recognition matters at work: praise releases dopamine and drives motivation, but it fades when overused. A case for thanking people, timely and often."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/you-re-doing-great-and-you-need-to-hear-that-12ba"
+canonicalUrl: "https://kaleman.netlify.app/you-re-doing-great-and-you-need-to-hear-that-12ba"
 devtoUrl: "https://dev.to/kaleman15/you-re-doing-great-and-you-need-to-hear-that-12ba"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fjio29p6f9pphp5sobbeo.jpg"
 ---

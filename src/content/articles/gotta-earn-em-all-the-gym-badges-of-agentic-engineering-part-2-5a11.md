@@ -7,7 +7,7 @@ tags: ["ai", "agents", "programming", "career"]
 excerpt: "Last time we earned four badges: bedrock, context, scoped speed, and the patience to garden instead..."
 draft: false
 featured: false
-canonicalUrl: "https://abcdev.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-2-5a11"
+canonicalUrl: "https://kaleman.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-2-5a11"
 devtoUrl: "https://dev.to/kaleman15/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-2-5a11"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fy0qtcf1i8pnaxof99enq.webp"
 ---
