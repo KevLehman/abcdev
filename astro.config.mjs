@@ -4,7 +4,7 @@ import readingTime from './src/lib/reading-time.mjs';
 import remarkEmbed from './src/lib/remark-embed.mjs';
 
 export default defineConfig({
-  site: 'https://kaleman.netlify.app',
+  site: 'https://kevinaleman.com',
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {

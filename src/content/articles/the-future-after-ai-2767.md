@@ -7,7 +7,7 @@ tags: ["ai","programming","career","beginners"]
 excerpt: "I've been using AI coding tools for a while now, and the progress is honestly insane. Something that..."
 draft: false
 featured: false
-canonicalUrl: "https://kaleman.netlify.app/the-future-after-ai-2767"
+canonicalUrl: "https://kevinaleman.com/the-future-after-ai-2767"
 devtoUrl: "https://dev.to/kaleman15/the-future-after-ai-2767"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Ff80gr9onk582n4s45syx.png"
 ---
