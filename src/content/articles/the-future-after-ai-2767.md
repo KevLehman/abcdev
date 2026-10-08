@@ -39,6 +39,8 @@ And there's a pretty good chance it will do it correctly. The junior is now more
 But did you actually learn why the implementation is correct? That's a different question.  
   
 A [2026 study from the Technical University of Munich](https://www.edtech.tum.de/the-dissociation-of-performance-and-learning-in-ai-supported-programming-education/) tested this with 275 programming students. Students using AI performed better on the programming tasks, but that improvement did **not** translate into significantly better conceptual understanding compared with students using traditional resources.  
+
+{% embed https://www.edtech.tum.de/the-dissociation-of-performance-and-learning-in-ai-supported-programming-education/ %}
   
 This is interesting for one very important reason: we're getting better at producing the result, but not necessarily better at understanding how we got there. It’s like eating a frozen pizza: you ate a pizza, that’s great. But, *did you learn how to make a pizza*?  
   
@@ -60,12 +62,16 @@ AI can add caching. But, **how do you know the thing you're caching should not b
 The answer is **experience**. And experience usually comes from doing stuff, breaking stuff and sometimes wondering why the hell production is on fire. If we let AI remove too much of that process, _we may be removing part of the path that creates good engineers.  _
   
 There's already some evidence that this isn't only a programming thing. [Microsoft Research surveyed 319 knowledge workers about 936 real uses of generative AI](https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/). Higher confidence in AI was associated with less critical thinking effort, while people who were more confident in their own knowledge tended to think more critically about the result. Which makes sense. If you know the topic, **AI is something you supervise**. If you don't, **AI can easily become something you trust.**  
+
+{% embed https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/ %}
   
 ## Ok, but they'll learn later... right?  
   
 Maybe.
 
-But here's where things get more complicated. We're also starting to need fewer junior developers. [Stanford's Digital Economy Lab](https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/?sck=e7755a74-2c92-4599-a31f-d8d04fefbda5%7Cf096abf9-83ca-444a-81b9-d203a2ca0198%7Cfb.1.1790640959475.835605%7C%7Ce7755a74-2c92-4599-a31f-d8d04fefbda5%7C62bb42b7-9eda-4c71-bab2-01af93fa1b00%7Cfb.1.1790640955539.1892144355%7C%7Ce7755a74-2c92-4599-a31f-d8d04fefbda5%7C074ce756-5ebe-442d-876a-eb74bb6841c8%7Cfb.1.1786822140828.566583304%7C) has been tracking employment in occupations exposed to AI using payroll data from millions of workers. Their August 2026 update found something pretty noticeable: employment for workers aged 22–25 in highly AI-exposed occupations was about **19% below** where it would've been if it had followed the same trend as less-exposed occupations. More experienced workers did not show the same gap.  
+But here's where things get more complicated. We're also starting to need fewer junior developers. [Stanford's Digital Economy Lab](https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/) has been tracking employment in occupations exposed to AI using payroll data from millions of workers. Their August 2026 update found something pretty noticeable: employment for workers aged 22–25 in highly AI-exposed occupations was about **19% below** where it would've been if it had followed the same trend as less-exposed occupations. More experienced workers did not show the same gap.  
+
+{% embed https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/ %}
   
 They also found that the difference seems to be coming mostly from **reduced hiring**, not people getting fired. That doesn't mean "AI killed 19% of junior jobs". Labor markets are way more complicated than that and the researchers themselves don't claim that, but the direction is something to take a closer look.  
   
