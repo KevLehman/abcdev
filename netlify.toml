@@ -19,3 +19,22 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Host-scoped rules cannot redirect the primary domain back to itself.
+[[redirects]]
+  from = "https://kaleman.netlify.app/*"
+  to = "https://kevinaleman.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://kaleman.netlify.app/*"
+  to = "https://kevinaleman.com/:splat"
+  status = 301
+  force = true
+
+# Serve static article exports as Markdown, without an HTML wrapper.
+[[headers]]
+  for = "/markdown/*.md"
+  [headers.values]
+    Content-Type = "text/markdown; charset=utf-8"

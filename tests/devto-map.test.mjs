@@ -14,13 +14,13 @@ const sample = {
 
 describe('mapDevtoArticle', () => {
   it('maps API fields to frontmatter with blog as canonical and dev.to as mirror', () => {
-    const out = mapDevtoArticle(sample, { idx: 11, siteUrl: 'https://kaleman.netlify.app' });
+    const out = mapDevtoArticle(sample, { idx: 11, siteUrl: 'https://kevinaleman.com' });
     expect(out.slug).toBe('my-post-123');
     expect(out.frontmatter.idx).toBe(11);
     expect(out.frontmatter.title).toBe('My Post');
     expect(out.frontmatter.tags).toEqual(['node', 'sql']);
     expect(out.frontmatter.excerpt).toBe('A short summary.');
-    expect(out.frontmatter.canonicalUrl).toBe('https://kaleman.netlify.app/my-post-123');
+    expect(out.frontmatter.canonicalUrl).toBe('https://kevinaleman.com/my-post-123');
     expect(out.frontmatter.devtoUrl).toBe('https://dev.to/kaleman15/my-post-123');
     expect(out.body).toContain('Body text.');
   });

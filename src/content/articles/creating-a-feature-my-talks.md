@@ -3,7 +3,7 @@ idx: 10
 title: "Building a new feature: showoff my talks!"
 date: 2020-09-11T17:12:33.962Z
 slug: "creation-of-a-feature-showoff-my-talks"
-canonicalUrl: "https://kaleman.netlify.app/creation-of-a-feature-showoff-my-talks"
+canonicalUrl: "https://kevinaleman.com/creation-of-a-feature-showoff-my-talks"
 devtoUrl: "https://dev.to/kaleman15/building-a-new-feature-talks-preview-4mp0"
 tags: ["gatsby", "frontend", "pdf", "react", "webdev", "showdev"]
 excerpt: "I'm a backend developer, so most of the time I'm doing backend things. I feel stressed most of the time when I need to do something at the front."
@@ -14,7 +14,7 @@ featuredImage: "../../assets/images/feature.jpg"
 
 I'm a backend developer, so most of the time I'm doing backend things. I feel stressed most of the time when I need to do something at the front. 
 
-Then, I started to build my own personal site. And it was great! It's a blog site located temporarily at [Netlify](https://kaleman.netlify.app) where you can contact me, read what I wrote, share my content with a suggested tweet, and _now_ you can see the talks I've given in my career. 
+Then, I started to build my own personal site. And it was great! It's a blog site located temporarily at [Netlify](https://kevinaleman.com) where you can contact me, read what I wrote, share my content with a suggested tweet, and _now_ you can see the talks I've given in my career.
 
 The talks are mostly about basic topics, one of them is in progress yet, but I wanted to showcase that I made them. And this was when the trouble begins
 

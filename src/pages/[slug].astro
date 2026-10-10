@@ -38,7 +38,7 @@ if (pick) {
 }
 ---
 <Base title={`${article.data.title} — Kev's logbook`} description={article.data.excerpt}
-      canonical={article.data.canonicalUrl} ogImage={ogImage} oembed={oembed}
+      canonical={new URL(`/${article.id}`, Astro.site).href} ogImage={ogImage} oembed={oembed}
       article={{ publishedTime: article.data.date, tags: article.data.tags }}>
   <article class="wrap post">
     <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
