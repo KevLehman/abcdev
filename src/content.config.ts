@@ -36,8 +36,9 @@ const talks = defineCollection({
     talks: z.array(z.object({
       title: z.string(),
       date: z.coerce.date(),
-      event: z.string(),
+      event: z.string().optional(),
       url: z.string().url().optional(),
+      preview: z.string().optional(),
     })),
   }),
 });

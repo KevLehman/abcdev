@@ -46,6 +46,10 @@ featuredImage: "../../assets/images/stream.jpg"   # local asset, optional
 
 `slug` preserves the article's public URL — do not change it for existing posts.
 Talks are listed in `src/content/talks/talks.json`.
+Each talk's `preview` points to a first-slide image in `public/talks/`, and `url`
+links to the original deck. Dates are Drive modification dates, displayed as
+"Updated"; `event` is optional. The source decks are in the public
+[Talks folder](https://drive.google.com/drive/folders/11fbg6fvhSwYbPbLAnqp2eaj2ZYxA0raN).
 
 ## Importing dev.to articles
 

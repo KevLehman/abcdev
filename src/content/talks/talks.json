@@ -1,1 +1,40 @@
-{ "talks": [] }
+{
+  "talks": [
+    {
+      "title": "API Security fundamentals (Español)",
+      "date": "2023-03-23",
+      "url": "https://docs.google.com/presentation/d/1VKDMRKxBwJVzbyTysRfQ6-rwl1u2zNvdqFqs_d1jPUo/view",
+      "preview": "/talks/api-security-fundamentals-copy.jpg"
+    },
+    {
+      "title": "What did you say? — Fuzzy search with PostgreSQL",
+      "date": "2020-09-18",
+      "url": "https://docs.google.com/presentation/d/1isxmMO2--A3YCbipufCYpzweauOC3P83RIuD3Ry4CCQ/view",
+      "preview": "/talks/fuzzy-search-adc.jpg"
+    },
+    {
+      "title": "API Security fundamentals",
+      "date": "2020-09-07",
+      "url": "https://docs.google.com/presentation/d/1eCes-VJDclxXpZV5Puga31VCZmrrej5OSuvmTvssjuM/view",
+      "preview": "/talks/api-security-fundamentals.jpg"
+    },
+    {
+      "title": "De JavaScript a Go",
+      "date": "2020-09-07",
+      "url": "https://docs.google.com/presentation/d/1dahDg3pf3A7-AlMuWUNzewXYIyV3XFD3fcqhCJySKDg/view",
+      "preview": "/talks/from-javascript-to-go.jpg"
+    },
+    {
+      "title": "Test your web API with Postman",
+      "date": "2020-09-07",
+      "url": "https://docs.google.com/presentation/d/1i7zWRW9OadsSZ0ntTZVYKoVI3RfptDhaAv4HmFuNVw4/view",
+      "preview": "/talks/testing-your-apis-with-postman.jpg"
+    },
+    {
+      "title": "Create a Messenger Bot with DialogFlow & Golang",
+      "date": "2020-08-15",
+      "url": "https://docs.google.com/presentation/d/1HHCHRt54IRvuazTO5shiYpmnH-hqJtSixuGrnlCMV2Q/view",
+      "preview": "/talks/dialogflow-go.jpg"
+    }
+  ]
+}
