@@ -255,6 +255,4 @@ Its [Review Agent Suite](https://www.qodo.ai/blog/the-next-generation-of-ai-code
 
 Across both rounds, Qodo clearly identified four of the five planted defects, partially described the fifth and found three issues in the original implementation. We still had to reproduce the findings and check the fixes. That connects to my previous article: reviewing code is part of learning how it works, and a useful comment gives you something specific to investigate.
 
-{% embed https://kevinaleman.com/the-future-after-ai-2767 %}
-
 Qodo gave me specific reasons to revisit code that had already passed the checks. That's useful when a coding agent can produce a working-looking implementation faster than I can read it. **Producing more code only helps if we can review it well enough to take responsibility for it.** Tools like Qodo can help with that work, but when I merge the PR, it's still my name on the commit.
