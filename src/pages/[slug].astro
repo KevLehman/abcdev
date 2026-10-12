@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
 import { oembedHref } from '../lib/oembed.mjs';
+import { pickRelatedArticle } from '../lib/related-articles.mjs';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
@@ -23,11 +24,7 @@ const iso = article.data.date.toISOString().slice(0, 10);
 const ogImage = article.data.featuredImage?.src ?? article.data.coverImage ?? `/og/${article.id}.png`;
 const oembed = oembedHref(article.id, Astro.site);
 
-// "Keep reading" — recommend a random other article. Picked at build time, so it
-// rotates on each deploy rather than per request (this is a static site).
-const others = (await getCollection('articles', ({ data }) => !data.draft))
-  .filter((a) => a.id !== article.id);
-const pick = others.length ? others[Math.floor(Math.random() * others.length)] : null;
+const pick = pickRelatedArticle(article, await getCollection('articles'));
 let rec = null;
 if (pick) {
   const { remarkPluginFrontmatter: fm } = await render(pick);

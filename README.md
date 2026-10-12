@@ -14,6 +14,12 @@ styled with a custom "Engineering Logbook" editorial design, and deployed to Net
   (`src/pages/og/[slug].png.js`); `public/og-default.png` covers the non-article pages
 - Client-side ⌘K search palette (`SearchPalette.astro`) over an inlined index — no backend
 - `/stats` — the log in numbers (entries, words, read time, per-year and tag breakdowns)
+- Home highlights the three newest published entries marked `featured`; article
+  recommendations prefer shared tags, then publication date.
+- RSS is linked in the navigation and footer. About includes selected projects.
+- Contact submits through Netlify Forms, with `/contact/sent/` as the confirmation
+  page. JavaScript adds a sending state and inline errors that preserve the text;
+  without JavaScript, the form uses Netlify's native POST and custom success page.
 
 ## Develop
 

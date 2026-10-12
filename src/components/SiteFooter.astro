@@ -9,7 +9,10 @@ const socials = [
 <footer>
   <div class="wrap foot">
     <span>© 2026 Kevin Aleman</span>
-    <span>{socials.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
+    <div class="foot-links">
+      <a href="/feed.xml">Subscribe via RSS</a>
+      <span>{socials.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
+    </div>
   </div>
 </footer>
 <style>
@@ -18,5 +21,6 @@ const socials = [
     font-family: var(--font-mono); font-size: .74rem; color: var(--slate); }
   .foot a { color: var(--slate); text-decoration: none; }
   .foot a:hover { color: var(--signal); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
   @media (max-width: 640px) { .foot { flex-direction: column; gap: 8px; } }
 </style>

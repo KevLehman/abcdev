@@ -5,16 +5,53 @@ import Base from '../layouts/Base.astro';
   <div class="wrap contact">
     <p class="eyebrow">// contact</p>
     <h1>Got something in mind?</h1>
-    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <form name="contact" method="POST" action="/contact/sent/" data-netlify="true" netlify-honeypot="bot-field" data-contact-form>
       <input type="hidden" name="form-name" value="contact" />
       <p class="hidden"><label>Don't fill this: <input name="bot-field" /></label></p>
-      <label>Name<input type="text" name="name" required /></label>
-      <label>Email<input type="email" name="email" required /></label>
+      <label>Name<input type="text" name="name" autocomplete="name" required /></label>
+      <label>Email<input type="email" name="email" autocomplete="email" required /></label>
       <label>Message<textarea name="message" rows="6" required></textarea></label>
       <button type="submit">Send →</button>
+      <p class="form-status" data-form-status role="status" tabindex="-1" hidden></p>
     </form>
   </div>
 </Base>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const status = form?.querySelector<HTMLParagraphElement>('[data-form-status]');
+  if (form && button && status) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (button.disabled) return;
+      const body = new URLSearchParams();
+      for (const [name, value] of new FormData(form)) body.append(name, String(value));
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      form.setAttribute('aria-busy', 'true');
+      status.setAttribute('role', 'status');
+      status.textContent = 'Sending your message…';
+      status.hidden = false;
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
+          signal: AbortSignal.timeout(15000),
+        });
+        if (!response.ok) throw new Error('Submission failed');
+        window.location.assign(form.action);
+      } catch {
+        form.removeAttribute('aria-busy');
+        button.disabled = false;
+        button.textContent = 'Send →';
+        status.setAttribute('role', 'alert');
+        status.textContent = "Your message couldn't be sent. Your text is still here. Check your connection and try Send again.";
+        status.focus();
+      }
+    });
+  }
+</script>
 <style>
   .contact { max-width: var(--measure); padding-top: 48px; }
   h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 24px; }
@@ -27,5 +64,8 @@ import Base from '../layouts/Base.astro';
   button { font-family: var(--font-mono); font-size: .85rem; align-self: flex-start;
     background: var(--graphite); color: var(--bone); border: 0; padding: 12px 20px; cursor: pointer; }
   button:hover { background: var(--signal); }
+  button:disabled { opacity: .65; cursor: wait; }
+  .form-status { font-size: 1.05rem; }
+  .form-status[role="alert"] { border-left: 2px solid var(--signal); padding-left: 12px; }
   .hidden { display: none; }
 </style>

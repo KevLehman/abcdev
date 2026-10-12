@@ -5,6 +5,7 @@ import LogbookList from '../components/LogbookList.astro';
 
 const all = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const featured = all.filter((a) => a.data.featured).slice(0, 3);
 
 const entries = await Promise.all(all.map(async (a) => {
   const { remarkPluginFrontmatter } = await render(a);
@@ -22,6 +23,23 @@ const entries = await Promise.all(all.map(async (a) => {
       <h1 class="thesis">I write about life, engineering &amp; <em>games</em>.</h1>
       <p class="sub">Engineer in El Salvador. A logbook of what I'm building, playing, and figuring out — code, games, and everything around them.</p>
     </section>
+    {featured.length > 0 && (
+      <section class="start" aria-labelledby="start-heading">
+        <h2 id="start-heading">Start here</h2>
+        <p class="start-intro">A few entries to get to know the logbook.</p>
+        <ul class="picks">
+          {featured.map((a) => (
+            <li>
+              <a class="pick" href={`/${a.id}`}>
+                <span class="pick-meta">log / {String(a.data.idx).padStart(3, '0')}</span>
+                <h3>{a.data.title}</h3>
+                <p>{a.data.excerpt}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
     <LogbookList entries={entries} />
   </div>
 </Base>
@@ -31,9 +49,23 @@ const entries = await Promise.all(all.map(async (a) => {
     line-height: 1.04; letter-spacing: -.02em; max-width: 18ch; margin-top: 18px; }
   .thesis em { font-family: var(--font-body); font-style: italic; font-weight: 400; color: var(--signal); }
   .sub { margin-top: 20px; color: var(--slate); font-size: 1.05rem; max-width: 52ch; }
+  .start { padding: 32px 0; border-bottom: 1px solid var(--hairline); }
+  .start h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; }
+  .start-intro { color: var(--slate); margin-top: 4px; }
+  .picks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
+    list-style: none; margin-top: 22px; }
+  .pick { display: block; height: 100%; padding-left: 16px; border-left: 2px solid var(--hairline);
+    color: var(--graphite); text-decoration: none; }
+  .pick:hover { border-color: var(--signal); }
+  .pick:hover h3 { color: var(--signal); }
+  .pick-meta { font-family: var(--font-mono); font-size: .72rem; color: var(--slate); }
+  .pick h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500;
+    line-height: 1.3; margin-top: 8px; }
+  .pick p { color: var(--slate); margin-top: 10px; font-size: 1rem; }
   @media (max-width: 640px) {
     .hero { padding: 40px 0 28px; }
     .thesis { font-size: 2.2rem; }
     .sub { font-size: 1rem; }
+    .picks { grid-template-columns: 1fr; gap: 22px; }
   }
 </style>
