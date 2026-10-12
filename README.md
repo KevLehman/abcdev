@@ -60,6 +60,8 @@ previous/next links after the article. Only published parts count toward the
 position and total; drafts are excluded. Navigation appears once two parts are
 published. Reading order comes from `series.order`, independent of publication
 date. Leave `series` out for standalone posts.
+Published parts with duplicate orders or conflicting titles for the same series
+ID fail the build with an error identifying the affected entries.
 
 Talks are listed in `src/content/talks/talks.json`.
 Each talk's `preview` points to a first-slide image in `public/talks/`, and `url`

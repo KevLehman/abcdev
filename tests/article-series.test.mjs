@@ -59,6 +59,43 @@ describe('getArticleSeries', () => {
     expect(getArticleSeries({ ...current }, [first, current])).toMatchObject({ position: 2, previous: first });
   });
 
+  it('sorts double-digit reading orders numerically', () => {
+    const first = article('first', 1);
+    const second = article('second', 2);
+    const tenth = article('tenth', 10);
+    expect(getArticleSeries(second, [tenth, second, first])).toMatchObject({
+      articles: [first, second, tenth], position: 2, previous: first, next: tenth,
+    });
+  });
+
+  it('counts published parts rather than authored order when a draft leaves a gap', () => {
+    const first = article('first', 1);
+    const draft = article('draft', 2, { draft: true });
+    const last = article('last', 3);
+    expect(getArticleSeries(last, [last, draft, first])).toMatchObject({
+      articles: [first, last], position: 2, previous: first, next: null,
+    });
+  });
+
+  it('rejects duplicate published orders with the series and conflicting entries', () => {
+    const first = article('first', 1);
+    const duplicate = article('duplicate', 1);
+    expect(() => getArticleSeries(first, [first, duplicate])).toThrow(/js-to-go.*order 1.*first.*duplicate/);
+  });
+
+  it('rejects conflicting published titles with the series and conflicting entries', () => {
+    const first = article('first', 1);
+    const conflict = article('conflict', 2, { series: { id: 'js-to-go', title: 'Other title', order: 2 } });
+    expect(() => getArticleSeries(first, [first, conflict])).toThrow(/js-to-go.*title.*first.*conflict/);
+  });
+
+  it('does not validate draft metadata against published series parts', () => {
+    const first = article('first', 1);
+    const last = article('last', 2);
+    const draft = article('draft', 1, { draft: true, series: { id: 'js-to-go', title: 'Working title', order: 1 } });
+    expect(getArticleSeries(first, [draft, last, first])).toMatchObject({ articles: [first, last], next: last });
+  });
+
   it('omits navigation for standalone posts, drafts, and a single published part', () => {
     const first = article('first', 1);
     const draft = article('draft', 2, { draft: true });
