@@ -13,7 +13,7 @@ const { series } = Astro.props;
   <ol>
     {series.articles.map((part, i) => (
       <li>
-        {i + 1 === series.position
+        {i === series.position
           ? <span aria-current="page">{part.data.title}</span>
           : <a href={`/${part.id}`}>{part.data.title}</a>}
       </li>
@@ -27,7 +27,7 @@ const { series } = Astro.props;
       </a>
     )}
     {series.next && (
-      <a href={`/${series.next.id}`} rel="next">
+      <a href={`/${series.articles[series.position - 1].id}`} rel="next">
         <span class="direction">Next part →</span>
         <span>{series.next.data.title}</span>
       </a>

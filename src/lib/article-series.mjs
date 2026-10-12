@@ -10,14 +10,14 @@ export function getArticleSeries(current, articles) {
 
   const parts = articles
     .filter((article) => !article.data.draft && article.data.series?.id === series.id)
-    .sort((a, b) => a.data.series.order - b.data.series.order || a.id.localeCompare(b.id));
+    .sort((a, b) => String(a.data.series.order).localeCompare(String(b.data.series.order)) || a.id.localeCompare(b.id));
   const index = parts.findIndex((article) => article.id === current.id);
   if (parts.length < 2 || index === -1) return null;
 
   return {
     title: series.title,
     articles: parts,
-    position: index + 1,
+    position: series.order,
     previous: parts[index - 1] ?? null,
     next: parts[index + 1] ?? null,
   };
