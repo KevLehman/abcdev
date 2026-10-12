@@ -19,6 +19,11 @@ const articles = defineCollection({
     excerpt: z.string(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
+    series: z.object({
+      id: z.string().trim().min(1),
+      title: z.string().trim().min(1),
+      order: z.number().int().positive(),
+    }).optional(),
     featuredImage: image().optional(),
     coverImage: z.string().url().optional(),
     tweet: z.string().optional(),

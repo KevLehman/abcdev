@@ -45,12 +45,22 @@ tags: ["nodejs", "streams"]
 excerpt: "…"
 draft: false
 featured: false
+series:                      # optional; use the same id/title on every part
+  id: js-to-go
+  title: "From JavaScript to Go"
+  order: 1                   # positive integer; unique within the series
 featuredImage: "../../assets/images/stream.jpg"   # local asset, optional
 # coverImage: "https://…"    # remote image (dev.to imports), optional
 # canonicalUrl / devtoUrl    # set on imported articles
 ```
 
 `slug` preserves the article's public URL — do not change it for existing posts.
+Series posts show their position near the title and an ordered list of parts with
+previous/next links after the article. Only published parts count toward the
+position and total; drafts are excluded. Navigation appears once two parts are
+published. Reading order comes from `series.order`, independent of publication
+date. Leave `series` out for standalone posts.
+
 Talks are listed in `src/content/talks/talks.json`.
 Each talk's `preview` points to a first-slide image in `public/talks/`, and `url`
 links to the original deck. Dates are Drive modification dates, displayed as
