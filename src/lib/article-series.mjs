@@ -22,7 +22,7 @@ export function getArticleSeries(current, articles) {
     }
     orders.set(part.data.series.order, part);
   }
-  const index = parts.findIndex((article) => article.id === current.id);
+  const index = parts.findIndex((article) => article.id.normalize('NFKC') === current.id.normalize('NFKC'));
   if (parts.length < 2 || index === -1) return null;
 
   return {
