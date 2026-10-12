@@ -4,7 +4,7 @@
 // instant and needs no backend. Opens with ⌘K / ctrl+K / "/", or the nav button.
 import { getCollection } from 'astro:content';
 
-const arts = (await getCollection('articles', ({ data }) => !data.draft))
+const arts = (await getCollection('articles', ({ data }) => !data.draft && !data.unlisted))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const index = arts.map((a) => ({
   slug: a.id,

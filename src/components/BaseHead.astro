@@ -1,7 +1,7 @@
 ---
-interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string;
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string; noindex?: boolean;
   article?: { publishedTime: Date; tags: string[] }; }
-const { title, description, canonical, ogImage, oembed, article } = Astro.props;
+const { title, description, canonical, ogImage, oembed, article, noindex = false } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 // Fall back to the site card (public/og-default.png — regenerate with the design
 // tokens if the brand changes) so every page shares with an image.
@@ -19,9 +19,10 @@ const goatcounter = import.meta.env.PUBLIC_GOATCOUNTER;
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <title>{title}</title>
 <meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 <meta name="author" content="Kevin Aleman" />
 <link rel="canonical" href={canonicalURL.href} />
-{article && <link rel="alternate" type="text/markdown" title="Markdown source"
+{article && !noindex && <link rel="alternate" type="text/markdown" title="Markdown source"
   href={new URL(`/markdown${canonicalURL.pathname.replace(/\/$/, '')}.md`, Astro.site).href} />}
 <meta property="og:type" content={article ? 'article' : 'website'} />
 <meta property="og:site_name" content="Kev's logbook" />

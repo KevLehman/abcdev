@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import { buildOembed } from '../../lib/oembed.mjs';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  const articles = await getCollection('articles', ({ data }) => !data.draft && !data.unlisted);
   return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
 }
 

@@ -12,6 +12,18 @@ const article = (id, order, options = {}) => ({
 });
 
 describe('getArticleSeries', () => {
+  it('excludes unlisted parts from links and counts and hides navigation on an unlisted article', () => {
+    const first = article('first', 1);
+    const unlisted = article('unlisted', 2, { unlisted: true });
+    const last = article('last', 3);
+    const entries = [first, unlisted, last];
+    expect(getArticleSeries(first, entries)).toMatchObject({
+      articles: [first, last], position: 1, next: last,
+    });
+    expect(getArticleSeries(last, entries)).toMatchObject({ position: 2, previous: first, next: null });
+    expect(getArticleSeries(unlisted, entries)).toBeNull();
+  });
+
   it('orders parts by explicit order and finds the current part and neighbors', () => {
     const first = article('first', 1);
     const current = article('second', 2);
@@ -57,6 +69,21 @@ describe('getArticleSeries', () => {
     const first = article('first', 1);
     const current = article('second', 2);
     expect(getArticleSeries({ ...current }, [first, current])).toMatchObject({ position: 2, previous: first });
+  });
+
+  it.each([
+    ['office', 'o\uFB03ce'],
+    ['A', '\uFF21'],
+  ])('keeps distinct routes %s and %s separate even when NFKC would match them', (firstId, secondId) => {
+    const first = article(firstId, 1);
+    const second = article(secondId, 2);
+    const entries = [second, first];
+    expect(getArticleSeries(first, entries)).toMatchObject({
+      position: 1, previous: null, next: second,
+    });
+    expect(getArticleSeries(second, entries)).toMatchObject({
+      position: 2, previous: first, next: null,
+    });
   });
 
   it('sorts double-digit reading orders numerically', () => {

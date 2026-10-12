@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
 import SeriesNavigation from '../components/SeriesNavigation.astro';
+import CollaborationDisclosure from '../components/CollaborationDisclosure.astro';
 import { oembedHref } from '../lib/oembed.mjs';
 import { pickRelatedArticle } from '../lib/related-articles.mjs';
 import { getArticleSeries } from '../lib/article-series.mjs';
@@ -24,7 +25,7 @@ const iso = article.data.date.toISOString().slice(0, 10);
 // Share image: the article's own cover when it has one; otherwise the branded
 // card generated at build time (see pages/og/) so a share never goes imageless.
 const ogImage = article.data.featuredImage?.src ?? article.data.coverImage ?? `/og/${article.id}.png`;
-const oembed = oembedHref(article.id, Astro.site);
+const oembed = article.data.unlisted ? undefined : oembedHref(article.id, Astro.site);
 
 const articles = await getCollection('articles');
 const series = getArticleSeries(article, articles);
@@ -40,7 +41,7 @@ if (pick) {
 ---
 <Base title={`${article.data.title} — Kev's logbook`} description={article.data.excerpt}
       canonical={new URL(`/${article.id}`, Astro.site).href} ogImage={ogImage} oembed={oembed}
-      article={{ publishedTime: article.data.date, tags: article.data.tags }}>
+      article={{ publishedTime: article.data.date, tags: article.data.tags }} noindex={article.data.unlisted}>
   <article class="wrap post">
     <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
     <h1>{article.data.title}</h1>
@@ -49,6 +50,7 @@ if (pick) {
       <span>·</span><span>tags {article.data.tags.join(',')}</span>
       {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>also on dev.to ↗</a></>)}
     </div>
+    {article.data.collaboration && <CollaborationDisclosure collaboration={article.data.collaboration} />}
     {series && (
       <p class="series-note">Part {series.position} of {series.articles.length} in <a href="#article-series">{series.title}</a>.</p>
     )}

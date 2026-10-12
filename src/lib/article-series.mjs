@@ -1,15 +1,15 @@
 /**
  * Build navigation from published parts in their explicit reading order.
- * @template {{ id: string, data: { draft?: boolean, series?: { id: string, title: string, order: number } } }} T
+ * @template {{ id: string, data: { draft?: boolean, unlisted?: boolean, series?: { id: string, title: string, order: number } } }} T
  * @param {T} current
  * @param {T[]} articles
  */
 export function getArticleSeries(current, articles) {
   const series = current.data.series;
-  if (!series || current.data.draft) return null;
+  if (!series || current.data.draft || current.data.unlisted) return null;
 
   const parts = articles
-    .filter((article) => !article.data.draft && article.data.series?.id === series.id)
+    .filter((article) => !article.data.draft && !article.data.unlisted && article.data.series?.id === series.id)
     .sort((a, b) => a.data.series.order - b.data.series.order);
   const orders = new Map();
   for (const part of parts) {
@@ -22,7 +22,7 @@ export function getArticleSeries(current, articles) {
     }
     orders.set(part.data.series.order, part);
   }
-  const index = parts.findIndex((article) => article.id.normalize('NFKC') === current.id.normalize('NFKC'));
+  const index = parts.findIndex((article) => article.id === current.id);
   if (parts.length < 2 || index === -1) return null;
 
   return {

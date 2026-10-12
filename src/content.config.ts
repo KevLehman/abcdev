@@ -18,7 +18,12 @@ const articles = defineCollection({
     tags: z.array(z.string()).default([]),
     excerpt: z.string(),
     draft: z.boolean().default(false),
+    unlisted: z.boolean().default(false),
     featured: z.boolean().default(false),
+    collaboration: z.object({
+      name: z.string().trim().min(1),
+      url: z.string().url().regex(/^https?:\/\//i),
+    }).optional(),
     series: z.object({
       id: z.string().trim().min(1),
       title: z.string().trim().min(1),

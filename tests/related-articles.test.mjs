@@ -6,6 +6,15 @@ const article = (id, tags, date = '2026-01-01', draft = false) => ({
 });
 
 describe('pickRelatedArticle', () => {
+  it('never recommends an unlisted article, even when it is the best match', () => {
+    const current = article('current', ['go']);
+    const unlisted = article('unlisted', ['go'], '2026-10-12');
+    unlisted.data.unlisted = true;
+    const listed = article('listed', ['sql']);
+    expect(pickRelatedArticle(current, [unlisted, listed])).toBe(listed);
+    expect(pickRelatedArticle(current, [unlisted])).toBeNull();
+  });
+
   it('prefers more shared topics over recency', () => {
     const current = article('current', ['postgresql', 'sql']);
     const close = article('close', ['sql', 'postgresql'], '2020-01-01');

@@ -4,9 +4,9 @@ import BaseHead from '../components/BaseHead.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SearchPalette from '../components/SearchPalette.astro';
-interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; oembed?: string;
+interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; oembed?: string; noindex?: boolean;
   article?: { publishedTime: Date; tags: string[] }; }
-const { title, description, active, canonical, ogImage, oembed, article } = Astro.props;
+const { title, description, active, canonical, ogImage, oembed, article, noindex } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -15,7 +15,7 @@ const { title, description, active, canonical, ogImage, oembed, article } = Astr
       const t = localStorage.getItem('theme');
       if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
     </script>
-    <BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} oembed={oembed} article={article} />
+    <BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} oembed={oembed} article={article} noindex={noindex} />
   </head>
   <body>
     <SiteHeader active={active} />
