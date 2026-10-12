@@ -9,6 +9,10 @@ tags: ["golang", "javascript", "tutorial", "opinion"]
 excerpt: "Continuing the JS-to-Go series: arrays and slices, dictionaries, sets, and first-class functions compared side by side."
 draft: false
 featured: false
+series:
+  id: js-to-go
+  title: "From JavaScript to Go"
+  order: 2
 featuredImage: "../../assets/images/node-vs-go.png"
 ---
 Hey! In my last [blog post](https://dev.to/kaleman15/from-javascript-to-go-50ef), you read some key differences between JS and Go, and how you can start to familiarize yourself with reading Go code. 

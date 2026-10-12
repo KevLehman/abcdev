@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
-const arts = (await getCollection('articles', ({ data }) => !data.draft))
+const arts = (await getCollection('articles', ({ data }) => !data.draft && !data.unlisted))
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const entries = await Promise.all(arts.map(async (a) => {

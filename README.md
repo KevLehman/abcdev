@@ -44,13 +44,35 @@ slug: "the-beauty-of-node-streams"   # the URL path (overrides the filename)
 tags: ["nodejs", "streams"]
 excerpt: "…"
 draft: false
+unlisted: false              # true: accessible by URL, hidden from discovery
 featured: false
+series:                      # optional; use the same id/title on every part
+  id: js-to-go
+  title: "From JavaScript to Go"
+  order: 1                   # positive integer; unique within the series
 featuredImage: "../../assets/images/stream.jpg"   # local asset, optional
 # coverImage: "https://…"    # remote image (dev.to imports), optional
 # canonicalUrl / devtoUrl    # set on imported articles
 ```
 
 `slug` preserves the article's public URL — do not change it for existing posts.
+Use `draft: false` with `unlisted: true` to share a work in progress by its usual
+article URL. Unlisted articles are excluded from listings, search, stats, feeds,
+recommendations, series navigation, Markdown/oEmbed exports and the sitemap.
+Their pages request `noindex, nofollow`. Anyone with the URL can read or share
+them; this is not access control. `draft: true` still prevents a page from being
+built, even when `unlisted` is set. Files in `drafts/` are also outside the content
+collection; move one into `src/content/articles/` with complete frontmatter to
+make it accessible. Set `unlisted: false` when ready to list it publicly.
+
+Series posts show their position near the title and an ordered list of parts with
+previous/next links after the article. Only published parts count toward the
+position and total; drafts and unlisted parts are excluded. Navigation appears once two parts are
+published. Reading order comes from `series.order`, independent of publication
+date. Leave `series` out for standalone posts.
+Published parts with duplicate orders or conflicting titles for the same series
+ID fail the build with an error identifying the affected entries.
+
 Talks are listed in `src/content/talks/talks.json`.
 Each talk's `preview` points to a first-slide image in `public/talks/`, and `url`
 links to the original deck. Dates are Drive modification dates, displayed as

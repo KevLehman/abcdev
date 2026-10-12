@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { getArticleSeries } from '../lib/article-series.mjs';
+
+interface Props {
+  series: NonNullable<ReturnType<typeof getArticleSeries<CollectionEntry<'articles'>>>>;
+}
+const { series } = Astro.props;
+---
+<nav class="series" id="article-series" aria-labelledby="series-title">
+  <p class="eyebrow">// series · part {series.position} of {series.articles.length}</p>
+  <h2 id="series-title">{series.title}</h2>
+  <ol>
+    {series.articles.map((part, i) => (
+      <li>
+        {i + 1 === series.position
+          ? <span aria-current="page">{part.data.title}</span>
+          : <a href={`/${part.id}`}>{part.data.title}</a>}
+      </li>
+    ))}
+  </ol>
+  <div class="neighbors">
+    {series.previous && (
+      <a href={`/${series.previous.id}`} rel="prev">
+        <span class="direction">← Previous part</span>
+        <span>{series.previous.data.title}</span>
+      </a>
+    )}
+    {series.next && (
+      <a href={`/${series.next.id}`} rel="next">
+        <span class="direction">Next part →</span>
+        <span>{series.next.data.title}</span>
+      </a>
+    )}
+  </div>
+</nav>
+<style>
+  .series { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+  h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; margin-top: 8px; }
+  ol { margin: 16px 0 0; padding-left: 24px; }
+  li { padding: 5px 0 5px 4px; overflow-wrap: anywhere; }
+  li::marker { font-family: var(--font-mono); color: var(--slate); font-size: .8rem; }
+  [aria-current="page"] { font-weight: 600; }
+  .neighbors { display: flex; gap: 16px; margin-top: 20px; }
+  .neighbors a { flex: 1; min-width: 0; display: block; padding: 14px 16px;
+    border: 1px solid var(--hairline); border-left: 3px solid var(--signal);
+    background: var(--surface); color: var(--graphite); text-decoration: none; overflow-wrap: anywhere; }
+  .neighbors a:hover { background: var(--signal); color: var(--selection-ink); }
+  .direction { display: block; font-family: var(--font-mono); font-size: .75rem;
+    color: var(--slate); margin-bottom: 6px; }
+  .neighbors a:hover .direction { color: inherit; }
+  @media (max-width: 640px) { .neighbors { flex-direction: column; } }
+</style>

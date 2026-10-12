@@ -15,7 +15,7 @@ const urlPath = (s) => {
 };
 
 export function matchArticle(article, posts) {
-  const eligible = posts.filter((p) => !p.draft);
+  const eligible = posts.filter((p) => !p.draft && !p.unlisted);
   const stages = [
     (p) => p.devtoUrl === article.url,
     (p) => urlPath(article.canonical_url) === p.path,

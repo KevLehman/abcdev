@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  collaboration: NonNullable<CollectionEntry<'articles'>['data']['collaboration']>;
+}
+const { collaboration } = Astro.props;
+---
+<aside class="collaboration" aria-label="Collaboration disclosure">
+  <p class="eyebrow">// collaboration disclosure</p>
+  <p>This article was created in collaboration with <a href={collaboration.url}>{collaboration.name}</a>.</p>
+</aside>
+<style>
+  .collaboration { margin: 24px 0; padding: 16px 20px; border: 1px solid var(--hairline);
+    border-left: 3px solid var(--signal); background: var(--surface); overflow-wrap: anywhere; }
+  .eyebrow { margin-bottom: 8px; }
+  a { text-underline-offset: .15em; }
+</style>

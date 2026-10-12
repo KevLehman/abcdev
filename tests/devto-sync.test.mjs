@@ -8,6 +8,7 @@ it('prefers explicit DEV links and refuses ambiguous or conflicting matches and 
   expect(matchArticle(article, [post, { ...post }])).toBeNull();
   expect(matchArticle(article, [{ ...post, devtoUrl: 'https://dev.to/kaleman15/other' }])).toBeNull();
   expect(matchArticle(article, [{ ...post, draft: true }])).toBeNull();
+  expect(matchArticle(article, [{ ...post, unlisted: true }])).toBeNull();
   expect(matchArticle({ ...article, title: 'Unrelated' }, [{ ...post, devtoUrl: undefined }])).toBeNull();
   expect(matchArticle({ ...article, canonical_url: 'https://kaleman.netlify.app/local-slug' }, [{ ...post, devtoUrl: undefined }])?.path).toBe('/local-slug');
 });

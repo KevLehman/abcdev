@@ -3,8 +3,11 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
+import SeriesNavigation from '../components/SeriesNavigation.astro';
+import CollaborationDisclosure from '../components/CollaborationDisclosure.astro';
 import { oembedHref } from '../lib/oembed.mjs';
 import { pickRelatedArticle } from '../lib/related-articles.mjs';
+import { getArticleSeries } from '../lib/article-series.mjs';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
@@ -22,9 +25,11 @@ const iso = article.data.date.toISOString().slice(0, 10);
 // Share image: the article's own cover when it has one; otherwise the branded
 // card generated at build time (see pages/og/) so a share never goes imageless.
 const ogImage = article.data.featuredImage?.src ?? article.data.coverImage ?? `/og/${article.id}.png`;
-const oembed = oembedHref(article.id, Astro.site);
+const oembed = article.data.unlisted ? undefined : oembedHref(article.id, Astro.site);
 
-const pick = pickRelatedArticle(article, await getCollection('articles'));
+const articles = await getCollection('articles');
+const series = getArticleSeries(article, articles);
+const pick = pickRelatedArticle(article, articles);
 let rec = null;
 if (pick) {
   const { remarkPluginFrontmatter: fm } = await render(pick);
@@ -36,7 +41,7 @@ if (pick) {
 ---
 <Base title={`${article.data.title} — Kev's logbook`} description={article.data.excerpt}
       canonical={new URL(`/${article.id}`, Astro.site).href} ogImage={ogImage} oembed={oembed}
-      article={{ publishedTime: article.data.date, tags: article.data.tags }}>
+      article={{ publishedTime: article.data.date, tags: article.data.tags }} noindex={article.data.unlisted}>
   <article class="wrap post">
     <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
     <h1>{article.data.title}</h1>
@@ -45,6 +50,10 @@ if (pick) {
       <span>·</span><span>tags {article.data.tags.join(',')}</span>
       {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>also on dev.to ↗</a></>)}
     </div>
+    {article.data.collaboration && <CollaborationDisclosure collaboration={article.data.collaboration} />}
+    {series && (
+      <p class="series-note">Part {series.position} of {series.articles.length} in <a href="#article-series">{series.title}</a>.</p>
+    )}
     {article.data.featuredImage
       ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800, 1200]}
           sizes="(max-width: 680px) calc(100vw - 40px), 620px" loading="eager" fetchpriority="high" />
@@ -60,6 +69,7 @@ if (pick) {
       </nav>
     )}
     <div class="prose"><Content /></div>
+    {series && <SeriesNavigation series={series} />}
     {rec && <KeepReading {...rec} />}
   </article>
   <script is:inline>
@@ -162,6 +172,7 @@ if (pick) {
     display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 0; border-top: 1px solid var(--hairline);
     border-bottom: 1px solid var(--hairline); }
   .readout a { color: var(--signal); text-decoration: none; }
+  .series-note { margin-top: 16px; font-size: .95rem; color: var(--slate); }
   .hero-img { width: 100%; height: auto; margin: 28px 0; }
   .toc { margin-top: 28px; padding: 16px 0 6px; border-top: 1px solid var(--hairline); }
   .toc ol { list-style: none; margin-top: 10px; }
