@@ -230,7 +230,7 @@ if (pick) {
   .prose :global(.code-copy.did) { color: var(--signal); border-color: var(--signal); }
   @media (hover: none) { .prose :global(.code-copy) { opacity: 1; } }
   .prose :global(code) { font-family: var(--font-mono); font-size: .9em; }
-  .prose :global(:not(pre) > code) { overflow-wrap: anywhere; }
+  .prose :global(:not(pre) > code) { overflow-wrap: anywhere; background: var(--hairline); }
   .prose :global(blockquote) { border-left: 3px solid var(--signal); padding-left: 1rem; color: var(--slate); margin-bottom: 1.1rem; }
   /* Link card for `{% embed url %}` tags — mirrors the mono/hairline brand. */
   .prose :global(.embed-card) {
