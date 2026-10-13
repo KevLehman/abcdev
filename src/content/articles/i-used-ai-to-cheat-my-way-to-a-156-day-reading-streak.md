@@ -10,6 +10,7 @@ unlisted: false
 featured: false
 canonicalUrl: "https://kevinaleman.com/i-used-ai-to-cheat-my-way-to-a-156-day-reading-streak"
 coverImage: "https://kevinaleman.com/images/reading-streak-header.png"
+devtoUrl: "https://dev.to/kaleman15/i-used-ai-to-cheat-my-way-to-a-156-day-reading-streak-1mh4"
 ---
 
 I asked Codex to recover my Apple Books reading streak. Very important engineering work, obviously.
