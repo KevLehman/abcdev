@@ -40,6 +40,10 @@ And yes, saying **AI has a functional programming problem** is technically unfai
 
 And abstraction isn't free. Every function introduces another name, another place to jump to, another interface you need to keep in your head. You wanted to understand where the data comes from and now you're opening your fourth file.
 
+![A developer faces a winding route through five empty doorframes, while a short path leads directly to the same workbench.](https://kevinaleman.com/images/functional-programming-call-path.webp)
+
+*Same job. More doors to open.*
+
 John Ousterhout describes a similar problem with *shallow modules*: abstractions whose interface is large relative to how much complexity they actually hide. They don't really remove complexity. They move it.
 
 {% embed https://web.stanford.edu/~ouster/cgi-bin/cs190-spring16/lecture.php?topic=modularDesign %}
@@ -70,6 +74,10 @@ The model also doesn't experience the code like we do. Creating another helper c
 
 And we're starting to get actual evidence that **functionally correct LLM code can still have structural quality problems**.
 
+![Two working control cabinets have green lights. One has tangled wiring and hard-to-reach components; the other keeps its wiring organized and components accessible.](https://kevinaleman.com/images/functional-programming-maintainability.webp)
+
+*Both lights are green. Guess which one you want to debug six months from now.*
+
 An ICSE 2026 study measured how likely LLM-generated code was to contain code smells and found that generation strategy, model architecture, model size and, importantly, **prompt formulation** influence those smells.
 
 {% embed https://www.microsoft.com/en-us/research/publication/a-causal-perspective-on-measuring-explaining-and-mitigating-smells-in-llm-generated-code/ %}
@@ -87,6 +95,10 @@ None of these studies proves that AI loves one-line wrappers. They do show that 
 ## So how do we stop it?
 
 Tell the AI that **abstractions need to pay rent**.
+
+![Empty entrance facades pass a gear through unchanged, beside a workshop that hides useful machinery behind a small input hatch.](https://kevinaleman.com/images/functional-programming-deep-abstraction.webp)
+
+*A small entrance is useful when there's an actual workshop behind it.*
 
 I've started preferring instructions closer to:
 
