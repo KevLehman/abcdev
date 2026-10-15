@@ -10,6 +10,7 @@ unlisted: false
 featured: false
 canonicalUrl: "https://kevinaleman.com/ai-has-a-problem-with-functional-programming"
 coverImage: "https://kevinaleman.com/images/functional-programming-header.png"
+devtoUrl: "https://dev.to/kaleman15/ai-has-a-problem-with-functional-programming-kpm"
 ---
 
 There is a pattern I keep seeing in AI-generated code. You ask it to implement something relatively simple and you get this:
