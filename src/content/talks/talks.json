@@ -1,6 +1,30 @@
 {
   "talks": [
     {
+      "title": "Rocket.Chat API Best Practices",
+      "date": "2026-10-12",
+      "url": "https://docs.google.com/presentation/d/1XgalWu_T-gtzZFHMWTCk4oQSdIGJRDzd-7tl-txOVkc/view",
+      "preview": "/talks/api-primer.jpg"
+    },
+    {
+      "title": "Public speaking tips — for introverts (and not-so-introverts)",
+      "date": "2026-10-12",
+      "url": "https://docs.google.com/presentation/d/111nzg8l5Ykvo-JN-sL0pGdWsGrnuYhX4DwzHeDZ4R4E/view",
+      "preview": "/talks/public-speaking-for-introverts.jpg"
+    },
+    {
+      "title": "Services @Rocket.Chat",
+      "date": "2026-10-12",
+      "url": "https://docs.google.com/presentation/d/1-eRAIZT842m3bw6lOBzO38Rqti_07yJS4vVCgTLfzAk/view",
+      "preview": "/talks/services-at-rocket.jpg"
+    },
+    {
+      "title": "How to Be Human in the AI Era",
+      "date": "2026-08-28",
+      "url": "https://drive.google.com/file/d/1XuS5HBRC-pBd-QMjCAVlHSi4TidUaL1l/view",
+      "preview": "/talks/how-to-be-human-in-the-ai-era.jpg"
+    },
+    {
       "title": "API Security fundamentals (Español)",
       "date": "2023-03-23",
       "url": "https://docs.google.com/presentation/d/1VKDMRKxBwJVzbyTysRfQ6-rwl1u2zNvdqFqs_d1jPUo/view",
