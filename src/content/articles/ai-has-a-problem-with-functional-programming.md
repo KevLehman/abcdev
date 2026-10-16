@@ -16,20 +16,30 @@ devtoUrl: "https://dev.to/kaleman15/ai-has-a-problem-with-functional-programming
 There is a pattern I keep seeing in AI-generated code. You ask it to implement something relatively simple and you get this:
 
 ```ts
+const createRequestContext = (request) => ({ request });
+const resolveRequest = (context) => context.request;
+const extractIdentifier = (request) => request.id;
+
+const createRepositoryAdapter = (repository) =>
+  (id) => repository.get(id);
+
+const createTransformationStrategy = (mapper) =>
+  (data) => mapper.transform(data);
+
+const createProcessingPipeline = (fetch) => (transform) =>
+  async (context) =>
+    transform(await fetch(extractIdentifier(resolveRequest(context))));
+
+const createRequestHandler = (pipeline) => (request) =>
+  pipeline(createRequestContext(request));
+
+const processRequest = createRequestHandler(
+  createProcessingPipeline(createRepositoryAdapter(repository))(
+    createTransformationStrategy(mapper),
+  ),
+);
+
 const result = await processRequest(request);
-
-async function processRequest(request) {
-  const data = await getData(request);
-  return transformData(data);
-}
-
-async function getData(request) {
-  return repository.get(request.id);
-}
-
-function transformData(data) {
-  return mapper.transform(data);
-}
 ```
 
 Every function looks perfectly reasonable in isolation. But most of those functions add almost nothing. We've turned two operations into a small guided tour of the codebase.
