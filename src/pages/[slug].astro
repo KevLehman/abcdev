@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
 import SeriesNavigation from '../components/SeriesNavigation.astro';
 import CollaborationDisclosure from '../components/CollaborationDisclosure.astro';
+import Subscribe from '../components/Subscribe.astro';
 import { oembedHref } from '../lib/oembed.mjs';
 import { pickRelatedArticle } from '../lib/related-articles.mjs';
 import { getArticleSeries } from '../lib/article-series.mjs';
@@ -69,6 +70,7 @@ if (pick) {
       </nav>
     )}
     <div class="prose"><Content /></div>
+    <Subscribe />
     {series && <SeriesNavigation series={series} />}
     {rec && <KeepReading {...rec} />}
   </article>

@@ -1,0 +1,34 @@
+<section class="subscribe" aria-labelledby="subscribe-heading">
+  <p class="eyebrow">// stay in the loop</p>
+  <h2 id="subscribe-heading">Keep learning</h2>
+  <p class="description">Get new posts by email.</p>
+  <form action="https://api.follow.it/subscription-form/WHZRMEtScUljSkY4UkNHSXM0c0ZraUU3OUQwbnRKcmpFa1JGZE5iNlgzZHpxZlVpVUxqTDZQcnROTyt6by80TXdvM2xlaTdSb1hObVJQdGJwQ3k1ZzlRblJackpwTGVWbDRVdERrVDhVS0p6UU56MkxUL0hYbmQzTzRDblQ2T2Z8eUR5UkZ5SkE3dzRORzI3bTd3dU9MQmhuVS9qTllVNWl0RGtOaVU1bThDZz0=/8" method="post">
+    <label for="subscribe-email">Email address</label>
+    <div class="controls">
+      <input id="subscribe-email" type="email" name="email" required
+        autocomplete="email" placeholder="Your email address" spellcheck="false" />
+      <button type="submit">Subscribe</button>
+    </div>
+  </form>
+  <a class="powered-by" href="https://follow.it">Powered by follow.it</a>
+</section>
+<style>
+  .subscribe { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+  h2 { margin-top: 10px; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+  .description { margin-top: 8px; color: var(--slate); }
+  form { margin-top: 20px; }
+  label { display: block; margin-bottom: 6px; font-family: var(--font-mono);
+    font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: var(--slate); }
+  .controls { display: flex; gap: 10px; }
+  input { flex: 1; min-width: 0; min-height: 44px; padding: 10px 12px;
+    border: 1px solid var(--hairline); background: var(--surface); color: var(--graphite);
+    font-family: var(--font-body); font-size: 1rem; }
+  input::placeholder { color: var(--slate); opacity: 1; }
+  button { min-height: 44px; padding: 12px 20px; border: 0;
+    background: var(--graphite); color: var(--bone); cursor: pointer;
+    font-family: var(--font-mono); font-size: .85rem; }
+  button:hover { opacity: .85; }
+  .powered-by { display: inline-block; margin-top: 12px; color: var(--slate);
+    font-family: var(--font-mono); font-size: .72rem; }
+  @media (max-width: 480px) { .controls { flex-direction: column; } }
+</style>
