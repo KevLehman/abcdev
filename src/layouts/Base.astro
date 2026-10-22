@@ -5,7 +5,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SearchPalette from '../components/SearchPalette.astro';
 interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; oembed?: string; noindex?: boolean;
-  article?: { publishedTime: Date; tags: string[] }; }
+  article?: { title: string; publishedTime: Date; tags: string[] }; }
 const { title, description, active, canonical, ogImage, oembed, article, noindex } = Astro.props;
 ---
 <!doctype html>

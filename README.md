@@ -14,8 +14,12 @@ styled with a custom "Engineering Logbook" editorial design, and deployed to Net
   (`src/pages/og/[slug].png.js`); `public/og-default.png` covers the non-article pages
 - Client-side ⌘K search palette (`SearchPalette.astro`) over an inlined index — no backend
 - `/stats` — the log in numbers (entries, words, read time, per-year and tag breakdowns)
-- Home highlights the three newest published entries marked `featured`; article
-  recommendations prefer shared tags, then publication date.
+- Home highlights four entries curated by route in `src/pages/index.astro`, with
+  metadata from the content collection; article recommendations prefer shared
+  tags, then publication date.
+- Public pages identify Kevin Aleman and his site through JSON-LD; published
+  articles include `BlogPosting` data using their canonical URL and share image.
+  No modification date is emitted without a recorded editorial update date.
 - RSS is linked in the navigation and footer. About includes selected projects.
 - Contact submits through Netlify Forms, with `/contact/sent/` as the confirmation
   page. JavaScript adds a sending state and inline errors that preserve the text;
@@ -45,7 +49,7 @@ tags: ["nodejs", "streams"]
 excerpt: "…"
 draft: false
 unlisted: false              # true: accessible by URL, hidden from discovery
-featured: false
+featured: false              # legacy flag; Start here is curated by route
 series:                      # optional; use the same id/title on every part
   id: js-to-go
   title: "From JavaScript to Go"
@@ -59,9 +63,10 @@ featuredImage: "../../assets/images/stream.jpg"   # local asset, optional
 Use `draft: false` with `unlisted: true` to share a work in progress by its usual
 article URL. Unlisted articles are excluded from listings, search, stats, feeds,
 recommendations, series navigation, Markdown/oEmbed exports and the sitemap.
-Their pages request `noindex, nofollow`. Anyone with the URL can read or share
-them; this is not access control. `draft: true` still prevents a page from being
-built, even when `unlisted` is set. Files in `drafts/` are also outside the content
+Their pages request `noindex, nofollow` and omit canonical links and JSON-LD.
+The 404 and contact confirmation pages also request noindex. Anyone with an
+unlisted URL can read or share it; this is not access control. `draft: true` still
+prevents a page from being built, even when `unlisted` is set. Files in `drafts/` are also outside the content
 collection; move one into `src/content/articles/` with complete frontmatter to
 make it accessible. Set `unlisted: false` when ready to list it publicly.
 

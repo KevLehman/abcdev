@@ -42,7 +42,7 @@ if (pick) {
 ---
 <Base title={`${article.data.title} — Kev's logbook`} description={article.data.excerpt}
       ogImage={ogImage} oembed={oembed}
-      article={{ publishedTime: article.data.date, tags: article.data.tags }} noindex={article.data.unlisted}>
+      article={{ title: article.data.title, publishedTime: article.data.date, tags: article.data.tags }} noindex={article.data.unlisted}>
   <article class="wrap post">
     <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
     <h1>{article.data.title}</h1>

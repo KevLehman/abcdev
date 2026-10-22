@@ -1,17 +1,12 @@
 ---
-const socials = [
-  { href: 'https://dev.to/kaleman15', label: 'dev.to' },
-  { href: 'https://github.com/KevLehman', label: 'github' },
-  { href: 'https://twitter.com/kaleman15', label: 'twitter' },
-  { href: 'https://www.facebook.com/k.alemangarcia', label: 'facebook' },
-];
+import { socialProfiles } from '../lib/structured-data.mjs';
 ---
 <footer>
   <div class="wrap foot">
     <span>© 2026 Kevin Aleman</span>
     <div class="foot-links">
       <a href="/feed.xml">Subscribe via RSS</a>
-      <span>{socials.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
+      <span>{socialProfiles.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
     </div>
   </div>
 </footer>
