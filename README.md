@@ -27,6 +27,8 @@ styled with a custom "Engineering Logbook" editorial design, and deployed to Net
 
 ## Develop
 
+Use Node 22.23.4 or newer; `.nvmrc` pins the development version.
+
 ```bash
 npm install
 npm run dev       # local dev server
@@ -110,14 +112,14 @@ emitted, so local dev and previews stay tracking-free. The script also skips
 ## Deploy
 
 Pushed to Netlify via CI. `netlify.toml` pins the build (`npm run build` → `dist/`)
-and Node 22.
+and Node 22.23.4.
 
 ## DEV canonical synchronization
 
 DEV is a syndication channel; publish the original on https://kevinaleman.com.
 Create a key at https://dev.to/settings/extensions (DEV Community API Keys).
 Set `DEVTO_API_KEY` in your shell environment or an ignored root `.env` file
-(`DEVTO_API_KEY=...`). Never commit or share it. Node 22 is required.
+(`DEVTO_API_KEY=...`). Never commit or share it. Node 22.23.4 or newer is required.
 
 ```bash
 npm run devto:sync             # authenticated dry-run; no writes
