@@ -8,13 +8,28 @@ const stack = [
   'GitHub Actions', 'Telegram Bots', 'AI agents', 'Git', 'Vim',
 ];
 ---
-<Base title="About — Kev's logbook" description="Kevin Aleman — backend & systems engineer in El Salvador." active="about">
+<Base title="About — Kev's logbook" description="Kevin Aleman — backend & systems developer, open source maintainer, and Google Summer of Code mentor in El Salvador." active="about">
   <div class="wrap about">
     <p class="eyebrow">// about</p>
     <h1>About me</h1>
-    <p class="lead">I'm a backend & systems developer living in El Salvador. I'm a passionate learner of new
-      technologies and things that make my life easier. My goal is to build tools that help everyone — even in
-      poorer countries like mine — get access to knowledge.</p>
+    <p class="lead">I'm a backend & systems developer and open source maintainer based in El Salvador.
+      I build tools that make everyday work easier, from database utilities and macOS apps to bots and
+      web applications. I care about making knowledge and useful software more accessible, especially
+      where resources are limited.</p>
+    <section aria-labelledby="open-source-heading">
+      <h2 id="open-source-heading">Open source & mentoring</h2>
+      <article class="project">
+        <h3>Rocket.Chat & Google Summer of Code</h3>
+        <p>My open source work includes reviewing pull requests, triaging issues, and mentoring
+          Google Summer of Code contributors at Rocket.Chat. I care about helping people understand
+          the code they're changing, write useful tests, and take responsibility for what they ship.
+          Maintaining software means making time for the people building it, too.</p>
+        <div class="project-links">
+          <a href="https://github.com/RocketChat/Rocket.Chat">Explore Rocket.Chat</a>
+          <a href="/you-got-selected-for-gsoc-2026-now-what-1bdc">Read my advice for GSoC contributors</a>
+        </div>
+      </article>
+    </section>
     <section class="projects" aria-labelledby="projects-heading">
       <h2 id="projects-heading">Things I've built</h2>
       <article class="project">
@@ -25,6 +40,29 @@ const stack = [
         <a href="/the-apple-books-data-model-1f8h">Read the data model walkthrough</a>
       </article>
       <article class="project">
+        <h3>PortsApp</h3>
+        <p>A Swift macOS menu-bar app for seeing which processes are listening on local ports.
+          It identifies Docker containers, shows process trees, and lets me stop a process or open
+          its local URL without digging through terminal output.</p>
+        <a href="https://github.com/KevLehman/MacPorts">View the source</a>
+      </article>
+      <article class="project">
+        <h3>Oplog Viewer</h3>
+        <p>A TypeScript command-line tool for watching MongoDB's operation log. It connects to
+          a database and filters events by namespace, making it easier to inspect changes as they happen.</p>
+        <a href="https://github.com/KevLehman/oplog-viewer">View the source</a>
+      </article>
+      <article class="project">
+        <h3>Gatsby Google Drive plugin</h3>
+        <p>I wanted to publish my talks without manually copying files out of Google Drive, so I built
+          a plugin that downloads a folder and its subfolders during a Gatsby build. It became the
+          bridge between the presentations I edited in Drive and the files served by my site.</p>
+        <div class="project-links">
+          <a href="https://github.com/KevLehman/gatsby-plugin-googledrive">View the source</a>
+          <a href="/creation-of-a-feature-showoff-my-talks">Read the walkthrough</a>
+        </div>
+      </article>
+      <article class="project">
         <h3>Visible Ads</h3>
         <p>I built a Chrome extension that adds a blue border to Google search ads, making them easier
           to spot. The accompanying tutorial walks through the manifest, background scripts, and
@@ -33,6 +71,31 @@ const stack = [
           <a href="https://github.com/KevLehman/visible-ads">View the source</a>
           <a href="/how-to-make-a-chrome-extension">Read the walkthrough</a>
         </div>
+      </article>
+    </section>
+    <section aria-labelledby="private-projects-heading">
+      <h2 id="private-projects-heading">Private projects</h2>
+      <p>Some of my work lives in private repositories: tools for managing paperwork, organizing
+        community activities, and learning from the things I read.</p>
+      <article class="project">
+        <h3>CCFMaster</h3>
+        <p>An invoice tracker built around El Salvador's electronic tax documents. It collects
+          PDF and JSON documents from Gmail, classifies them by document type, and stores them in
+          SQLite. A web interface and Telegram bot make it easier to review invoices, retrieve files,
+          and prepare the month's paperwork.</p>
+      </article>
+      <article class="project">
+        <h3>PreachHelper</h3>
+        <p>A scheduling app for congregation territory assignments. It builds monthly programs,
+          balances assignments across groups, tracks daily progress, and generates printable records.
+          I built it with Node.js, Express, and SQLite, with Spanish and English interfaces.</p>
+      </article>
+      <article class="project">
+        <h3>WiseTok</h3>
+        <p>A study app that turns documents into short, scrollable knowledge cards. It combines
+          a React interface with document conversion and AI extraction, with support for hosted
+          models or local models through Ollama. SQLite keeps the cards available without processing
+          the same file again.</p>
       </article>
     </section>
     <h2>What I work with</h2>
@@ -46,7 +109,8 @@ const stack = [
   .lead { font-size: 1.2rem; line-height: 1.7; }
   .project { padding: 20px 0; border-top: 1px solid var(--hairline); }
   .project h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; }
-  .project p { margin: 8px 0 12px; font-size: 1.1rem; line-height: 1.65; }
+  section > p, .project p { font-size: 1.1rem; line-height: 1.65; }
+  .project p { margin: 8px 0 12px; }
   .project a { font-family: var(--font-mono); font-size: .78rem; }
   .project-links { display: flex; flex-wrap: wrap; gap: 10px 20px; }
   .stack { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
