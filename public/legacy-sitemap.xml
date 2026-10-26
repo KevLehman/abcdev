@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Migration snapshot: let Google recrawl these old URLs and discover their 301 redirects. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://kaleman.netlify.app/</loc></url>
+  <url><loc>https://kaleman.netlify.app/a-tale-of-candy-crush-technical-debt-143h/</loc></url>
+  <url><loc>https://kaleman.netlify.app/about/</loc></url>
+  <url><loc>https://kaleman.netlify.app/ai-has-a-problem-with-functional-programming/</loc></url>
+  <url><loc>https://kaleman.netlify.app/algorithms-in-real-life-binary-search/</loc></url>
+  <url><loc>https://kaleman.netlify.app/contact/</loc></url>
+  <url><loc>https://kaleman.netlify.app/creation-of-a-feature-showoff-my-talks/</loc></url>
+  <url><loc>https://kaleman.netlify.app/develop-js-ts-with-vim/</loc></url>
+  <url><loc>https://kaleman.netlify.app/from-js-to-go-i/</loc></url>
+  <url><loc>https://kaleman.netlify.app/from-js-to-go-ii/</loc></url>
+  <url><loc>https://kaleman.netlify.app/fuzzy-search-with-postgresql/</loc></url>
+  <url><loc>https://kaleman.netlify.app/getting-query-performance-stats-with-pg/</loc></url>
+  <url><loc>https://kaleman.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-1-5bff/</loc></url>
+  <url><loc>https://kaleman.netlify.app/gotta-earn-em-all-the-gym-badges-of-agentic-engineering-part-2-5a11/</loc></url>
+  <url><loc>https://kaleman.netlify.app/how-to-make-a-chrome-extension/</loc></url>
+  <url><loc>https://kaleman.netlify.app/i-used-ai-to-cheat-my-way-to-a-156-day-reading-streak/</loc></url>
+  <url><loc>https://kaleman.netlify.app/in-the-ai-era-code-is-cheap-reputation-isnt-3482/</loc></url>
+  <url><loc>https://kaleman.netlify.app/manage-scheduling-with-postgresql/</loc></url>
+  <url><loc>https://kaleman.netlify.app/proof-driven-development/</loc></url>
+  <url><loc>https://kaleman.netlify.app/stats/</loc></url>
+  <url><loc>https://kaleman.netlify.app/talks/</loc></url>
+  <url><loc>https://kaleman.netlify.app/the-apple-books-data-model-1f8h/</loc></url>
+  <url><loc>https://kaleman.netlify.app/the-beauty-of-node-streams/</loc></url>
+  <url><loc>https://kaleman.netlify.app/the-future-after-ai-2767/</loc></url>
+  <url><loc>https://kaleman.netlify.app/you-got-selected-for-gsoc-2026-now-what-1bdc/</loc></url>
+  <url><loc>https://kaleman.netlify.app/you-re-doing-great-and-you-need-to-hear-that-12ba/</loc></url>
+</urlset>

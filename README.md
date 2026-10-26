@@ -149,8 +149,15 @@ of imported canonical metadata. Imports default to the primary domain; do not
 set `SITE_URL` to the legacy deployment hostname.
 
 Deploy these changes before applying synchronization. `netlify.toml` redirects
-both HTTP and HTTPS requests on `kaleman.netlify.app` permanently to the primary
-site, preserving paths and query strings. In Netlify Domain management, verify
+page requests on `kaleman.netlify.app` permanently to the primary
+site, preserving paths and query strings. The old HTTPS `/robots.txt` and
+`/sitemap.xml` instead serve `public/legacy-robots.txt` and
+`public/legacy-sitemap.xml` directly. The legacy sitemap is a migration snapshot
+of the old URLs, so Google can discover and recrawl their redirects; do not add
+new posts to it. Submit `https://kaleman.netlify.app/sitemap.xml` in the old
+Search Console property and the regular sitemap index in the new property.
+Redirect warnings for the old sitemap are expected during the move.
+In Netlify Domain management, verify
 `kevinaleman.com` is the primary domain on the same site that owns
 `kaleman.netlify.app`. If the old hostname belongs to a separate Netlify site,
 deploy the host-specific redirect rules there too. After deploy, check a real

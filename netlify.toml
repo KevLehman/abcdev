@@ -20,6 +20,19 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# Serve migration discovery files without a cross-domain redirect.
+[[redirects]]
+  from = "https://kaleman.netlify.app/robots.txt"
+  to = "/legacy-robots.txt"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://kaleman.netlify.app/sitemap.xml"
+  to = "/legacy-sitemap.xml"
+  status = 200
+  force = true
+
 # Host-scoped rules cannot redirect the primary domain back to itself.
 [[redirects]]
   from = "https://kaleman.netlify.app/*"
