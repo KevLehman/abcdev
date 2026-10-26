@@ -85,6 +85,16 @@ const tiles = [
     </section>
 
     <section>
+      <h2 class="eyebrow">from the archive</h2>
+      {entries[0] && (
+        <div class="archive">
+          <p>The first entry in the logbook · {entries[0].date.toISOString().slice(0, 10)}</p>
+          <a href={`/${entries[0].id}`}>{entries[0].title} →</a>
+        </div>
+      )}
+    </section>
+
+    <section>
       <h2 class="eyebrow">records</h2>
       <ul class="records">
         <li><span>longest entry</span><a href={`/${longest.id}`}>{longest.title}</a><span class="rec-val">{longest.minutes}m</span></li>
@@ -118,6 +128,10 @@ const tiles = [
   .bar { display: block; height: 100%; background: var(--signal); min-width: 0; }
   .bar-count { text-align: right; color: var(--graphite); }
   .footnote { margin-top: 10px; font-family: var(--font-mono); font-size: .7rem; color: var(--slate); }
+  .archive { margin-top: 14px; padding: 16px; border-left: 2px solid var(--signal); background: var(--surface); }
+  .archive p { color: var(--slate); font-family: var(--font-mono); font-size: .75rem; }
+  .archive a { display: inline-block; margin-top: 8px; color: var(--graphite); font-family: var(--font-display); font-weight: 500; }
+  .archive a:hover { color: var(--signal); }
 
   .records { list-style: none; margin-top: 14px; border-top: 1px solid var(--hairline); }
   .records li { display: flex; gap: 14px; align-items: baseline; padding: 11px 0;

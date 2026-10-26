@@ -12,11 +12,13 @@ styled with a custom "Engineering Logbook" editorial design, and deployed to Net
 - RSS via `@astrojs/rss`; sitemap via `@astrojs/sitemap`; contact form via Netlify Forms
 - Per-article social share cards rendered at build time with **satori** + **resvg**
   (`src/pages/og/[slug].png.js`); `public/og-default.png` covers the non-article pages
-- Client-side ⌘K search palette (`SearchPalette.astro`) over an inlined index — no backend
+- Client-side ⌘K search palette (`SearchPalette.astro`); a static full-text index
+  loads on first use, with an inlined metadata index as a fallback — no backend
 - `/stats` — the log in numbers (entries, words, read time, per-year and tag breakdowns)
 - Home highlights four entries curated by route in `src/pages/index.astro`, with
-  metadata from the content collection; article recommendations prefer shared
-  tags, then publication date.
+  metadata from the content collection, plus curated reading paths and a random
+  entry button. Article tags link to the filtered logbook; article recommendations
+  prefer shared tags, then publication date.
 - Public pages identify Kevin Aleman and his site through JSON-LD; published
   articles include `BlogPosting` data using their canonical URL and share image.
   No modification date is emitted without a recorded editorial update date.

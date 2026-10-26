@@ -21,6 +21,7 @@ const tags = [...counts.entries()]
   <div class="facetbar" data-facets hidden>
     <span class="facet-label eyebrow">tags</span>
     <span class="count" data-count aria-live="polite">{entries.length} entries</span>
+    <button type="button" class="facet surprise" data-surprise>surprise me ↗</button>
     <div class="facet-list">
       <button type="button" class="facet" data-tag="" aria-pressed="true">all</button>
       {tags.map((t) => (
@@ -48,9 +49,13 @@ const tags = [...counts.entries()]
     const bar = document.querySelector('[data-facets]');
     if (!bar) return;
     const rows = Array.from(document.querySelectorAll('.row[data-tags]'));
-    const facets = Array.from(bar.querySelectorAll('.facet'));
+    const facets = Array.from(bar.querySelectorAll('.facet[data-tag]'));
     const count = bar.querySelector('[data-count]');
     const total = rows.length;
+    bar.querySelector('[data-surprise]').addEventListener('click', () => {
+      const visible = rows.filter((row) => !row.hidden);
+      if (visible.length) location.href = visible[Math.floor(Math.random() * visible.length)].href;
+    });
 
     const apply = (tag) => {
       let shown = 0;
@@ -60,15 +65,20 @@ const tags = [...counts.entries()]
         if (match) shown++;
       }
       for (const f of facets) f.setAttribute('aria-pressed', String((f.dataset.tag || '') === tag));
-      count.textContent = tag ? `${shown} of ${total}` : `${total} entries`;
+      count.textContent = tag ? `${tag} · ${shown} of ${total}` : `${total} entries`;
       const next = tag ? `#${encodeURIComponent(tag)}` : location.pathname + location.search;
       history.replaceState(null, '', next);
     };
 
     for (const f of facets) f.addEventListener('click', () => apply(f.dataset.tag || ''));
-    const known = new Set(facets.map((f) => f.dataset.tag || ''));
-    const initial = decodeURIComponent(location.hash.slice(1));
-    apply(known.has(initial) ? initial : '');
+    const known = new Set(rows.flatMap((r) => r.dataset.tags.split(' ')));
+    const fromHash = () => {
+      let tag = '';
+      try { tag = decodeURIComponent(location.hash.slice(1)); } catch {}
+      apply(known.has(tag) ? tag : '');
+    };
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
     bar.hidden = false;
   })();
 </script>
@@ -86,6 +96,7 @@ const tags = [...counts.entries()]
     background: none; border: 0; padding: 6px 9px; cursor: pointer;
     transition: background .12s, color .12s; }
   .facet:hover { color: var(--signal); }
+  .surprise { color: var(--signal); }
   .facet[aria-pressed="true"] { background: var(--signal); color: var(--on-signal); }
   .facet[aria-pressed="true"]:hover { color: var(--on-signal); }
   .count { flex: none; margin-left: auto; font-family: var(--font-mono); font-size: .72rem;

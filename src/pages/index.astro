@@ -13,6 +13,41 @@ const startHere = [
   'fuzzy-search-with-postgresql',
 ];
 const featured = startHere.flatMap((id) => all.filter((a) => a.id === id));
+const paths = [
+  {
+    title: 'AI & engineering',
+    intro: 'Judgment, verification, and the craft of building with agents.',
+    entries: [
+      ['in-the-ai-era-code-is-cheap-reputation-isnt-3482', 'Why trust matters when contributions get easier.'],
+      ['ai-has-a-problem-with-functional-programming', 'A closer look at the abstractions AI leaves behind.'],
+      ['proof-driven-development', 'How to ask an agent for evidence that its work holds up.'],
+    ],
+  },
+  {
+    title: 'PostgreSQL in practice',
+    intro: 'Three ways to put the database to work beyond storing rows.',
+    entries: [
+      ['fuzzy-search-with-postgresql', 'Find close matches with trigrams.'],
+      ['manage-scheduling-with-postgresql', 'Prevent overlapping bookings in the database.'],
+      ['getting-query-performance-stats-with-pg', 'Find slow queries and missing indexes.'],
+    ],
+  },
+  {
+    title: 'Learning in public',
+    intro: 'Experiments, lessons, and encouragement from the journey.',
+    entries: [
+      ['algorithms-in-real-life-binary-search', 'Connect an algorithm to a familiar workflow.'],
+      ['you-got-selected-for-gsoc-2026-now-what-1bdc', 'Make the most of a chance to work in the open.'],
+      ['you-re-doing-great-and-you-need-to-hear-that-12ba', 'Remember the people behind the work.'],
+    ],
+  },
+].map((path) => ({
+  ...path,
+  entries: path.entries.flatMap(([id, reason]) => {
+    const article = all.find((a) => a.id === id);
+    return article ? [{ article, reason }] : [];
+  }),
+})).filter((path) => path.entries.length > 0);
 
 const entries = await Promise.all(all.map(async (a) => {
   const { remarkPluginFrontmatter } = await render(a);
@@ -47,6 +82,25 @@ const entries = await Promise.all(all.map(async (a) => {
         </ul>
       </section>
     )}
+    {paths.length > 0 && (
+      <section class="paths" aria-labelledby="paths-heading">
+        <h2 id="paths-heading">Reading paths</h2>
+        <p class="start-intro">Follow a thread through the logbook.</p>
+        <div class="path-grid">
+          {paths.map((path) => (
+            <div class="path">
+              <h3>{path.title}</h3>
+              <p>{path.intro}</p>
+              <ol>
+                {path.entries.map(({ article, reason }) => (
+                  <li><a href={`/${article.id}`}>{article.data.title}</a><span>{reason}</span></li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
     <LogbookList entries={entries} />
   </div>
 </Base>
@@ -69,10 +123,23 @@ const entries = await Promise.all(all.map(async (a) => {
   .pick h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500;
     line-height: 1.3; margin-top: 8px; }
   .pick p { color: var(--slate); margin-top: 10px; font-size: 1rem; }
+  .paths { padding: 32px 0; border-bottom: 1px solid var(--hairline); }
+  .paths h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; }
+  .path-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 22px; }
+  .path { border-top: 2px solid var(--signal); padding-top: 12px; }
+  .path h3 { font-family: var(--font-display); font-size: 1.05rem; }
+  .path > p { color: var(--slate); margin-top: 6px; }
+  .path ol { padding-left: 1.3rem; margin-top: 14px; }
+  .path li { padding-left: 2px; margin-top: 12px; }
+  .path li::marker { color: var(--signal); font-family: var(--font-mono); }
+  .path a { color: var(--graphite); font-family: var(--font-display); font-weight: 500; }
+  .path a:hover { color: var(--signal); }
+  .path li span { display: block; color: var(--slate); font-size: .9rem; margin-top: 3px; }
   @media (max-width: 640px) {
     .hero { padding: 40px 0 28px; }
     .thesis { font-size: 2.2rem; }
     .sub { font-size: 1rem; }
     .picks { grid-template-columns: 1fr; gap: 22px; }
+    .path-grid { grid-template-columns: 1fr; }
   }
 </style>

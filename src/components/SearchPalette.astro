@@ -1,7 +1,5 @@
 ---
-// Command-palette search over the whole logbook. The index is tiny (title, tags,
-// excerpt per entry) and inlined into every page at build time, so search is
-// instant and needs no backend. Opens with ⌘K / ctrl+K / "/", or the nav button.
+// Metadata is available immediately; the full-text index loads when search opens.
 import { getCollection } from 'astro:content';
 
 const arts = (await getCollection('articles', ({ data }) => !data.draft && !data.unlisted))
@@ -28,33 +26,20 @@ const index = arts.map((a) => ({
   </div>
 </dialog>
 <script type="application/json" id="search-data" set:html={JSON.stringify(index)}></script>
-<script is:inline>
+<script>
+  import { searchArticles } from '../lib/search.mjs';
+  type SearchEntry = { slug: string; idx: number; date: string; title: string; tags: string[]; excerpt: string; body?: string };
   (() => {
-    const dialog = document.getElementById('search');
+    const dialog = document.getElementById('search') as HTMLDialogElement | null;
     if (!dialog || !dialog.showModal) return;
-    const input = document.getElementById('search-input');
-    const list = document.getElementById('search-results');
-    const count = dialog.querySelector('[data-search-count]');
-    const data = JSON.parse(document.getElementById('search-data').textContent);
-    let results = [];
+    const input = document.getElementById('search-input') as HTMLInputElement;
+    const list = document.getElementById('search-results') as HTMLOListElement;
+    const count = dialog.querySelector('[data-search-count]') as HTMLElement;
+    let data: SearchEntry[] = JSON.parse(document.getElementById('search-data')!.textContent!);
+    let fullIndex: Promise<void> | null = null;
+    let indexState: 'loading' | 'ready' | 'unavailable' = 'loading';
+    let results: SearchEntry[] = [];
     let active = 0;
-
-    const score = (e, tokens) => {
-      const title = e.title.toLowerCase();
-      const tags = e.tags.join(' ').toLowerCase();
-      const excerpt = e.excerpt.toLowerCase();
-      let total = 0;
-      for (const t of tokens) {
-        let s = 0;
-        if (title.startsWith(t)) s = 4;
-        else if (title.includes(t)) s = 3;
-        else if (tags.includes(t)) s = 2;
-        else if (excerpt.includes(t)) s = 1;
-        if (!s) return 0; // every token must match somewhere
-        total += s;
-      }
-      return total;
-    };
 
     const renderRows = () => {
       list.textContent = '';
@@ -67,7 +52,7 @@ const index = arts.map((a) => ({
         const a = document.createElement('a');
         a.href = `/${e.slug}`;
         a.tabIndex = -1;
-        const mk = (cls, text) => {
+        const mk = (cls: string, text: string) => {
           const s = document.createElement('span');
           s.className = cls; s.textContent = text;
           return s;
@@ -83,25 +68,36 @@ const index = arts.map((a) => ({
         list.appendChild(li);
       });
       input.setAttribute('aria-activedescendant', results.length ? `search-opt-${active}` : '');
-      count.textContent = `${results.length} ${results.length === 1 ? 'entry' : 'entries'}`;
+      count.textContent = indexState === 'loading' ? 'Loading full text…'
+        : indexState === 'unavailable' ? 'Full text unavailable'
+        : `${results.length} ${results.length === 1 ? 'entry' : 'entries'}`;
       if (!results.length) {
         const li = document.createElement('li');
         li.className = 'empty';
-        li.textContent = 'no entries match';
+        li.textContent = indexState === 'loading' ? 'searching full text…'
+          : indexState === 'unavailable' ? 'no entries match titles, tags, or excerpts' : 'no entries match';
         list.appendChild(li);
       }
     };
 
     const search = () => {
-      const tokens = input.value.toLowerCase().split(/\s+/).filter(Boolean);
-      results = !tokens.length ? [...data]
-        : data.map((e) => [score(e, tokens), e]).filter(([s]) => s > 0)
-            .sort((a, b) => b[0] - a[0]).map(([, e]) => e);
+      results = searchArticles(data, input.value);
       active = 0;
       renderRows();
     };
 
-    const open = () => { dialog.showModal(); input.select(); search(); };
+    const open = () => {
+      dialog.showModal(); input.select(); search();
+      if (!fullIndex) {
+        indexState = 'loading';
+        renderRows();
+        fullIndex = fetch('/search-index.json').then((response) => {
+          if (!response.ok) throw new Error('Search index unavailable');
+          return response.json();
+        }).then((index) => { data = index; indexState = 'ready'; if (dialog.open) search(); })
+          .catch(() => { fullIndex = null; indexState = 'unavailable'; if (dialog.open) renderRows(); });
+      }
+    };
     const toggle = () => (dialog.open ? dialog.close() : open());
 
     input.addEventListener('input', search);
@@ -121,7 +117,7 @@ const index = arts.map((a) => ({
 
     document.addEventListener('keydown', (ev) => {
       if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === 'k') { ev.preventDefault(); toggle(); }
-      else if (ev.key === '/' && !dialog.open && !/^(input|textarea|select)$/i.test(ev.target.tagName)) {
+      else if (ev.key === '/' && !dialog.open && !/^(input|textarea|select)$/i.test((ev.target as HTMLElement).tagName)) {
         ev.preventDefault(); open();
       }
     });

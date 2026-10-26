@@ -48,7 +48,7 @@ if (pick) {
     <h1>{article.data.title}</h1>
     <div class="readout">
       <span>date {iso}</span><span>·</span><span>read {rt.replace(' min read', 'm')}</span>
-      <span>·</span><span>tags {article.data.tags.join(',')}</span>
+      <span>·</span><span>tags {article.data.tags.map((tag, i) => (<>{i > 0 && ', '}<a href={`/#${encodeURIComponent(tag)}`}>{tag}</a></>))}</span>
       {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>also on dev.to ↗</a></>)}
     </div>
     {article.data.collaboration && <CollaborationDisclosure collaboration={article.data.collaboration} />}
