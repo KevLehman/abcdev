@@ -1,6 +1,6 @@
 ---
 idx: 23
-title: "I Proved Binary Search Works. Then I Broke It on Purpose"
+title: "What It Takes to Prove Binary Search Works"
 date: 2026-10-27
 slug: "proving-binary-search-with-dafny"
 tags: ["javascript", "programming", "algorithms", "formalverification"]
