@@ -22,7 +22,7 @@ const articles = defineCollection({
     featured: z.boolean().default(false),
     collaboration: z.object({
       name: z.string().trim().min(1),
-      url: z.string().url().regex(/^https?:\/\//i),
+      url: z.string().url().regex(/^https?:\/\//i).optional(),
     }).optional(),
     series: z.object({
       id: z.string().trim().min(1),
