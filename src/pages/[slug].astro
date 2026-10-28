@@ -217,6 +217,7 @@ if (pick) {
   .prose :global(p), .prose :global(li),
   .prose :global(h2), .prose :global(h3), .prose :global(h4),
   .prose :global(blockquote) { width: fit-content; max-width: 100%; }
+  .prose :global(p:has(> img:only-child)) { width: 100%; }
   .prose :global(a) { color: var(--signal); }
   .prose :global(pre) { font-family: var(--font-mono); font-size: .9rem; padding: 16px;
     border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
