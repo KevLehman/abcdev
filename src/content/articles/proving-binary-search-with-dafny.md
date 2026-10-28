@@ -96,6 +96,8 @@ method BinarySearch(a: array<int>, key: int) returns (index: int)
 
 The search range is `[low, high)`: it includes `low`, but not `high`. At the beginning, that's the whole array. At the end, when `low == high`, there's nothing left to search.
 
+![Searching for 5 in 1, 3, 5, 7, 9: low is 2 and high is 3. The remaining range contains 5; values outside it are too small or too large.](/images/dafny-search-range.svg)
+
 The invariants describe what must remain true throughout the loop. The first keeps the range inside the array. The other two say that everything before `low` is smaller than the key, and everything at or after `high` is larger. If we find the key, we return its index. If the range becomes empty, those two facts explain why the key can't be anywhere in the array.
 
 `decreases high - low` is the termination argument. The verifier checks that the remaining range gets smaller on each iteration that continues the loop. Without that check, we could miss a search that gets stuck repeating the same step.
@@ -121,11 +123,11 @@ I changed one line:
 
 The middle value is too small, so moving the lower bound to the middle might seem reasonable. But we already checked that position; we need to move past it.
 
-Take a search range with one element left. `mid` is equal to `low`. If that element is smaller than the key, setting `low` to `mid` doesn't change anything. Next iteration, same element. Next iteration, same element. You get the idea.
+Suppose we're looking for `6` and only `5` remains. `low` and `mid` are both `2`, so setting `low` to `mid` leaves the range exactly where it was:
 
-![A measuring tool is stopped at a single remaining block on a workbench.](/images/dafny-binary-search-stuck.webp)
+![Searching for 6 with low and mid at 2 and high at 3 leaves only 5. Setting low to mid leaves the same range, so the next iteration checks 5 again.](/images/dafny-search-stuck-diagram.svg)
 
-*If the range doesn't move, neither does the search.*
+The next iteration checks `5` again, and the one after that does the same. With `low := mid + 1`, `low` becomes `3`, the range is empty, and the search returns `-1`.
 
 Dafny rejected the changed version:
 
