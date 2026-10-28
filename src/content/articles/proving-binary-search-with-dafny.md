@@ -1,6 +1,6 @@
 ---
 idx: 23
-title: "I tried proving binary search correct, then compiled it to JavaScript"
+title: "I Proved Binary Search Works. Then I Broke It on Purpose"
 date: 2026-10-27
 slug: "proving-binary-search-with-dafny"
 tags: ["javascript", "programming", "algorithms", "formalverification"]
@@ -12,7 +12,9 @@ featured: false
 
 In my [previous article about Proof Driven Development](/proof-driven-development), I wrote about using formal specifications to check whether code does what we agreed it should do. Microsoft Research's PDD Kit uses Verus for Rust, though, and most of my work is in JavaScript. So I was left with a question: what can I actually try without rewriting my whole application in Rust?
 
-I ended up trying [Dafny](https://dafny.org/), a language designed for writing code alongside specifications and verifying that the code satisfies them. It can also compile to JavaScript. With help from a coding agent, I wrote and verified a small binary search, deliberately broke it, and compiled the working version to JavaScript.
+I ended up trying [Dafny](https://dafny.org/). With help from a coding agent, I wrote and verified a small binary search, deliberately broke it, and compiled the working version to JavaScript.
+
+If you haven't heard of Dafny, it's an open-source programming language and verifier built for writing code alongside its specifications. You describe what must be true before and after a function runs, and Dafny uses tools including the Z3 solver to check whether the implementation satisfies those rules. It can also compile to languages including JavaScript, so you can experiment with a verified piece of logic without writing your whole application in Dafny. Its [documentation](https://dafny.org/dafny/DafnyRef/DafnyRef) explains how the verifier and compiler work.
 
 The interesting part wasn't that the search found a number. It was what I had to tell the verifier about **everything the search had already ruled out**.
 
