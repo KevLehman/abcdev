@@ -51,7 +51,7 @@ method BinarySearch(a: array<int>, key: int) returns (index: int)
     0 <= index < a.Length && a[index] == key
 ```
 
-`requires` is the condition the caller must satisfy: the array is sorted in nondecreasing order. Equal values are allowed.
+`requires` is the condition the caller must satisfy: the array is sorted in ascending order. Equal values are allowed.
 
 The first `ensures` says the result is `-1` **if and only if** the value is absent. The second says that any other result must be a valid index containing the value. If there are duplicates, returning any matching index is fine; this contract doesn't ask for the first one.
 
