@@ -15,7 +15,7 @@ In my [previous article about Proof Driven Development](/proof-driven-developmen
 
 I ended up trying [Dafny](https://dafny.org/). With help from a coding agent, I wrote and verified a small binary search, deliberately broke it, and compiled the working version to JavaScript.
 
-If you haven't heard of Dafny, it's an open-source programming language and verifier. You write code and describe what must be true before and after it runs. Dafny checks the code against those rules and can compile it to languages including JavaScript.
+If you haven't heard of Dafny, it's an open-source programming language and verifier. You write code and describe what must be true before and after it runs. Dafny checks the code against those rules using a solver called Z3, and can compile it to languages including JavaScript.
 
 {% embed https://github.com/dafny-lang/dafny %}
 
