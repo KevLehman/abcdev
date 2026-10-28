@@ -11,7 +11,7 @@ collaboration:
   name: Harmeet Kour
 ---
 
-There was a time when testing an application meant opening it, clicking around, entering unexpected values and seeing what broke. That still sounds like a useful way to find bugs tho. You would see QAs around the world with long lists of issues they had to perform before approving the release of a product, pretty much like the old car industry.
+There was a time when testing an application meant opening it, clicking around, entering unexpected values and seeing what broke. That still sounds like a useful way to find bugs tho. You would see QA engineers working through long checklists before approving a product release, much like inspectors checking cars on an assembly line.
 
 Then came test automation. Instead of repeating the same regression checks by hand, teams could write them once and run them in CI. Tools like Selenium, Cypress and Playwright made that possible. Of course, the tests also needed maintenance: change a button label or a selector and suddenly the pipeline is red.
 
@@ -27,7 +27,11 @@ AI-assisted testing can make parts of both jobs faster. It can propose cases we 
 
 This reminds me of the session validation example in my article about [proof-driven development](/proof-driven-development): tests for a valid session, an expired session and an invalid signature can all pass while the application still accepts a revoked session. Passing a suite tells us that the checks we wrote passed. It doesn't tell us what we forgot to check. AI can make that gap wider if we use the number of generated tests as a measure of quality. It can produce many plausible cases from an incomplete requirement, including cases that repeat the same assertion or miss the behavior users actually depend on.
 
+{% embed https://kevinaleman.com/proof-driven-development %}
+
 The [Google SRE book makes a similar point](https://sre.google/sre-book/testing-reliability/): passing tests doesn't necessarily prove that a system is reliable. The tests tell us something about the scenarios they cover; they can't tell us everything about the scenarios we didn't consider.
+
+{% embed https://sre.google/sre-book/testing-reliability/ %}
 
 For example, imagine a checkout flow where a discount should only apply once. An AI might generate several tests for valid and invalid coupon codes. Useful! But what happens if a customer sends more than one coupon? Should that be even possible? Or, what happens if the payment fails? Should the coupon be flagged as "used"? Wouldn't that make the human on the other side angry? Here's the human part: *giving context for the decisions made*. That scenario may be less obvious and more expensive to get wrong, so no matter how many tests we write, if the tests are not *testing* the right behaviors, we have created a safety net with enormous holes in it. So, never take the number of tests as a measure of "we're safe". The *quality* of them should be evaluated too.
 
@@ -40,6 +44,8 @@ For example, imagine a checkout flow where a discount should only apply once. An
 I think AI is most useful here as a second set of eyes, not as the person deciding when we're done. Give it the change, relevant requirements and constraints, then ask it to suggest boundaries, negative cases and assumptions. Review those suggestions against the actual product.
 
 It can also help when a test run turns red. Give it the failure logs and it can suggest which failures might share a cause or where to investigate first. But we still need to check whether we're looking at a product bug, a flaky test or an environment problem. As [Google's testing team points out](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html), a flaky failure can even be a sign of nondeterminism in the product itself. A useful suggestion is a starting point, not a diagnosis.
+
+{% embed https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html %}
 
 ![A QA engineer examines failure signals while an AI assistant groups them on a screen.](/images/qa-failure-analysis.png)
 
