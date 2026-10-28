@@ -153,6 +153,16 @@ We also need to check how the JavaScript adapter converts values. Dafny integers
 
 The proof also doesn't establish that we picked the right behavior. If the product needs the *first* occurrence of a duplicate, our current contract allows a different matching index. Dafny can verify exactly what we asked for and still leave the product team asking why the result isn't the one they expected.
 
+## How is this different from TDD?
+
+With TDD, I could start with a failing test for searching `[5]` for `6`, then write the search until that test passes. That case would expose the broken `low := mid` update, although the test runner would need a timeout because the function gets stuck. I'd also add tests for an empty array, a value at either end, a missing value and duplicates.
+
+Those tests check the inputs I chose. Dafny checks the method against the contract for **all sorted integer arrays** in its model, including the cases I didn't think to write down. It also checks that the loop makes progress, so I don't have to wait for a particular test to hang before finding that problem.
+
+There's a tradeoff: I had to write the contract and loop invariants. If I forget to specify that the result should be the *first* matching index, Dafny won't invent that requirement for me. A test can miss the same requirement, but it's often easier to write and read a concrete example of what a user expects.
+
+I'd still use tests around the generated JavaScript: they can check the adapter and real inputs from the application, which sit outside this proof. TDD would help me develop those behaviors one example at a time; Dafny gives me a way to check a general rule about the search itself.
+
 ## Would I use it?
 
 For this example, the termination check was my favorite part. Changing `mid + 1` to `mid` is the kind of mistake that's easy to miss in review, and Dafny pointed me to the loop instead of letting it hang later.
