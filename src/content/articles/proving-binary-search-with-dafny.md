@@ -8,6 +8,7 @@ excerpt: "I used Dafny to verify binary search, broke its termination, and compi
 draft: false
 unlisted: true
 featured: false
+coverImage: "https://kevinaleman.com/images/dafny-binary-search-header.webp"
 ---
 
 In my [previous article about Proof Driven Development](/proof-driven-development), I wrote about using formal specifications to check whether code does what we agreed it should do. Microsoft Research's PDD Kit uses Verus for Rust, though, and most of my work is in JavaScript. So I was left with a question: what can I actually try without rewriting my whole application in Rust?
@@ -16,7 +17,11 @@ I ended up trying [Dafny](https://dafny.org/). With help from a coding agent, I 
 
 If you haven't heard of Dafny, it's an open-source programming language and verifier. You write code and describe what must be true before and after it runs. Dafny checks the code against those rules and can compile it to languages including JavaScript.
 
-Dafny uses tools including [Z3](https://github.com/Z3Prover/z3) for the verification. Z3 is a *solver*: you give it logical constraints and it checks whether they can be satisfied. Dafny uses it to help determine whether the code could violate the rules we wrote. You don't need to learn Z3 to follow this example, but that's the tool doing part of the work behind the scenes.
+{% embed https://github.com/dafny-lang/dafny %}
+
+> **What is Z3?**
+>
+> [Z3](https://github.com/Z3Prover/z3) is a solver: you give it logical constraints and it checks whether they can be satisfied. Dafny uses it to help check whether the code could violate the rules we wrote.
 
 ## Why binary search?
 
@@ -101,7 +106,9 @@ With Dafny 4.11.0, the verifier reported:
 Dafny program verifier finished with 3 verified, 0 errors
 ```
 
-Those three verified items are the verifier's reported count for the sample; they aren't a count of all the individual properties. The method's contract, bounds and termination are checked under its precondition. Dafny's [guide to specifications](https://dafny.org/dafny/OnlineTutorial/guide) goes into more detail on preconditions, postconditions and invariants.
+Those three verified items are the verifier's reported count for the sample; they aren't a count of all the individual properties. The method's contract, bounds and termination are checked under its precondition. Dafny's guide goes into more detail on preconditions, postconditions and invariants.
+
+{% embed https://dafny.org/dafny/OnlineTutorial/guide %}
 
 ## Let's break it
 
@@ -116,6 +123,10 @@ The middle value is too small, so moving the lower bound to the middle might see
 
 Take a search range with one element left. `mid` is equal to `low`. If that element is smaller than the key, setting `low` to `mid` doesn't change anything. Next iteration, same element. Next iteration, same element. You get the idea.
 
+![A measuring tool is stopped at a single remaining block on a workbench.](/images/dafny-binary-search-stuck.webp)
+
+*If the range doesn't move, neither does the search.*
+
 Dafny rejected the changed version:
 
 ```text
@@ -128,7 +139,9 @@ The error doesn't spell out the one-element case, but it points us to the right 
 
 ## But I write JavaScript
 
-Dafny can [compile to JavaScript](https://dafny.org/dafny/Installation). I compiled this sample with `dafny build --target js` and ran the generated program with Node. For `[1, 3, 5, 7, 9]`, it returned `3` for `7` and `-1` for `4`.
+Dafny can compile to JavaScript. I compiled this sample with `dafny build --target js` and ran the generated program with Node. For `[1, 3, 5, 7, 9]`, it returned `3` for `7` and `-1` for `4`.
+
+{% embed https://dafny.org/dafny/Installation %}
 
 The generated JavaScript uses `bignumber.js` for Dafny integers. It also includes generated runtime code, so this isn't the same experience as adding a type annotation to an existing JavaScript function. To call the generated method from an application, we need an integration layer that supplies values in the expected representation. I tried that separately with a small session-policy function; the generated sample needed an export added before a Node wrapper could call it.
 
