@@ -153,8 +153,8 @@ We also need to check how the JavaScript adapter converts values. Dafny integers
 
 The proof also doesn't establish that we picked the right behavior. If the product needs the *first* occurrence of a duplicate, our current contract allows a different matching index. Dafny can verify exactly what we asked for and still leave the product team asking why the result isn't the one they expected.
 
-## What would I take from this?
+## Would I use it?
 
-I don't think we should rewrite every JavaScript project in Dafny. This was a small, self-contained experiment, and the annotations took work. Tests can show the search working for particular inputs. The verified contract covers all sorted integer arrays described by the model.
+For this example, the termination check was my favorite part. Changing `mid + 1` to `mid` is the kind of mistake that's easy to miss in review, and Dafny pointed me to the loop instead of letting it hang later.
 
-The agent helped write the example, but I still needed to check the contract: do I want any matching index or the first one? Who makes sure the array is sorted? And what happens when JavaScript calls it? Dafny can check the method against the rules we give it. Those decisions are still ours.
+Getting that check meant writing the invariants and figuring out how to call the generated code from JavaScript. That's more work than dropping a function into a project. For a small search, I'd probably stick with tests. But for a piece of logic where getting an edge case wrong would be expensive, I'd like to try this again.
