@@ -43,12 +43,14 @@ body { transition: background .2s, color .2s; }
   background-color: var(--shiki-dark-bg) !important;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .astro-code,
-  :root:not([data-theme="light"]) .astro-code span {
+  :root:not([data-theme]) .astro-code,
+  :root:not([data-theme]) .astro-code span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
   }
 }
+
+:root[data-theme="grove"] .astro-code { background-color: var(--surface) !important; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }

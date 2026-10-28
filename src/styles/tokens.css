@@ -21,7 +21,7 @@
 /* Dark palette — deep blue-graphite paper, warm off-white ink, brighter signal
    for contrast. Applied on explicit opt-in and as the system-preference default. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     --bone: #121519;
     --graphite: #E7E6E1;
     --slate: #969CA5;
@@ -32,6 +32,20 @@
     --selection-ink: #121519;
     color-scheme: dark;
   }
+}
+
+/* Grove — soft sage paper with deep green ink and accents. */
+:root[data-theme="grove"] {
+  --bone: #DCE7D2;
+  --graphite: #243629;
+  --slate: #4D6251;
+  --hairline: #B6C9AE;
+  --signal: #315F49;
+  --signal-tint: #DCE7D2;
+  --surface: #E8F0E1;
+  --on-signal: #FFFFFF;
+  --selection-ink: #FFFFFF;
+  color-scheme: light;
 }
 :root[data-theme="dark"] {
   --bone: #121519;

@@ -1,8 +1,9 @@
 ---
 ---
-<button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+<button id="theme-toggle" type="button" aria-label="Switch to dark theme">
   <span class="on-light">dark ☾</span>
-  <span class="on-dark">light ☀</span>
+  <span class="on-dark">grove ❧</span>
+  <span class="on-grove">light ☀</span>
 </button>
 <style>
   #theme-toggle {
@@ -12,12 +13,14 @@
     transition: border-color .12s, color .12s;
   }
   #theme-toggle:hover { color: var(--signal); border-color: var(--signal); }
-  .on-dark { display: none; }
+  .on-dark, .on-grove { display: none; }
   :root[data-theme="dark"] .on-light { display: none; }
   :root[data-theme="dark"] .on-dark { display: inline; }
+  :root[data-theme="grove"] .on-light { display: none; }
+  :root[data-theme="grove"] .on-grove { display: inline; }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .on-light { display: none; }
-    :root:not([data-theme="light"]) .on-dark { display: inline; }
+    :root:not([data-theme]) .on-light { display: none; }
+    :root:not([data-theme]) .on-dark { display: inline; }
   }
 </style>
 <script is:inline>
@@ -26,10 +29,14 @@
     const systemDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
     const current = () => root.dataset.theme || (systemDark() ? 'dark' : 'light');
     const btn = document.getElementById('theme-toggle');
+    const nextTheme = () => ({ light: 'dark', dark: 'grove', grove: 'light' })[current()];
+    const updateLabel = () => btn?.setAttribute('aria-label', `Switch to ${nextTheme()} theme`);
+    updateLabel();
     btn?.addEventListener('click', () => {
-      const next = current() === 'dark' ? 'light' : 'dark';
+      const next = nextTheme();
       root.dataset.theme = next;
       localStorage.setItem('theme', next);
+      updateLabel();
     });
   })();
 </script>
