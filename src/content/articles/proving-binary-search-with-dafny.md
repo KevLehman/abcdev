@@ -163,8 +163,10 @@ There's a tradeoff: I had to write the contract and loop invariants. If I forget
 
 I'd still use tests around the generated JavaScript: they can check the adapter and real inputs from the application, which sit outside this proof. TDD would help me develop those behaviors one example at a time; Dafny gives me a way to check a general rule about the search itself.
 
-## Would I use it?
+## What changes with AI?
 
-For this example, the termination check was my favorite part. Changing `mid + 1` to `mid` is the kind of mistake that's easy to miss in review, and Dafny pointed me to the loop instead of letting it hang later.
+Formal verification isn't new. What's changing for me is how practical it feels to try it. Learning a verification language, writing the specification and working out the loop invariants all take time. On top of building the feature, that can make verification a difficult sell.
 
-Getting that check meant writing the invariants and figuring out how to call the generated code from JavaScript. That's more work than dropping a function into a project. For a small search, I'd probably stick with tests. But for a piece of logic where getting an edge case wrong would be expensive, I'd like to try this again.
+Here, a coding agent helped write the Dafny example and work through the verification. That gave me something concrete to read and experiment with instead of starting from a blank file. I could change `mid + 1` to `mid`, run the verifier again and see what happened. Getting to that point took less effort than learning the whole tool before trying a small example.
+
+That doesn't mean I can accept whatever the agent writes. I still need to understand the contract well enough to notice that it allows any matching index, and check what happens when the code is called from JavaScript. But if AI can help with the mechanics and make these experiments cheaper, formal verification becomes something more of us can try on code where it would previously have been hard to justify the time.
