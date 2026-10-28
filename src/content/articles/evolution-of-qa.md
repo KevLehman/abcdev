@@ -6,6 +6,7 @@ tags: ["testing", "ai", "software"]
 excerpt: "Testing has moved from manual exploration to automation and now AI assistance. The tools change, but knowing what to test still matters."
 draft: false
 unlisted: false
+devtoUrl: "https://dev.to/kaleman15/from-clicks-to-ai-the-evolution-of-qa-1alj"
 featuredImage: "../../assets/images/qa-evolution-cover.png"
 collaboration:
   name: Harmeet Kour
