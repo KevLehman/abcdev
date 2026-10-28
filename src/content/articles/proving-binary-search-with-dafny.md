@@ -147,7 +147,9 @@ Dafny can compile to JavaScript. I compiled this sample with `dafny build --targ
 
 The generated JavaScript uses `bignumber.js` for Dafny integers. It also includes generated runtime code, so this isn't the same experience as adding a type annotation to an existing JavaScript function. To call the generated method from an application, we need an integration layer that supplies values in the expected representation. I tried that separately with a small session-policy function; the generated sample needed an export added before a Node wrapper could call it.
 
-And remember the first rule? **The array must be sorted.** The proof assumes that precondition. It doesn't mean an arbitrary JavaScript caller has supplied sorted values, or that the adapter converts values correctly. We still need to decide where that guarantee comes from and test the integration. Dafny integers are mathematical integers; JavaScript `Number` values have their own limits, so the conversion deserves attention too.
+And remember the first rule? **The array must be sorted.** Dafny checks that calls from verified Dafny code satisfy the `requires` clause; our sample's `Main` does. But the search method itself assumes its input is sorted, and the generated JavaScript doesn't automatically check an array supplied by a JavaScript caller. We need to establish that guarantee at the boundary or elsewhere in the application. Checking every element on every call takes linear time, which can outweigh the benefit of binary search.
+
+We also need to check how the JavaScript adapter converts values. Dafny integers are mathematical integers; JavaScript `Number` values have their own limits.
 
 The proof also doesn't establish that we picked the right behavior. If the product needs the *first* occurrence of a duplicate, our current contract allows a different matching index. Dafny can verify exactly what we asked for and still leave the product team asking why the result isn't the one they expected.
 
