@@ -5,7 +5,7 @@ date: 2026-10-28
 tags: ["testing", "ai", "software"]
 excerpt: "Testing has moved from manual exploration to automation and now AI assistance. The tools change, but knowing what to test still matters."
 draft: false
-unlisted: true
+unlisted: false
 featuredImage: "../../assets/images/qa-evolution-cover.png"
 collaboration:
   name: Harmeet Kour
