@@ -1,6 +1,6 @@
 ---
 idx: 23
-title: "What It Takes to Prove Binary Search Works"
+title: "What it takes to prove binary search works"
 date: 2026-10-27
 slug: "proving-binary-search-with-dafny"
 tags: ["javascript", "programming", "algorithms", "formalverification"]
@@ -14,13 +14,13 @@ In my [previous article about Proof Driven Development](/proof-driven-developmen
 
 I ended up trying [Dafny](https://dafny.org/). With help from a coding agent, I wrote and verified a small binary search, deliberately broke it, and compiled the working version to JavaScript.
 
-If you haven't heard of Dafny, it's an open-source programming language and verifier built for writing code alongside its specifications. You describe what must be true before and after a function runs, and Dafny uses tools including the Z3 solver to check whether the implementation satisfies those rules. It can also compile to languages including JavaScript, so you can experiment with a verified piece of logic without writing your whole application in Dafny. Its [documentation](https://dafny.org/dafny/DafnyRef/DafnyRef) explains how the verifier and compiler work.
+If you haven't heard of Dafny, it's an open-source programming language and verifier. You write code and describe what must be true before and after it runs. Dafny checks the code against those rules and can compile it to languages including JavaScript.
 
-The interesting part wasn't that the search found a number. It was what I had to tell the verifier about **everything the search had already ruled out**.
+Dafny uses tools including [Z3](https://github.com/Z3Prover/z3) for the verification. Z3 is a *solver*: you give it logical constraints and it checks whether they can be satisfied. Dafny uses it to help determine whether the code could violate the rules we wrote. You don't need to learn Z3 to follow this example, but that's the tool doing part of the work behind the scenes.
 
 ## Why binary search?
 
-I wrote about [binary search](/algorithms-in-real-life-binary-search) a few years ago, including the most important requirement:
+If you don't know binary search, don't worry: the internet definitely doesn't have enough articles about it yet. I even wrote [one of them](/algorithms-in-real-life-binary-search) a few years ago, including the most important requirement:
 
 - Your list must be sorted.
 - Your list must be sorted.
@@ -28,7 +28,7 @@ I wrote about [binary search](/algorithms-in-real-life-binary-search) a few year
 
 Still true! Binary search looks at the middle of a sorted collection, discards the half that can't contain the value, and repeats. That sounds simple until you have to decide what happens with an empty array, a missing value, duplicates, or a search range with one element left.
 
-We can write tests for all of those. We should. But a test exercises a particular input. I wanted to see what it looked like to describe the rule once and have a verifier check the implementation against it for every sorted integer array within the model.
+I wanted to see what it would take to check those cases without listing each input in a test. So I wrote down what a correct result should look like and asked Dafny to check the implementation against it.
 
 ## What are we actually promising?
 
@@ -50,7 +50,7 @@ method BinarySearch(a: array<int>, key: int) returns (index: int)
 
 The first `ensures` says the result is `-1` **if and only if** the value is absent. The second says that any other result must be a valid index containing the value. If there are duplicates, returning any matching index is fine; this contract doesn't ask for the first one.
 
-That “if and only if” matters. If we only said “return `-1` when the value is missing,” an implementation could return `-1` even when the value is present. Technically it would satisfy that one direction. Not the most useful search function, but very quick to implement.
+In other words, there are two cases: if the value is missing, return `-1`; if it exists, return an index where it appears. Both clauses work together: the first describes when `-1` is allowed, and the second checks that any other result points to the value.
 
 ## The implementation needs an explanation too
 
@@ -93,7 +93,7 @@ The search range is `[low, high)`: it includes `low`, but not `high`. At the beg
 
 The invariants describe what must remain true throughout the loop. The first keeps the range inside the array. The other two say that everything before `low` is smaller than the key, and everything at or after `high` is larger. If we find the key, we return its index. If the range becomes empty, those two facts explain why the key can't be anywhere in the array.
 
-`decreases high - low` is the termination argument. The verifier checks that the remaining range gets smaller on each iteration that continues the loop. Otherwise, we might have a function that follows its rules forever without returning anything. Great commitment to the search, but not quite what we wanted.
+`decreases high - low` is the termination argument. The verifier checks that the remaining range gets smaller on each iteration that continues the loop. Without that check, we could miss a search that gets stuck repeating the same step.
 
 With Dafny 4.11.0, the verifier reported:
 
@@ -112,7 +112,7 @@ I changed one line:
 + low := mid;
 ```
 
-It looks close enough. We've learned that the middle value is too small, so move the lower bound to the middle. What could go wrong?
+The middle value is too small, so moving the lower bound to the middle might seem reasonable. But we already checked that position; we need to move past it.
 
 Take a search range with one element left. `mid` is equal to `low`. If that element is smaller than the key, setting `low` to `mid` doesn't change anything. Next iteration, same element. Next iteration, same element. You get the idea.
 
@@ -124,7 +124,7 @@ Error: decreases expression might not decrease
 Dafny program verifier finished with 2 verified, 1 error
 ```
 
-This doesn't mean every verification failure comes with a ready-made explanation of the bug. Here, the error pointed to a useful question: **can the range stay the same?** Once we ask that, the one-element case is easy to see.
+The error doesn't spell out the one-element case, but it points us to the right place: the search range isn't guaranteed to shrink.
 
 ## But I write JavaScript
 
@@ -138,8 +138,6 @@ The proof also doesn't establish that we picked the right behavior. If the produ
 
 ## What would I take from this?
 
-I don't think we should rewrite every JavaScript project in Dafny. This was a small, self-contained experiment, and the annotations took work. But it made a useful distinction clearer to me: tests gave me examples of the search working, while the verified contract gave me a statement about all sorted inputs covered by the model.
+I don't think we should rewrite every JavaScript project in Dafny. This was a small, self-contained experiment, and the annotations took work. Tests can show the search working for particular inputs. The verified contract covers all sorted integer arrays described by the model.
 
-A coding agent helped produce the example, but the useful review wasn't just “does the code look like binary search?” It was: “Does this contract say what we want? What does the loop assume? What must be true when it stops? Who guarantees the input is sorted?” The verifier checked the formal obligations; we still had to decide whether those obligations were the right ones and how the generated code would be used.
-
-That's the part I keep coming back to with proof-driven development. **A proof gives us a stronger answer to a question. Someone still has to ask the right question.**
+The agent helped write the example, but I still needed to check the contract: do I want any matching index or the first one? Who makes sure the array is sorted? And what happens when JavaScript calls it? Dafny can check the method against the rules we give it. Those decisions are still ours.
