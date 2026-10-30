@@ -6,7 +6,6 @@ slug: "proving-binary-search-with-dafny"
 tags: ["javascript", "programming", "algorithms", "formalverification"]
 excerpt: "I used Dafny to verify binary search, broke its termination, and compiled the working version to JavaScript."
 draft: false
-unlisted: true
 featured: false
 coverImage: "https://kevinaleman.com/images/dafny-binary-search-header.webp"
 ---
