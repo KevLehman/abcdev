@@ -43,9 +43,9 @@ Finding the flaw was just the start. Wiz used AI to develop working exploits acr
 
 The distinction mattered after disclosure too. In its [October 28 guidance](https://blog.nviso.eu/2026/10/23/php2shell-operational-guidance/), NVISO reported that targeted compromise had been demonstrated and at least one public proof of concept worked in a controlled setup, but there was no reliable universal public exploit at that point. It also reported many non-functional tools being circulated.
 
-And an observed *attempt* isn't automatically a successful compromise. [AWS identified attempts against its honeypot before public disclosure](https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/). That is useful threat intelligence, but it answers a different question from “which production servers were successfully compromised?”
+AWS [identified attempted exploits against its honeypot before public disclosure](https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/), but couldn't tell whether they would have succeeded against real systems. When a model generates an exploit, I'd ask the same question: **what shows that it actually works?** Sending a payload or getting a convincing explanation isn't enough. We need to reproduce the result under realistic conditions.
 
-So no, the existence of some broken proof-of-concept code doesn't make PHP2Shell harmless. Working attacks have been demonstrated, and exposed systems need to be patched. It tells us that **an explanation of how an attack might work is not the same thing as evidence that it worked against a particular target**.
+That doesn't make PHP2Shell harmless. Working attacks have been demonstrated, and exposed systems need to be patched.
 
 ## Firefox makes the other side of the argument
 
