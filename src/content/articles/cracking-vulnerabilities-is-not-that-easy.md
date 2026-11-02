@@ -41,7 +41,7 @@ Finding the flaw was just the start. Wiz used AI to develop working exploits acr
 
 *Finding the crack is a start. The rest of the mechanism still matters.*
 
-The distinction mattered after disclosure too. In its [October 28 guidance](https://blog.nviso.eu/2026/10/23/php2shell-operational-guidance/), NVISO reported that targeted compromise had been demonstrated and at least one public proof of concept worked in a controlled setup, but there was no reliable universal public exploit at that point. It also reported many non-functional tools being circulated. Those are observations from that date, not a promise about what attackers can do today.
+The distinction mattered after disclosure too. In its [October 28 guidance](https://blog.nviso.eu/2026/10/23/php2shell-operational-guidance/), NVISO reported that targeted compromise had been demonstrated and at least one public proof of concept worked in a controlled setup, but there was no reliable universal public exploit at that point. It also reported many non-functional tools being circulated.
 
 And an observed *attempt* isn't automatically a successful compromise. [AWS identified attempts against its honeypot before public disclosure](https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/). That is useful threat intelligence, but it answers a different question from “which production servers were successfully compromised?”
 
