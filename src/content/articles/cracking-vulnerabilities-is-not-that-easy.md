@@ -35,11 +35,7 @@ The story also didn't start with a model finding something nobody had ever notic
 
 The team considered several fixes, each with difficult trade-offs around compatibility, denial of service or changes required in third-party extensions. The Foundation describes the stalled decision as a structural failure involving both the team's process and limited resources. Reports from Calif, OpenAI and Wiz in 2026 made the impact clearer, and the security team prioritized a fix across supported PHP versions.
 
-That's another part of “solving code” that a headline can skip. Even after you understand a problem, a change to the core of a language has to work with an enormous ecosystem. The best-looking patch isn't much help if it breaks the applications and extensions people depend on.
-
-To turn a memory corruption issue into a working attack, you need to understand which code paths can be reached, what happens to the memory involved and how those assumptions change across PHP versions, configurations and applications. A proof of concept that works in one environment isn't automatically a reliable exploit everywhere else.
-
-Wiz says its researchers used AI to help develop and adapt working exploits across several applications. That's a meaningful result, not just a model pointing at a suspicious line of code. But their description also includes repeated testing, debugging and adapting to the target's memory layout. The model wasn't handed a vulnerability and asked to produce a universal “hack the server” button.
+Finding the flaw was just the start. Wiz used AI to develop working exploits across several applications, but each target still required testing, debugging and adaptation to its memory layout. **The model accelerated the work. It didn't make the hard parts disappear.**
 
 ![A magnifying glass reveals a crack in a complex brass lock mechanism.](/images/ai-security-finding.webp)
 
