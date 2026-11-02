@@ -8,6 +8,7 @@ excerpt: "AI is finding serious vulnerabilities and writing increasingly capable
 draft: false
 unlisted: true
 featured: false
+featuredImage: "../../assets/images/ai-security-header.webp"
 ---
 
 There is a story I've been seeing more often lately: an AI model finds a vulnerability, someone mentions that it can lead to remote code execution, and suddenly it sounds like anyone with a prompt can take over the internet.
@@ -40,6 +41,10 @@ To turn a memory corruption issue into a working attack, you need to understand 
 
 Wiz says its researchers used AI to help develop and adapt working exploits across several applications. That's a meaningful result, not just a model pointing at a suspicious line of code. But their description also includes repeated testing, debugging and adapting to the target's memory layout. The model wasn't handed a vulnerability and asked to produce a universal “hack the server” button.
 
+![A magnifying glass reveals a crack in a complex brass lock mechanism.](/images/ai-security-finding.webp)
+
+*Finding the crack is a start. The rest of the mechanism still matters.*
+
 The distinction mattered after disclosure too. In its [October 28 guidance](https://blog.nviso.eu/2026/10/23/php2shell-operational-guidance/), NVISO reported that targeted compromise had been demonstrated and at least one public proof of concept worked in a controlled setup, but there was no reliable universal public exploit at that point. It also reported many non-functional tools being circulated. Those are observations from that date, not a promise about what attackers can do today.
 
 And an observed *attempt* isn't automatically a successful compromise. [AWS identified attempts against its honeypot before public disclosure](https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/). That is useful threat intelligence, but it answers a different question from “which production servers were successfully compromised?”
@@ -55,6 +60,10 @@ Mozilla used a security analysis pipeline with Claude Mythos Preview and other m
 That's a lot of real bugs. Mozilla also says the improvement came from both more capable models and the work it put into the pipeline: steering the models, filtering reports and giving them a way to produce test cases. The pipeline was adapted to Firefox, with feedback from the engineers handling the reports.
 
 But finding hundreds of bugs creates another problem: now someone needs to fix hundreds of bugs. Mozilla says more than 100 people contributed code to the effort, with others involved in triage, testing and releases. In [an interview with TechCrunch](https://techcrunch.com/2026/05/07/how-anthropics-mythos-has-rewritten-firefoxs-approach-to-cybersecurity/), Mozilla's Brian Grinstead said that, for the bugs discussed there, an engineer wrote each patch and another reviewed it. The team also asked AI for suggested patches, but those generally weren't ready to deploy directly.
+
+![A robotic arm places small mechanical parts on a workbench while an engineer carefully repairs another part.](/images/ai-security-repair.webp)
+
+*A finding still has to become a fix people can safely use.*
 
 **AI made finding the bugs much faster. It didn't make the work of fixing and shipping them disappear.** If anything, it made the amount of work waiting for the team more visible.
 
