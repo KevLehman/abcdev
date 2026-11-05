@@ -44,6 +44,10 @@ describe('parseMeta', () => {
   it('uses <title> when no og:title', () => {
     expect(parseMeta('<title>Just Title</title>').title).toBe('Just Title');
   });
+  it('decodes an em dash in source metadata', () => {
+    expect(parseMeta('<title>Good Tech Debt &mdash; Squarespace</title>').title)
+      .toBe('Good Tech Debt — Squarespace');
+  });
 });
 
 describe('normalizeCard', () => {

@@ -43,6 +43,8 @@ Por otro lado, si el problema no está en el código en sí, sino en la arquitec
 
 En [este artículo de DZone](https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1) se describen algunas estrategias para reducir la deuda técnica de un proyecto.
 
+{% embed https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1 %}
+
 ## Hay chocolates más difíciles de quitar que otros
 
 Como en la vida real, hay partes del código, decisiones de arquitectura y fechas de entrega que son muy difíciles —o casi imposibles— de cambiar. Veamos un ejemplo simplificado de deuda técnica. Supongamos que el usuario tiene una empresa con un nombre y que la función solo procesa a los usuarios que cumplen esta condición:
@@ -64,6 +66,8 @@ Por sencillo que parezca el cambio, el equipo debe cuidar que no afecte la forma
 Cuando se habla de deuda técnica, hay quienes la tratan como si fuera la peste: la miran de lejos y no quieren tocarla ni con un palo. Pero eso no es realista. Todos tenemos deuda técnica.
 
 Sobre este tema, me gusta [este artículo del blog de Squarespace](https://engineering.squarespace.com/blog/2019/three-kinds-of-good-tech-debt) sobre los tipos de deuda técnica que pueden ser útiles. La deuda puede ser una decisión consciente. Y cuando sabes que existe, puedes planear cómo pagarla. ¡No puedes pagar lo que no sabes que debes!
+
+{% embed https://engineering.squarespace.com/blog/2019/three-kinds-of-good-tech-debt %}
 
 Por eso conviene documentar la deuda técnica, mantener esa información actualizada e involucrar al equipo de gestión.
 

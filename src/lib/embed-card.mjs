@@ -10,7 +10,7 @@ export const EMBED_RE = /^\{%\s*embed\s+(\S+)\s*%\}$/;
 
 const UA = 'Mozilla/5.0 (compatible; KevLogbook/1.0; +https://kevinaleman.com)';
 
-const NAMED_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", '#39': "'" };
+const NAMED_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", mdash: '—', '#39': "'" };
 
 function decodeEntities(str) {
   return String(str).replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (m, code) => {

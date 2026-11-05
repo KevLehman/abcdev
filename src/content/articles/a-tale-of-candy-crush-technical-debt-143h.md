@@ -44,6 +44,8 @@ If the problem isn't in the code itself but in the project's architecture, chang
 
 This [DZone article](https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1) describes some strategies for reducing technical debt in a project.
 
+{% embed https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1 %}
+
 ## There are pieces of chocolate harder than others
 
 As in real life, some code, architecture decisions and product deadlines are very difficult — or nearly impossible — to change. Here's a simplified example of technical debt. Assume the user has a company with a name, and the function only processes users who pass this condition:
@@ -65,6 +67,8 @@ However simple the change looks, the team needs to be careful not to affect how 
 Some people treat technical debt like the plague: they look at it from a distance and don't want to touch it with a stick. But that isn't realistic. We all have technical debt.
 
 I like this [Squarespace blog post](https://engineering.squarespace.com/blog/2019/three-kinds-of-good-tech-debt) about kinds of technical debt that can be useful. Debt can be a deliberate choice. When you know it's there, you can plan how to pay it down. You can't pay what you don't know you owe!
+
+{% embed https://engineering.squarespace.com/blog/2019/three-kinds-of-good-tech-debt %}
 
 That's why it's worth documenting your technical debt, keeping that record up to date and involving the management team.
 
