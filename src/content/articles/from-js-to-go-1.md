@@ -1,6 +1,6 @@
 ---
 idx: 1
-title: "From Javascript to Go I"
+title: "From JavaScript to Go I"
 date: 2019-10-15T17:12:33.962Z
 slug: "from-js-to-go-i"
 canonicalUrl: "https://kevinaleman.com/from-js-to-go-i"
@@ -13,9 +13,9 @@ series:
   id: js-to-go
   title: "From JavaScript to Go"
   order: 1
-featuredImage: "../../assets/images/node-vs-go.png"
+featuredImage: "../../assets/images/javascript-to-go-illustration.png"
 ---
-This article, based on the book [_Go for Javascript developers_](http://www.pazams.com/Go-for-Javascript-Developers) aims to help you understand a little bit of the Golang ecosystem, and, why not, help you to start writing Go code!
+This article, based on the book [_Go for JavaScript developers_](https://www.pazams.com/Go-for-Javascript-Developers) aims to help you understand a little bit of the Golang ecosystem, and, why not, help you to start writing Go code!
 
 First, basic information.
 
@@ -23,7 +23,7 @@ First, basic information.
 Per its own description, Go is _an open-source programming language that makes it easy to build simple, reliable, and efficient software._ This means, Go focuses on simplicity & efficiency. You will learn how Go does this.
 
 ## Who is using Go?
-Companies like Uber, Google, Dailymotion, Twitch, Sendgrid and even Medium use Go for their systems.
+In 2019, companies like Uber, Google, Dailymotion, Twitch, SendGrid and Medium used Go for their systems.
 Uber Eng even wrote a blog post explaining [how they use Go for their real-time geofence lookups](https://eng.uber.com/go-geofence/). 
 
 ## Why Go?
@@ -41,9 +41,9 @@ We will focus on 4 main areas:
 
 Let's start with the basics, how we declare a variable?
 
-In Javascript:
+In JavaScript:
 ```javascript
-// Javascript
+// JavaScript
 const aVariable = 1;
 ```
 
@@ -52,7 +52,7 @@ In Go:
 // Golang
 var aVariable int = 1;
 
-// Or the shorthand, with type inference
+// Or, as an alternative declaration, with type inference
 aVariable := 1;
 ```
 
@@ -62,11 +62,13 @@ As you can see, variables in Go follow a different structure than the C/C++ fami
  
 In Go, the type is placed _after_ the variable name. Why? Well, Rob Pike [wrote a blog post](https://blog.golang.org/gos-declaration-syntax) explaining this difference and why this way improves declaration readabilty.
 
-We know that JS isn't a strongly typed language, however, we can find 4 basic types on JS
+JavaScript is dynamically typed: a variable can hold values of different types. Some of its value types include:
 - Numbers
 - Strings
 - Booleans
 - Objects
+
+This is not a complete list: JavaScript also has types such as `undefined`, `bigint`, and `symbol`.
 
 In Golang, the types are more explicit, having:
 - Integers (int, int8, int16, int32, int64, uint, uint32...)
@@ -77,7 +79,7 @@ In Golang, the types are more explicit, having:
 - Booleans
 - &c
 
-As you can infer, a strongly typed language needs many more predefined types. And should allow you to create your own types on-demand. You can do this by using the language construct `type`:
+Go is statically typed: each variable has a type checked by the compiler. You can also define your own types using `type`:
 
 ```go
 type ServerResponse map[string]interface{}
@@ -97,7 +99,7 @@ Let's see the same in Go!
 ```go
 // We will use the shorthand declaration
 
-x := 1.0 // Go will infer this as float32
+x := 1.0 // Go will infer this as float64
 y := false // This will be inferred as bool
 z := "string" // This is a string value
 a := struct {
@@ -108,7 +110,7 @@ a := struct {
 
 Let's write down some key differences:
 
-- Go strings must be written using double quotes ("). Single quotes are only used for char values ('c'). In JS, using double or single quotes is a matter of style.
+- Go strings use double quotes or backticks for raw string literals. Single quotes denote rune literals, such as 'c'. In JS, single and double quotes both delimit strings.
 - Go doesn't have Objects as JS does. We can mimic the power of Objects creating structs.
 - In Go, a struct can be initialized right after its declaration (as you can see in the code example). Just remember: order matters:
 
@@ -135,26 +137,27 @@ fmt.Println(x) // will print 0
 fmt.Println(y) // will print false
 ```
 
-For further reading, look at [this chapter](http://www.pazams.com/Go-for-Javascript-Developers/pages/types/) from _Go for Javascript developers_.
+For further reading, look at [this chapter](https://www.pazams.com/Go-for-Javascript-Developers/pages/types/) from _Go for JavaScript developers_.
+
+{% embed https://www.pazams.com/Go-for-Javascript-Developers/ %}
 
 ## Memory Management
 
-Both Go & JavaScript manage their own memory. Both of them have a GC task looking for variables to kill every second.
-Let's talk about them:
+Both Go and JavaScript manage memory automatically. Their garbage collectors reclaim memory that is no longer reachable. Let's look at how they differ:
 
 ### Go GC vs JS GC
 
-Go implemented a Concurrent mark-and-sweep GC routine, so, the entire GC process doesn't block the main thread. You can find examples of how this improves performance looking at this [Tweet from Ngrok creator](https://twitter.com/inconshreveable/status/620650786662555648?s=20). You can manually trigger a GC cycle when you need it.
+Go uses a concurrent mark-and-sweep garbage collector. Much of its work runs alongside the program, though collection includes brief pauses. You can request a cycle with `runtime.GC()`. See the [Go GC guide](https://go.dev/doc/gc-guide) for details.
 
-JS implements the same algorithm for cleaning its memory. However, due to JS thread limitations, the process should be blocked during the mark phase to allow GC to see which variables are not needed anymore. You can't call a GC cycle by yourself. 
+JavaScript engines also use garbage collection, but the language does not prescribe one implementation. Modern engines use mark-and-sweep with techniques such as incremental or concurrent collection. JavaScript itself does not expose a way to trigger GC, although some runtimes offer debugging options.
 
 ### Heap/Stack allocation
 
-Both languages abstract away the Heap/Stack usage & manipulation. None of the languages allow the programmer to allocate memory where they want to. Heap/Stack allocation is done by the compiler (or interpreter, on JS).
+Both languages abstract away most heap and stack management. In Go, the compiler decides where values can be allocated; JavaScript allocation is handled by the engine. The details depend on the implementation.
 
 ## Error Handling
 
-Both languages interpret errors as regular values. So they can be returned or passed along functions.
+Both languages can represent errors as values, but their usual control flow differs. JavaScript code can throw exceptions; Go functions commonly return an `error` alongside a result.
 
 JS has try/catch/finally constructions as part of its language (remember those times when all was handled by `window.onerror`?). This works for non-async code (or when you use `await`)
 
@@ -175,49 +178,39 @@ If the errors are product of asynchronous operations, the handling could be like
 ```javascript
 aPromise
   .then(value => value)
-  .catch(err => /* handle err */);
+  .catch(err => { /* handle err */ });
 ```
 
-In Golang, Error handling is a little bit more verbose. First, let's talk about the difference between errors and exceptions in Golang:
-- An error is the result of an operation that went wrong.
-For example, consider you create a function to convert from Dollars to another currency. If the user inputs a string instead of a double, would you call that an _exceptional situation_? So, you use errors for cases like this one:
+Go error handling is a little more explicit. For an expected failure, a function normally returns an `error`. For example, converting user input from a string to a number can fail:
 
 ```go
-func ConvertDollarToCurrencyX(input float) (float, error) {
-  // Here, if `input` is not a float or can't be converted to it
-  // you can handle that error.
-} 
-```
-- An exception, is, as its name says, an exceptional situation. For example, did your database crash for no reason? Well, that's an exceptional situation! In exceptional cases, you should `panic`.
-
-A `panic` instruction means your program cannot continue working normally
-
-```go
-err := db.connect("someweirdstringhere")
-if err != nil {
-  panic("Our database is not working, help!!")
+func ParseDollars(input string) (float64, error) {
+  return strconv.ParseFloat(input, 64)
 }
 ```
 
-That instruction will end the program (or goroutine) execution until you `recover` from it. How do you do that? 
+This snippet uses the standard library package `strconv`. The caller checks the returned error before using the value.
+
+Go also has `panic` for situations where normal execution cannot continue, such as a violated program invariant. A database connection failure is usually better returned as an error: the caller may be able to retry or report it.
+
+A panic unwinds the current goroutine, running deferred functions. If it is not recovered, the program terminates. A deferred function in the same goroutine can call `recover`:
 
 ```go
-func foo() int {
+func foo() {
   defer func() {
-  if err := recover(); err != nil {
-    fmt.Println(err)
-  }
+    if err := recover(); err != nil {
+      fmt.Println(err)
+    }
   }()
-  m := 1
   panic("foo: fail")
-  m = 2
-  return m
 }
 
 ```
-Did you notice the new word used here? Yes, `defer`. Defer will postpone the execution of a function until the end of its caller function. So, in our example, the `defer`ed function will be called _just before_ exiting the function on which it is defined (foo()). Here, we make a sanity check, since `recover` will only hold value when the function exited because of `panic`, we have to make sure that, if our function didn't `panic`d, we don't process the recover routine.
+Did you notice `defer`? It schedules a function call to run when the surrounding function returns or unwinds. Here, the deferred function calls `recover` and checks its result before printing it.
 
-More on `defer`, `panic` & `recover` on [this great blog post](https://blog.golang.org/defer-panic-and-recover) from Golang's own blog.
+More on `defer`, `panic` & `recover` on [this great blog post](https://go.dev/blog/defer-panic-and-recover) from Go's own blog.
+
+{% embed https://go.dev/blog/defer-panic-and-recover %}
 
 Just remember one thing: `defer` execution context might not be what you expect ;).
 
@@ -249,29 +242,29 @@ And now, _Import it_, cause only exporting is _booring_.
 import { name, draw } from './path/to/module.js';
 ```
 
-So now, how is this in Go? Well, history is a little bit different. Go was planned with `packages` support from the beginning. On Go 1.6, there was better support for encapsulating dependent packages inside a `vendor` folder. However, there was a big problem with this: there was no versioning on the libraries/packages you were using, and in fact, you could end with 10 different versions of the same library on a single project! (Problem resolved in JS by `package.json` and `.lock` files used for dependency management). 
+So now, how is this in Go? Well, history is a little bit different. Go was planned with `packages` support from the beginning. Go 1.6 improved support for keeping dependencies in a `vendor` folder, but the language toolchain did not yet provide the module-based version management it does today. JavaScript projects commonly use `package.json` and lockfiles to manage dependencies.
 
-In Go, it was not until version 1.11 where we have decent dependency management as part of the language. This version introduced `Go Modules` with the `go.mod` and `go.sum` files, which takes care of dependencies, versioning, and vendoring for your libraries. This allowed reproducible builds, one of the main issues of the Go community.
+Go 1.11 introduced modules. A module's `go.mod` records its dependencies and versions; `go.sum` records checksums used to verify downloaded module content. Modules also support vendoring. Together these tools help make builds reproducible.
 
-Now, what's the difference? Well, in JS, you can export any valid JS type. You can export just an unnamed function and use it. This is not possible in Go. Go export `packages`, which are namespaces for the exported functionality on it.
+Now, what's the difference? Well, in JS, you can export any valid JS type. You can export just an unnamed function and use it. This is not possible in Go. Go organizes code into packages, which provide namespaces for exported identifiers.
 
 ```go
-package myPackage
+package square
 
-var Name string = "square"
+var Name = "square"
 
-func Draw(ctx context.Context, color string, length, x, y int) context.Context {
-  ctx.DoNiceThings(color, length, x, y)
-  ctx.Draw(x,y,length)
-  return ctx
+func Area(side int) int {
+  return side * side
 }
 ```
 And in another file...
 ```go
-// `as` allows to rename an imported package. If not, the name of the package will be used as the descriptor
-import "myPackage" as package
+// An import name can rename the package locally.
+import shape "example.com/project/square"
 
-package.Draw(...)
+func example() int {
+  return shape.Area(4)
+}
 ```
 
 This might make you wonder: _How Go knows what's being exported from a package if I'm not telling it?_
@@ -288,7 +281,7 @@ Calling `test.name` will throw an error, since you cannot access a private packa
 
 In JS, you can use the well known [NPM](https://www.npmjs.com/) to install external libraries by running `npm install my-dependency@latest`.
 
-In Go, however, the dependency management is built-in the `go` command, so by running `go get my-library`, you will install `my-library` on your project! As you will learn later, Go deps can be hosted on github, bitbucket, gitlab... 
+In Go, dependency management is built into the `go` command. From a module, run `go get example.com/my-library` to add or update a dependency. To install an executable, use `go install example.com/tool@latest`. Dependencies can be hosted on GitHub, GitLab, and other servers.
 
 This is a brief intro to the huge Go ecosystem, how it was designed to be simple, clean & readable. I hope that, at this point, you know:
 - Differences between JS and Go in types, modules & syntax
