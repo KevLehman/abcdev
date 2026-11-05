@@ -17,4 +17,10 @@ export const skills = [
     descriptionEs: 'Aprende un tema con lecciones guiadas, preguntas de comprensión y progreso guardado entre sesiones.',
     queries: ['Teach me a topic step by step', 'Help me prepare for a technical interview', 'Continue my previous lesson'],
   },
+  {
+    name: 'translate-article',
+    description: 'Translate articles while preserving the author’s voice, intent, and technical accuracy.',
+    descriptionEs: 'Traduce artículos conservando la voz, la intención y la precisión técnica del autor.',
+    queries: ['Translate this article into Latin American Spanish', 'Localize a technical blog post for a Spanish-speaking audience'],
+  },
 ];
