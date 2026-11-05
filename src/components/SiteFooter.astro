@@ -1,11 +1,13 @@
 ---
 import { socialProfiles } from '../lib/structured-data.mjs';
+interface Props { lang?: 'en' | 'es'; }
+const { lang = 'en' } = Astro.props;
 ---
 <footer>
   <div class="wrap foot">
     <span>© 2026 Kevin Aleman</span>
     <div class="foot-links">
-      <a href="/feed.xml">Subscribe via RSS</a>
+      <a href="/feed.xml" data-en="Subscribe via RSS" data-es="Suscribirse por RSS">{lang === 'es' ? 'Suscribirse por RSS' : 'Subscribe via RSS'}</a>
       <span>{socialProfiles.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
     </div>
   </div>

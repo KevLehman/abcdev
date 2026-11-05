@@ -1,9 +1,11 @@
 ---
+interface Props { lang?: 'en' | 'es'; }
+const { lang = 'en' } = Astro.props;
 ---
-<button id="theme-toggle" type="button" aria-label="Switch to dark theme">
-  <span class="on-light">dark ☾</span>
-  <span class="on-dark">grove ❧</span>
-  <span class="on-grove">light ☀</span>
+<button id="theme-toggle" type="button" aria-label={lang === 'es' ? 'Cambiar al tema oscuro' : 'Switch to dark theme'}>
+  <span class="on-light" data-en="dark ☾" data-es="oscuro ☾">{lang === 'es' ? 'oscuro ☾' : 'dark ☾'}</span>
+  <span class="on-dark" data-en="grove ❧" data-es="bosque ❧">{lang === 'es' ? 'bosque ❧' : 'grove ❧'}</span>
+  <span class="on-grove" data-en="light ☀" data-es="claro ☀">{lang === 'es' ? 'claro ☀' : 'light ☀'}</span>
 </button>
 <style>
   #theme-toggle {
@@ -30,7 +32,9 @@
     const current = () => root.dataset.theme || (systemDark() ? 'dark' : 'light');
     const btn = document.getElementById('theme-toggle');
     const nextTheme = () => ({ light: 'dark', dark: 'grove', grove: 'light' })[current()];
-    const updateLabel = () => btn?.setAttribute('aria-label', `Switch to ${nextTheme()} theme`);
+    const updateLabel = () => btn?.setAttribute('aria-label', root.lang === 'es'
+      ? `Cambiar al tema ${{ dark: 'oscuro', grove: 'bosque', light: 'claro' }[nextTheme()]}`
+      : `Switch to ${nextTheme()} theme`);
     updateLabel();
     btn?.addEventListener('click', () => {
       const next = nextTheme();

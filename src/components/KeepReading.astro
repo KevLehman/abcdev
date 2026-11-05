@@ -1,12 +1,12 @@
 ---
-interface Props { href: string; idx: number; date: Date; rt: string; title: string; tags: string[]; }
-const { href, idx, date, rt, title, tags } = Astro.props;
+interface Props { href: string; idx: number; date: Date; rt: string; title: string; tags: string[]; lang?: 'en' | 'es'; }
+const { href, idx, date, rt, title, tags, lang = 'en' } = Astro.props;
 const iso = date.toISOString().slice(0, 10);
 const pad = (n: number) => String(n).padStart(3, '0');
 const meta = [pad(idx), iso, rt.replace(' min read', 'm'), tags.join(',')].filter(Boolean).join(' · ');
 ---
 <aside class="keep-reading">
-  <p class="eyebrow">// keep reading</p>
+  <p class="eyebrow">// {lang === 'es' ? 'sigue leyendo' : 'keep reading'}</p>
   <a class="kr-card" href={href}>
     <span class="kr-title">{title}</span>
     <span class="kr-meta">{meta}</span>

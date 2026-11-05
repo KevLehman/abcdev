@@ -4,23 +4,32 @@ import BaseHead from '../components/BaseHead.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SearchPalette from '../components/SearchPalette.astro';
-interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; oembed?: string; noindex?: boolean;
+interface Props { title: string; description: string; active?: string; canonical?: string; ogImage?: string; oembed?: string; markdown?: string; noindex?: boolean; lang?: 'en' | 'es'; alternate?: string;
   article?: { title: string; publishedTime: Date; tags: string[] }; }
-const { title, description, active, canonical, ogImage, oembed, article, noindex } = Astro.props;
+const { title, description, active, canonical, ogImage, oembed, markdown, article, noindex, lang = 'en', alternate } = Astro.props;
+const pageAlternates: Record<string, string> = {
+  '/': '/es/', '/es/': '/',
+  '/about/': '/es/about/', '/es/about/': '/about/',
+  '/talks/': '/es/talks/', '/es/talks/': '/talks/',
+  '/stats/': '/es/stats/', '/es/stats/': '/stats/',
+  '/contact/': '/es/contact/', '/es/contact/': '/contact/',
+  '/contact/sent/': '/es/contact/sent/', '/es/contact/sent/': '/contact/sent/',
+};
+const pageAlternate = alternate ?? pageAlternates[Astro.url.pathname.replace(/\/?$/, '/')];
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <script is:inline>
       const t = localStorage.getItem('theme');
       if (t === 'dark' || t === 'light' || t === 'grove') document.documentElement.dataset.theme = t;
     </script>
-    <BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} oembed={oembed} article={article} noindex={noindex} />
+    <BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} oembed={oembed} markdown={markdown} article={article} noindex={noindex} lang={lang} alternate={pageAlternate} />
   </head>
   <body>
-    <SiteHeader active={active} />
+    <SiteHeader active={active} lang={lang} alternate={pageAlternate} />
     <main><slot /></main>
-    <SiteFooter />
-    <SearchPalette />
+    <SiteFooter lang={lang} />
+    <SearchPalette lang={lang} />
   </body>
 </html>

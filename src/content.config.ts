@@ -8,8 +8,10 @@ const articles = defineCollection({
   loader: glob({
     pattern: '**/*.md',
     base: './src/content/articles',
-    generateId: ({ entry, data }) =>
-      typeof data.slug === 'string' && data.slug ? data.slug : entry.replace(/\.md$/, ''),
+    generateId: ({ entry, data }) => {
+      const slug = typeof data.slug === 'string' && data.slug ? data.slug : entry.replace(/\.md$/, '').replace(/^es\//, '');
+      return data.lang === 'es' ? `es/${slug}` : slug;
+    },
   }),
   schema: ({ image }) => z.object({
     idx: z.number().int(),
@@ -17,6 +19,8 @@ const articles = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
     excerpt: z.string(),
+    lang: z.enum(['en', 'es']).default('en'),
+    translationOf: z.string().trim().min(1).optional(),
     draft: z.boolean().default(false),
     unlisted: z.boolean().default(false),
     featured: z.boolean().default(false),

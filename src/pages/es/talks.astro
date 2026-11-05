@@ -1,0 +1,48 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+const entry = await getEntry('talks', 'talks');
+const talks = (entry?.data.talks ?? []).sort((a, b) => b.date.getTime() - a.date.getTime());
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+---
+<Base title="Charlas — Kev's logbook" description="Charlas y presentaciones de Kevin Aleman." active="talks" lang="es">
+  <div class="wrap talks">
+    <p class="eyebrow">// charlas</p>
+    <h1>Charlas</h1>
+    <p class="intro">Una colección de charlas sobre APIs, Go y lo que he aprendido en el camino.</p>
+    {talks.length === 0
+      ? <p class="empty">Todavía no hay charlas registradas. Vuelve pronto.</p>
+      : <ul class="list">{talks.map((t) => (
+          <li>
+            <a class="talk" href={t.url}>
+              {t.preview && <img src={t.preview} alt={`Primera diapositiva de ${t.title}`} width="1280" height="720" loading="lazy" decoding="async" />}
+              <div class="details">
+                <h2>{t.title}</h2>
+                {t.event && <p class="event">{t.event}</p>}
+                <div class="meta">
+                  <time datetime={iso(t.date)}>Actualizada {iso(t.date)}</time>
+                  {t.url && <span class="slides">diapositivas ↗</span>}
+                </div>
+              </div>
+            </a>
+          </li>))}</ul>}
+  </div>
+</Base>
+<style>
+  .talks { padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 18px; }
+  .intro { max-width: var(--measure); color: var(--slate); margin-bottom: 32px; }
+  .empty { font-family: var(--font-mono); font-size: .85rem; color: var(--slate); }
+  .list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; list-style: none; padding: 0; }
+  .talk { display: block; height: 100%; color: inherit; text-decoration: none; border-bottom: 1px solid var(--hairline); }
+  .talk img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; border: 1px solid var(--hairline); }
+  .details { padding: 16px 0; }
+  h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; line-height: 1.35; margin: 0 0 12px; }
+  .event { margin-bottom: 12px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: space-between; font-family: var(--font-mono); font-size: .75rem; }
+  time { color: var(--slate); }
+  .slides, .talk:hover h2 { color: var(--signal); }
+  @media (max-width: 640px) {
+    .list { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>

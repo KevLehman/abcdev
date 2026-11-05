@@ -1,11 +1,16 @@
 ---
 // Metadata is available immediately; the full-text index loads when search opens.
 import { getCollection } from 'astro:content';
+import { articlePath } from '../lib/article-language.mjs';
+interface Props { lang?: 'en' | 'es'; }
+const { lang = 'en' } = Astro.props;
 
 const arts = (await getCollection('articles', ({ data }) => !data.draft && !data.unlisted))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const index = arts.map((a) => ({
   slug: a.id,
+  lang: a.data.lang,
+  href: `${articlePath(a)}${a.data.lang === 'es' ? '?lang=es' : ''}`,
   idx: a.data.idx,
   date: a.data.date.toISOString().slice(0, 10),
   title: a.data.title,
@@ -13,22 +18,22 @@ const index = arts.map((a) => ({
   excerpt: a.data.excerpt,
 }));
 ---
-<dialog id="search" aria-label="Search the logbook">
+<dialog id="search" aria-label={lang === 'es' ? 'Buscar en la bitácora' : 'Search the logbook'}>
   <div class="search-head">
-    <input id="search-input" type="text" placeholder="search entries…" autocomplete="off"
+    <input id="search-input" type="text" placeholder={lang === 'es' ? 'buscar artículos…' : 'search entries…'} autocomplete="off"
       spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results"
-      aria-label="Search entries" />
+      aria-label={lang === 'es' ? 'Buscar artículos' : 'Search entries'} />
     <span class="search-count" data-search-count aria-live="polite"></span>
   </div>
-  <ol id="search-results" role="listbox" aria-label="Results"></ol>
+  <ol id="search-results" role="listbox" aria-label={lang === 'es' ? 'Resultados' : 'Results'}></ol>
   <div class="search-foot">
-    <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    <span data-en="↑↓ navigate" data-es="↑↓ navegar">{lang === 'es' ? '↑↓ navegar' : '↑↓ navigate'}</span><span data-en="↵ open" data-es="↵ abrir">{lang === 'es' ? '↵ abrir' : '↵ open'}</span><span data-en="esc close" data-es="esc cerrar">{lang === 'es' ? 'esc cerrar' : 'esc close'}</span>
   </div>
 </dialog>
 <script type="application/json" id="search-data" set:html={JSON.stringify(index)}></script>
 <script>
   import { searchArticles } from '../lib/search.mjs';
-  type SearchEntry = { slug: string; idx: number; date: string; title: string; tags: string[]; excerpt: string; body?: string };
+  type SearchEntry = { slug: string; lang: string; href: string; idx: number; date: string; title: string; tags: string[]; excerpt: string; body?: string };
   (() => {
     const dialog = document.getElementById('search') as HTMLDialogElement | null;
     if (!dialog || !dialog.showModal) return;
@@ -50,7 +55,7 @@ const index = arts.map((a) => ({
         li.setAttribute('aria-selected', String(i === active));
         if (i === active) li.classList.add('active');
         const a = document.createElement('a');
-        a.href = `/${e.slug}`;
+        a.href = e.href;
         a.tabIndex = -1;
         const mk = (cls: string, text: string) => {
           const s = document.createElement('span');
@@ -68,20 +73,21 @@ const index = arts.map((a) => ({
         list.appendChild(li);
       });
       input.setAttribute('aria-activedescendant', results.length ? `search-opt-${active}` : '');
-      count.textContent = indexState === 'loading' ? 'Loading full text…'
-        : indexState === 'unavailable' ? 'Full text unavailable'
-        : `${results.length} ${results.length === 1 ? 'entry' : 'entries'}`;
+      const es = document.documentElement.lang === 'es';
+      count.textContent = indexState === 'loading' ? (es ? 'Cargando texto…' : 'Loading full text…')
+        : indexState === 'unavailable' ? (es ? 'Texto no disponible' : 'Full text unavailable')
+        : `${results.length} ${es ? (results.length === 1 ? 'artículo' : 'artículos') : (results.length === 1 ? 'entry' : 'entries')}`;
       if (!results.length) {
         const li = document.createElement('li');
         li.className = 'empty';
-        li.textContent = indexState === 'loading' ? 'searching full text…'
-          : indexState === 'unavailable' ? 'no entries match titles, tags, or excerpts' : 'no entries match';
+        li.textContent = indexState === 'loading' ? (es ? 'buscando en el texto…' : 'searching full text…')
+          : indexState === 'unavailable' ? (es ? 'sin coincidencias en títulos, etiquetas o resúmenes' : 'no entries match titles, tags, or excerpts') : (es ? 'sin coincidencias' : 'no entries match');
         list.appendChild(li);
       }
     };
 
     const search = () => {
-      results = searchArticles(data, input.value);
+      results = searchArticles(data.filter((entry) => entry.lang === document.documentElement.lang), input.value);
       active = 0;
       renderRows();
     };
@@ -109,7 +115,7 @@ const index = arts.map((a) => ({
         renderRows();
         list.querySelector('.active')?.scrollIntoView({ block: 'nearest' });
       } else if (ev.key === 'Enter' && results[active]) {
-        location.href = `/${results[active].slug}`;
+        location.href = results[active].href;
       }
     });
     // Close when the backdrop (the dialog element itself) is clicked.

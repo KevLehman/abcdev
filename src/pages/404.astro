@@ -6,11 +6,16 @@ import Base from '../layouts/Base.astro';
     <p class="eyebrow">// error 404</p>
     <h1>route not found</h1>
     <p>That entry isn't in the logbook. <a href="/">← back to logbook</a></p>
+    <div lang="es">
+      <h2>Ruta no encontrada</h2>
+      <p>Esta entrada no está en la bitácora. <a href="/es/">← volver a la bitácora</a></p>
+    </div>
   </div>
 </Base>
 <style>
   .nf { max-width: var(--measure); padding: 80px 0; }
   h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.2rem; margin: 14px 0 16px; }
   .nf p { font-family: var(--font-mono); font-size: .9rem; color: var(--slate); }
+  h2 { margin: 32px 0 12px; font-family: var(--font-display); font-size: 1.5rem; }
   .nf a { color: var(--signal); text-decoration: none; }
 </style>

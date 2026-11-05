@@ -1,5 +1,9 @@
 # Kev's logbook — Kevin Aleman's blog
 
+## Spanish articles
+
+Add a Markdown file under `src/content/articles/es/` with `lang: es` and the usual article frontmatter. Set `translationOf` to the English article's public slug when the article is a translation. A published, listed pair shares the English article path; `?lang=es` selects Spanish. Netlify rewrites that URL to a prerendered Spanish page so link previews see the Spanish metadata. A Spanish-only article uses its own slug. Spanish oEmbed and Markdown endpoints use the `/oembed/es/` and `/markdown/es/` prefixes. Draft and unlisted articles are excluded from the language switcher and public indexes.
+
 A personal blog about life, engineering, and games. Built with [Astro](https://astro.build),
 styled with a custom "Engineering Logbook" editorial design, and deployed to Netlify.
 

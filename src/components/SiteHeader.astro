@@ -1,25 +1,26 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-interface Props { active?: string; }
-const { active } = Astro.props;
+interface Props { active?: string; lang?: 'en' | 'es'; alternate?: string; }
+const { active, lang = 'en', alternate } = Astro.props;
 const items = [
-  { href: '/', label: 'logbook', key: 'logbook' },
-  { href: '/about', label: 'about', key: 'about' },
-  { href: '/talks', label: 'talks', key: 'talks' },
-  { href: '/stats', label: 'stats', key: 'stats' },
-  { href: '/contact', label: 'contact', key: 'contact' },
-  { href: '/feed.xml', label: 'RSS', key: 'feed' },
+  { href: lang === 'es' ? '/es/' : '/', en: 'logbook', es: 'bitácora', key: 'logbook' },
+  { href: lang === 'es' ? '/es/about/' : '/about/', en: 'about', es: 'acerca de', key: 'about' },
+  { href: lang === 'es' ? '/es/talks/' : '/talks/', en: 'talks', es: 'charlas', key: 'talks' },
+  { href: lang === 'es' ? '/es/stats/' : '/stats/', en: 'stats', es: 'estadísticas', key: 'stats' },
+  { href: lang === 'es' ? '/es/contact/' : '/contact/', en: 'contact', es: 'contacto', key: 'contact' },
+  { href: '/feed.xml', en: 'RSS', es: 'RSS', key: 'feed' },
 ];
 ---
 <header>
   <div class="wrap masthead">
-    <a class="wordmark" href="/">KEVIN&nbsp;ALEMAN <span>— LOGBOOK</span></a>
-    <nav aria-label="Site">
+    <a class="wordmark" href={lang === 'es' ? '/es/' : '/'}>KEVIN&nbsp;ALEMAN <span>— LOGBOOK</span></a>
+    <nav aria-label={lang === 'es' ? 'Sitio' : 'Site'}>
       {items.map((i) => (
-        <a href={i.href} class={active === i.key ? 'active' : ''}>{i.label}</a>
+        <a href={i.href} class={active === i.key ? 'active' : ''} data-en={i.en} data-es={i.es}>{i[lang]}</a>
       ))}
-      <button id="search-open" type="button" hidden aria-label="Search the logbook">search <kbd>⌘k</kbd></button>
-      <ThemeToggle />
+      <button id="search-open" type="button" hidden aria-label={lang === 'es' ? 'Buscar en la bitácora' : 'Search the logbook'}><span data-en="search" data-es="buscar">{lang === 'es' ? 'buscar' : 'search'}</span> <kbd>⌘k</kbd></button>
+      <a href={alternate ?? (lang === 'es' ? '/' : '/es/')} lang={lang === 'es' ? 'en' : 'es'} data-language-switch data-paired={!!alternate}>{lang === 'es' ? 'English' : 'Español'}</a>
+      <ThemeToggle lang={lang} />
     </nav>
   </div>
 </header>

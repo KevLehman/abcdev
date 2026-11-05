@@ -1,0 +1,17 @@
+---
+import Base from '../../../layouts/Base.astro';
+---
+<Base title="Mensaje enviado — Kev's logbook" description="Gracias por contactar a Kevin Aleman." active="contact" lang="es" noindex>
+  <div class="wrap sent">
+    <p class="eyebrow">// contacto</p>
+    <h1>Mensaje enviado.</h1>
+    <p>Gracias por escribirme. Responderé al correo electrónico que compartiste.</p>
+    <a href="/es/">Volver a la bitácora</a>
+  </div>
+</Base>
+<style>
+  .sent { max-width: var(--measure); padding-top: 48px; padding-bottom: 32px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 18px; }
+  .sent > p:not(.eyebrow) { font-size: 1.2rem; line-height: 1.7; margin-bottom: 24px; }
+  .sent > a { font-family: var(--font-mono); font-size: .85rem; }
+</style>

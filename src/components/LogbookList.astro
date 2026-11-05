@@ -1,7 +1,7 @@
 ---
 interface Entry { idx: number; slug: string; date: Date; tags: string[]; title: string; rt: string; }
-interface Props { entries: Entry[]; }
-const { entries } = Astro.props;
+interface Props { entries: Entry[]; lang?: 'en' | 'es'; }
+const { entries, lang = 'en' } = Astro.props;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 const pad = (n: number) => String(n).padStart(3, '0');
 const rtShort = (rt: string) => rt.replace(' min read', 'm').replace(/\s/g, '');
@@ -19,21 +19,21 @@ const tags = [...counts.entries()]
 ---
 <section class="listing">
   <div class="facetbar" data-facets hidden>
-    <span class="facet-label eyebrow">tags</span>
-    <span class="count" data-count aria-live="polite">{entries.length} entries</span>
-    <button type="button" class="facet surprise" data-surprise>surprise me ↗</button>
+    <span class="facet-label eyebrow">{lang === 'es' ? 'etiquetas' : 'tags'}</span>
+    <span class="count" data-count aria-live="polite">{entries.length} {lang === 'es' ? 'artículos' : 'entries'}</span>
+    <button type="button" class="facet surprise" data-surprise>{lang === 'es' ? 'sorpréndeme' : 'surprise me'} ↗</button>
     <div class="facet-list">
-      <button type="button" class="facet" data-tag="" aria-pressed="true">all</button>
+      <button type="button" class="facet" data-tag="" aria-pressed="true">{lang === 'es' ? 'todos' : 'all'}</button>
       {tags.map((t) => (
         <button type="button" class="facet" data-tag={t} aria-pressed="false">{t}</button>
       ))}
     </div>
   </div>
   <div class="listhead">
-    <span>idx</span><span>date</span><span>rt</span><span>title — tags</span>
+    <span>idx</span><span>{lang === 'es' ? 'fecha' : 'date'}</span><span>rt</span><span>{lang === 'es' ? 'título — etiquetas' : 'title — tags'}</span>
   </div>
   {entries.map((e) => (
-    <a class="row" href={`/${e.slug}`} data-tags={e.tags.join(' ')}>
+    <a class="row" href={`/${e.slug}/${lang === 'es' ? '?lang=es' : ''}`} data-tags={e.tags.join(' ')}>
       <span class="idx">{pad(e.idx)}</span>
       <span>{iso(e.date)}</span>
       <span class="rt">{rtShort(e.rt)}</span>
@@ -65,7 +65,8 @@ const tags = [...counts.entries()]
         if (match) shown++;
       }
       for (const f of facets) f.setAttribute('aria-pressed', String((f.dataset.tag || '') === tag));
-      count.textContent = tag ? `${tag} · ${shown} of ${total}` : `${total} entries`;
+      const es = document.documentElement.lang === 'es';
+      count.textContent = tag ? `${tag} · ${shown} ${es ? 'de' : 'of'} ${total}` : `${total} ${es ? 'artículos' : 'entries'}`;
       const next = tag ? `#${encodeURIComponent(tag)}` : location.pathname + location.search;
       history.replaceState(null, '', next);
     };

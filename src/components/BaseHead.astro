@@ -1,13 +1,13 @@
 ---
 import { serializeStructuredData } from '../lib/structured-data.mjs';
-interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string; noindex?: boolean;
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string; markdown?: string; noindex?: boolean; lang?: 'en' | 'es'; alternate?: string;
   article?: { title: string; publishedTime: Date; tags: string[] }; }
-const { title, description, canonical, ogImage, oembed, article, noindex = false } = Astro.props;
+const { title, description, canonical, ogImage, oembed, markdown, article, noindex = false, lang = 'en', alternate } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 // Fall back to the site card (public/og-default.png — regenerate with the design
 // tokens if the brand changes) so every page shares with an image.
 const ogImageURL = new URL(ogImage ?? '/og-default.png', Astro.site).href;
-const jsonLd = serializeStructuredData({ site: Astro.site!, canonicalURL, description, ogImageURL, article, noindex });
+const jsonLd = serializeStructuredData({ site: Astro.site!, canonicalURL, description, ogImageURL, article, noindex, lang });
 // GoatCounter — privacy-friendly, cookieless analytics. Set PUBLIC_GOATCOUNTER to
 // your count endpoint (e.g. https://abcdev.goatcounter.com/count) to enable it;
 // left unset, no script loads, so dev/preview stay analytics-free. count.js skips
@@ -27,9 +27,11 @@ const goatcounter = import.meta.env.PUBLIC_GOATCOUNTER;
 <meta name="google-site-verification" content="o4hemjc0iG7sJzkvWB7gn0ukhzHyr6CvuNbCJamckxE" />
 <meta name="follow.it-verification-code" content="aASUxb3D5PHqZPedFDyW" />
 {!noindex && <link rel="canonical" href={canonicalURL.href} />}
+{alternate && !noindex && <link rel="alternate" hreflang={lang} href={canonicalURL.href} />}
+{alternate && !noindex && <link rel="alternate" hreflang={lang === 'en' ? 'es' : 'en'} href={new URL(alternate, canonicalURL).href} />}
 {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
 {article && !noindex && <link rel="alternate" type="text/markdown" title="Markdown source"
-  href={new URL(`/markdown${canonicalURL.pathname.replace(/\/$/, '')}.md`, Astro.site).href} />}
+  href={new URL(markdown ?? `/markdown${canonicalURL.pathname.replace(/\/$/, '')}.md`, Astro.site).href} />}
 <meta property="og:type" content={article ? 'article' : 'website'} />
 <meta property="og:site_name" content="Kev's logbook" />
 {article && <meta property="article:published_time" content={article.publishedTime.toISOString()} />}

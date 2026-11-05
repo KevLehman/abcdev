@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import LogbookList from '../components/LogbookList.astro';
 
-const all = (await getCollection('articles', ({ data }) => !data.draft && !data.unlisted))
+const all = (await getCollection('articles', ({ data }) => !data.draft && !data.unlisted && data.lang === 'en'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 // Curate routes only; titles, excerpts, and publication numbers come from the collection.
 const startHere = [

@@ -14,6 +14,10 @@ const article = {
 };
 
 describe('serializeStructuredData', () => {
+  it('identifies the language of a translated article', () => {
+    const doc = JSON.parse(serializeStructuredData({ ...page, article, lang: 'es' }));
+    expect(doc['@graph'].find((node) => node['@type'] === 'BlogPosting').inLanguage).toBe('es');
+  });
   it('connects the personal site to its owner and existing profiles', () => {
     const doc = JSON.parse(serializeStructuredData(page));
     expect(doc['@context']).toBe('https://schema.org');

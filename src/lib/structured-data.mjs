@@ -7,9 +7,9 @@ export const socialProfiles = [
 
 /**
  * @param {{ site: URL, canonicalURL: URL, description: string, ogImageURL: string,
- *   article?: { title: string, publishedTime: Date, tags: string[] }, noindex?: boolean }} page
+ *   article?: { title: string, publishedTime: Date, tags: string[] }, noindex?: boolean, lang?: string }} page
  */
-export function serializeStructuredData({ site, canonicalURL, description, ogImageURL, article, noindex }) {
+export function serializeStructuredData({ site, canonicalURL, description, ogImageURL, article, noindex, lang = 'en' }) {
   if (noindex) return null;
 
   const person = {
@@ -33,6 +33,7 @@ export function serializeStructuredData({ site, canonicalURL, description, ogIma
       '@type': 'BlogPosting',
       '@id': `${canonicalURL.href}#article`,
       headline: article.title,
+      inLanguage: lang,
       description,
       url: canonicalURL.href,
       datePublished: article.publishedTime.toISOString(),

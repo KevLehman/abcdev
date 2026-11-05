@@ -1,0 +1,118 @@
+---
+import Base from '../../layouts/Base.astro';
+const stack = [
+  'JavaScript', 'TypeScript', 'Go', 'SQL', 'Bash',
+  'Node.js', 'Astro', 'React', 'Fastify', 'Express',
+  'PostgreSQL', 'MongoDB', 'SQLite',
+  'Docker', 'AWS', 'DigitalOcean', 'Netlify', 'Caddy', 'Linux',
+  'GitHub Actions', 'Telegram Bots', 'Agentes de IA', 'Git', 'Vim',
+];
+---
+<Base title="Acerca de mí — Kev's logbook" description="Kevin Aleman: desarrollador de backend y sistemas, mantenedor de código abierto y mentor de Google Summer of Code en El Salvador." active="about" lang="es">
+  <div class="wrap about">
+    <p class="eyebrow">// acerca de mí</p>
+    <h1>Acerca de mí</h1>
+    <p class="lead">Soy desarrollador de backend y sistemas, y mantenedor de código abierto en El Salvador.
+      Creo herramientas que facilitan el trabajo diario, desde utilidades para bases de datos y aplicaciones
+      para macOS hasta bots y aplicaciones web. Me importa hacer más accesibles el conocimiento y el
+      software útil, especialmente donde los recursos son limitados.</p>
+    <section aria-labelledby="open-source-heading">
+      <h2 id="open-source-heading">Código abierto y mentoría</h2>
+      <article class="project">
+        <h3>Rocket.Chat & Google Summer of Code</h3>
+        <p>Mi trabajo en código abierto incluye revisar pull requests, clasificar issues y acompañar a
+          colaboradores de Google Summer of Code en Rocket.Chat. Me importa ayudarles a entender
+          el código que cambian, escribir pruebas útiles y asumir la responsabilidad de lo que publican.
+          Mantener software también significa dedicar tiempo a quienes lo construyen.</p>
+        <div class="project-links">
+          <a href="https://github.com/RocketChat/Rocket.Chat">Explorar Rocket.Chat</a>
+          <a href="/you-got-selected-for-gsoc-2026-now-what-1bdc/">Lee mis consejos para participantes de GSoC</a>
+        </div>
+      </article>
+    </section>
+    <section class="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Cosas que he construido</h2>
+      <article class="project">
+        <h3>ReadStats</h3>
+        <p>Apple Books guarda mucha información sobre mis lecturas, pero es difícil ver el panorama completo.
+          Analicé sus bases de datos SQLite y construí una aplicación para la barra de menús de macOS
+          que permite explorar el progreso de lectura, los libros pendientes y los fragmentos destacados.</p>
+        <a href="/the-apple-books-data-model-1f8h/">Lee el análisis del modelo de datos</a>
+      </article>
+      <article class="project">
+        <h3>PortsApp</h3>
+        <p>Una aplicación de Swift para la barra de menús de macOS que muestra qué procesos escuchan en puertos locales.
+          Identifica contenedores de Docker, muestra árboles de procesos y permite detener un proceso o abrir
+          su URL local sin buscar entre los resultados de la terminal.</p>
+        <a href="https://github.com/KevLehman/MacPorts">Ver el código</a>
+      </article>
+      <article class="project">
+        <h3>Oplog Viewer</h3>
+        <p>Una herramienta de línea de comandos en TypeScript para observar el registro de operaciones de MongoDB.
+          Se conecta a una base de datos y filtra eventos por espacio de nombres para facilitar la inspección de cambios.</p>
+        <a href="https://github.com/KevLehman/oplog-viewer">Ver el código</a>
+      </article>
+      <article class="project">
+        <h3>Gatsby Google Drive plugin</h3>
+        <p>Quería publicar mis charlas sin copiar archivos de Google Drive manualmente, así que construí
+          un plugin que descarga una carpeta y sus subcarpetas durante la compilación de Gatsby. Conecta
+          las presentaciones que edito en Drive con los archivos que publica mi sitio.</p>
+        <div class="project-links">
+          <a href="https://github.com/KevLehman/gatsby-plugin-googledrive">Ver el código</a>
+          <a href="/creation-of-a-feature-showoff-my-talks/">Lee la explicación</a>
+        </div>
+      </article>
+      <article class="project">
+        <h3>Visible Ads</h3>
+        <p>Construí una extensión de Chrome que añade un borde azul a los anuncios de búsqueda de Google
+          para que sean más fáciles de identificar. El tutorial explica el manifiesto y los scripts
+          de fondo y de contenido.</p>
+        <div class="project-links">
+          <a href="https://github.com/KevLehman/visible-ads">Ver el código</a>
+          <a href="/how-to-make-a-chrome-extension/">Lee la explicación</a>
+        </div>
+      </article>
+    </section>
+    <section aria-labelledby="private-projects-heading">
+      <h2 id="private-projects-heading">Proyectos privados</h2>
+      <p>Parte de mi trabajo está en repositorios privados: herramientas para gestionar documentos, organizar
+        actividades comunitarias y aprender de lo que leo.</p>
+      <article class="project">
+        <h3>CCFMaster</h3>
+        <p>Un gestor de facturas basado en los documentos tributarios electrónicos de El Salvador. Recoge
+          documentos PDF y JSON de Gmail, los clasifica por tipo y los guarda en SQLite. Una interfaz web
+          y un bot de Telegram facilitan la revisión de facturas, la búsqueda de archivos y la preparación
+          de los documentos del mes.</p>
+      </article>
+      <article class="project">
+        <h3>PreachHelper</h3>
+        <p>Una aplicación para programar asignaciones de territorio de una congregación. Crea programas mensuales,
+          distribuye las asignaciones entre grupos, registra el progreso diario y genera documentos imprimibles.
+          La construí con Node.js, Express y SQLite, con interfaces en español e inglés.</p>
+      </article>
+      <article class="project">
+        <h3>WiseTok</h3>
+        <p>Una aplicación de estudio que convierte documentos en tarjetas breves para explorar. Combina
+          una interfaz en React con conversión de documentos y extracción mediante IA; admite modelos
+          alojados o locales con Ollama. SQLite conserva las tarjetas sin volver a procesar el mismo archivo.</p>
+      </article>
+    </section>
+    <h2>Con qué trabajo</h2>
+    <ul class="stack">{stack.map((s) => <li>{s}</li>)}</ul>
+  </div>
+</Base>
+<style>
+  .about { max-width: var(--measure); padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.4rem; margin: 14px 0 18px; }
+  h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; margin: 2rem 0 1rem; }
+  .lead { font-size: 1.2rem; line-height: 1.7; }
+  .project { padding: 20px 0; border-top: 1px solid var(--hairline); }
+  .project h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; }
+  section > p, .project p { font-size: 1.1rem; line-height: 1.65; }
+  .project p { margin: 8px 0 12px; }
+  .project a { font-family: var(--font-mono); font-size: .78rem; }
+  .project-links { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  .stack { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack li { font-family: var(--font-mono); font-size: .78rem; color: var(--slate);
+    border: 1px solid var(--hairline); padding: 5px 10px; }
+</style>

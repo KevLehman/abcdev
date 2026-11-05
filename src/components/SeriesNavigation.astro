@@ -1,34 +1,37 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import type { getArticleSeries } from '../lib/article-series.mjs';
+import { articlePath } from '../lib/article-language.mjs';
 
 interface Props {
   series: NonNullable<ReturnType<typeof getArticleSeries<CollectionEntry<'articles'>>>>;
+  lang?: 'en' | 'es';
 }
-const { series } = Astro.props;
+const { series, lang = 'en' } = Astro.props;
+const href = (part: CollectionEntry<'articles'>) => `${articlePath(part)}${lang === 'es' ? '?lang=es' : ''}`;
 ---
 <nav class="series" id="article-series" aria-labelledby="series-title">
-  <p class="eyebrow">// series · part {series.position} of {series.articles.length}</p>
+  <p class="eyebrow">// {lang === 'es' ? 'serie · parte' : 'series · part'} {series.position} {lang === 'es' ? 'de' : 'of'} {series.articles.length}</p>
   <h2 id="series-title">{series.title}</h2>
   <ol>
     {series.articles.map((part, i) => (
       <li>
         {i + 1 === series.position
           ? <span aria-current="page">{part.data.title}</span>
-          : <a href={`/${part.id}`}>{part.data.title}</a>}
+          : <a href={href(part)}>{part.data.title}</a>}
       </li>
     ))}
   </ol>
   <div class="neighbors">
     {series.previous && (
-      <a href={`/${series.previous.id}`} rel="prev">
-        <span class="direction">← Previous part</span>
+      <a href={href(series.previous)} rel="prev">
+        <span class="direction">← {lang === 'es' ? 'Parte anterior' : 'Previous part'}</span>
         <span>{series.previous.data.title}</span>
       </a>
     )}
     {series.next && (
-      <a href={`/${series.next.id}`} rel="next">
-        <span class="direction">Next part →</span>
+      <a href={href(series.next)} rel="next">
+        <span class="direction">{lang === 'es' ? 'Parte siguiente' : 'Next part'} →</span>
         <span>{series.next.data.title}</span>
       </a>
     )}

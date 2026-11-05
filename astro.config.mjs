@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import readingTime from './src/lib/reading-time.mjs';
 import remarkEmbed from './src/lib/remark-embed.mjs';
-import { readFile } from 'node:fs/promises';
+import { copyFile, readFile } from 'node:fs/promises';
 
 let buildDirectory;
 
@@ -10,12 +10,16 @@ export default defineConfig({
   site: 'https://kevinaleman.com',
   integrations: [
     { name: 'sitemap-build-directory', hooks: {
-      'astro:build:done': ({ dir }) => { buildDirectory = dir; },
+      'astro:build:done': async ({ dir }) => {
+        buildDirectory = dir;
+        await copyFile(new URL('redirects.txt', dir), new URL('_redirects', dir));
+      },
     } },
     sitemap({
       // Use the rendered robots directive as the source of truth for indexing.
       serialize: async (item) => {
         const path = new URL(item.url).pathname.replace(/\/?$/, '/');
+        if (path.startsWith('/translations/')) return undefined;
         try {
           const html = await readFile(new URL(`.${path}index.html`, buildDirectory), 'utf8');
           return /<meta name="robots" content="noindex\b/.test(html) ? undefined : item;

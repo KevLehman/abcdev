@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { articlePath } from '../../lib/article-language.mjs';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft && !data.unlisted);
@@ -7,7 +8,7 @@ export async function getStaticPaths() {
 
 export function GET({ props, site }) {
   const { article } = props;
-  const original = new URL(`/${article.id}`, site).href;
+  const original = new URL(`${articlePath(article)}${article.data.lang === 'es' ? '?lang=es' : ''}`, site).href;
   const markdown = [
     `# ${article.data.title}`,
     '',

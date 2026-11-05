@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import LogbookList from '../../components/LogbookList.astro';
+import { articlePath } from '../../lib/article-language.mjs';
+
+const articles = (await getCollection('articles', ({ data }) => data.lang === 'es' && !data.draft && !data.unlisted))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const entries = await Promise.all(articles.map(async (article) => {
+  const { remarkPluginFrontmatter } = await render(article);
+  return {
+    idx: article.data.idx, slug: articlePath(article).slice(1, -1), date: article.data.date,
+    tags: article.data.tags, title: article.data.title,
+    rt: remarkPluginFrontmatter.minutesRead ?? '1 min read',
+  };
+}));
+---
+<Base title="Kevin Aleman — Bitácora" description="Una bitácora sobre código, juegos y vida." active="logbook" lang="es">
+  <div class="wrap">
+    <section class="hero">
+      <p class="eyebrow">// bitácora personal</p>
+      <h1>Escribo sobre vida, ingeniería y juegos.</h1>
+      <p>Ingeniero en El Salvador. Una bitácora sobre lo que construyo, juego y aprendo.</p>
+    </section>
+    {entries.length ? <LogbookList entries={entries} lang="es" /> : <p class="empty">Todavía no hay artículos en español.</p>}
+  </div>
+</Base>
+<style>
+  .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--hairline); }
+  h1 { font-family: var(--font-display); font-weight: 500; font-size: 3.1rem; line-height: 1.04; max-width: 18ch; margin-top: 18px; }
+  .hero > p:last-child, .empty { margin-top: 20px; color: var(--slate); }
+  @media (max-width: 640px) { .hero { padding: 40px 0 28px; } h1 { font-size: 2.2rem; } }
+</style>

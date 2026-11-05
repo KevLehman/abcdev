@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
@@ -9,59 +10,82 @@ import Subscribe from '../components/Subscribe.astro';
 import { oembedHref } from '../lib/oembed.mjs';
 import { pickRelatedArticle } from '../lib/related-articles.mjs';
 import { getArticleSeries } from '../lib/article-series.mjs';
+import { articlePath, translationFor } from '../lib/article-language.mjs';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
-  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+  const english = articles.filter((a) => a.data.lang === 'en');
+  const translations = articles.filter((a) => a.data.lang === 'es' && a.data.translationOf && !a.data.unlisted);
+  for (const translated of translations) {
+    if (!english.some((en) => en.id === translated.data.translationOf && !en.data.unlisted)) {
+      throw new Error(`Spanish article "${translated.id}" must reference a published, listed English article.`);
+    }
+    if (translations.filter((a) => a.data.translationOf === translated.data.translationOf).length > 1) {
+      throw new Error(`More than one Spanish article translates "${translated.data.translationOf}".`);
+    }
+  }
+  for (const spanish of articles.filter((a) => a.data.lang === 'es' && (!a.data.translationOf || a.data.unlisted))) {
+    if (english.some((en) => articlePath(en) === articlePath(spanish))) {
+      throw new Error(`Spanish article "${spanish.id}" conflicts with an English article path.`);
+    }
+  }
+  const standalone = articles.filter((a) => a.data.lang === 'es' && !english.some((en) => articlePath(en) === articlePath(a)));
+  return [...english, ...standalone].map((article) => ({ params: { slug: articlePath(article).slice(1, -1) }, props: { article } }));
 }
 
+interface Props { article: CollectionEntry<'articles'>; }
 const { article } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await render(article);
-const rt = remarkPluginFrontmatter.minutesRead ?? '1 min read';
-// Contents index for longer entries: top-level sections only, and only when
-// there are enough of them for navigation to be worth the space.
-const toc = headings.filter((h) => h.depth === 2);
-const showToc = toc.length >= 3;
-const iso = article.data.date.toISOString().slice(0, 10);
-// Share image: the article's own cover when it has one; otherwise the branded
-// card generated at build time (see pages/og/) so a share never goes imageless.
-const ogImage = article.data.featuredImage?.src ?? article.data.coverImage ?? `/og/${article.id}.png`;
-const oembed = article.data.unlisted ? undefined : oembedHref(article.id, Astro.site);
-
-const articles = await getCollection('articles');
-const series = getArticleSeries(article, articles);
-const pick = pickRelatedArticle(article, articles);
-let rec = null;
-if (pick) {
-  const { remarkPluginFrontmatter: fm } = await render(pick);
-  rec = {
-    href: `/${pick.id}`, idx: pick.data.idx, date: pick.data.date,
-    rt: fm.minutesRead ?? '1 min read', title: pick.data.title, tags: pick.data.tags,
+const allArticles = await getCollection('articles');
+const translation = translationFor(article, allArticles);
+const variants = await Promise.all([article, ...(translation ? [translation] : [])].map(async (entry) => {
+  const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+  const articles = allArticles.filter((a) => a.data.lang === entry.data.lang);
+  const pick = pickRelatedArticle(entry, articles);
+  let rec = null;
+  if (pick) {
+    const { remarkPluginFrontmatter: fm } = await render(pick);
+    rec = {
+      href: `${articlePath(pick)}${pick.data.lang === 'es' ? '?lang=es' : ''}`, idx: pick.data.idx, date: pick.data.date,
+      rt: fm.minutesRead ?? '1 min read', title: pick.data.title, tags: pick.data.tags,
+    };
+  }
+  return {
+    article: entry, lang: entry.data.lang, Content, rec,
+    rt: remarkPluginFrontmatter.minutesRead ?? '1 min read',
+    toc: headings.filter((h) => h.depth === 2),
+    iso: entry.data.date.toISOString().slice(0, 10),
+    series: getArticleSeries(entry, articles),
+    ogImage: entry.data.featuredImage?.src ?? entry.data.coverImage ?? `/og/${entry.id}.png`,
+    oembed: entry.data.unlisted ? undefined : oembedHref(entry.id, Astro.site),
   };
-}
+}));
+const { lang, ogImage, oembed } = variants[0];
 ---
 <Base title={`${article.data.title} — Kev's logbook`} description={article.data.excerpt}
-      ogImage={ogImage} oembed={oembed}
+      canonical={`${articlePath(article)}${lang === 'es' ? '?lang=es' : ''}`}
+      ogImage={ogImage} oembed={oembed} markdown={`/markdown/${article.id}.md`} lang={lang}
+      alternate={translation ? `${articlePath(article)}${lang === 'en' ? '?lang=es' : ''}` : undefined}
       article={{ title: article.data.title, publishedTime: article.data.date, tags: article.data.tags }} noindex={article.data.unlisted}>
-  <article class="wrap post">
-    <a class="back" href="/">← logbook / {String(article.data.idx).padStart(3, '0')}</a>
+  {variants.map(({ article, lang, Content, rec, rt, toc, iso, series, ogImage, oembed }, index) => (
+  <article class="wrap post" lang={lang} data-language-article={lang} data-title={`${article.data.title} — Kev's logbook`} data-headline={article.data.title} data-description={article.data.excerpt} data-og-image={new URL(ogImage, Astro.site).href} data-oembed={oembed} data-markdown={new URL(`/markdown/${article.id}.md`, Astro.site).href} hidden={index !== 0}>
+    <a class="back" href={lang === 'es' ? '/es/' : '/'}>← {lang === 'es' ? 'bitácora' : 'logbook'} / {String(article.data.idx).padStart(3, '0')}</a>
     <h1>{article.data.title}</h1>
     <div class="readout">
-      <span>date {iso}</span><span>·</span><span>read {rt.replace(' min read', 'm')}</span>
-      <span>·</span><span>tags {article.data.tags.map((tag, i) => (<>{i > 0 && ', '}<a href={`/#${encodeURIComponent(tag)}`}>{tag}</a></>))}</span>
-      {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>also on dev.to ↗</a></>)}
+      <span>{lang === 'es' ? 'fecha' : 'date'} {iso}</span><span>·</span><span>{lang === 'es' ? 'lectura' : 'read'} {rt.replace(' min read', 'm')}</span>
+      <span>·</span><span>{lang === 'es' ? 'etiquetas' : 'tags'} {article.data.tags.map((tag, i) => (<>{i > 0 && ', '}<a href={`${lang === 'es' ? '/es/' : '/'}#${encodeURIComponent(tag)}`}>{tag}</a></>))}</span>
+      {article.data.devtoUrl && (<><span>·</span><a href={article.data.devtoUrl}>{lang === 'es' ? 'también en dev.to' : 'also on dev.to'} ↗</a></>)}
     </div>
-    {article.data.collaboration && <CollaborationDisclosure collaboration={article.data.collaboration} />}
+    {article.data.collaboration && <CollaborationDisclosure collaboration={article.data.collaboration} lang={lang} />}
     {series && (
-      <p class="series-note">Part {series.position} of {series.articles.length} in <a href="#article-series">{series.title}</a>.</p>
+      <p class="series-note">{lang === 'es' ? 'Parte' : 'Part'} {series.position} {lang === 'es' ? 'de' : 'of'} {series.articles.length} {lang === 'es' ? 'en' : 'in'} <a href="#article-series">{series.title}</a>.</p>
     )}
     {article.data.featuredImage
       ? <Image class="hero-img" src={article.data.featuredImage} alt={article.data.title} widths={[400, 800, 1200]}
           sizes="(max-width: 680px) calc(100vw - 40px), 620px" loading="eager" fetchpriority="high" />
       : article.data.coverImage && <img class="hero-img" src={article.data.coverImage} alt={article.data.title} loading="eager" fetchpriority="high" decoding="async" />}
-    {showToc && (
-      <nav class="toc" aria-label="Contents">
-        <p class="eyebrow">// contents</p>
+    {toc.length >= 3 && (
+      <nav class="toc" aria-label={lang === 'es' ? 'Contenido' : 'Contents'}>
+        <p class="eyebrow">// {lang === 'es' ? 'contenido' : 'contents'}</p>
         <ol>
           {toc.map((h, i) => (
             <li><a href={`#${h.slug}`}><span class="toc-idx">{String(i + 1).padStart(2, '0')}</span>{h.text}</a></li>
@@ -70,10 +94,52 @@ if (pick) {
       </nav>
     )}
     <div class="prose"><Content /></div>
-    <Subscribe />
-    {series && <SeriesNavigation series={series} />}
-    {rec && <KeepReading {...rec} />}
+    <Subscribe lang={lang} />
+    {series && <SeriesNavigation series={series} lang={lang} />}
+    {rec && <KeepReading {...rec} lang={lang} />}
   </article>
+  ))}
+  {translation && <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const variants = document.querySelectorAll('[data-language-article]');
+      const selected = new URLSearchParams(location.search).get('lang');
+      const article = Array.from(variants).find((node) => node.dataset.languageArticle === selected) || variants[0];
+      variants.forEach((node) => {
+        node.hidden = node !== article;
+        if (node.hidden) node.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
+      });
+      document.documentElement.lang = article.lang;
+      document.querySelectorAll('[data-en][data-es]').forEach((node) => { node.textContent = node.dataset[article.lang]; });
+      const switcher = document.querySelector('[data-language-switch]');
+      switcher.href = article.lang === 'es' ? '?lang=en' : '?lang=es';
+      switcher.lang = article.lang === 'es' ? 'en' : 'es';
+      switcher.textContent = article.lang === 'es' ? 'English' : 'Español';
+      document.querySelector('.wordmark').href = article.lang === 'es' ? '/es/' : '/';
+      const logbook = document.querySelector('nav a[href="/"]');
+      if (logbook && article.lang === 'es') { logbook.href = '/es/'; logbook.textContent = 'bitácora'; }
+      document.getElementById('search-open')?.setAttribute('aria-label', article.lang === 'es' ? 'Buscar en la bitácora' : 'Search the logbook');
+      document.getElementById('search')?.setAttribute('aria-label', article.lang === 'es' ? 'Buscar en la bitácora' : 'Search the logbook');
+      const input = document.getElementById('search-input');
+      input.placeholder = article.lang === 'es' ? 'buscar artículos…' : 'search entries…';
+      input.setAttribute('aria-label', article.lang === 'es' ? 'Buscar artículos' : 'Search entries');
+      document.getElementById('search-results')?.setAttribute('aria-label', article.lang === 'es' ? 'Resultados' : 'Results');
+      const theme = document.getElementById('theme-toggle');
+      if (theme && article.lang === 'es') theme.setAttribute('aria-label', theme.getAttribute('aria-label').replace('Switch to dark theme', 'Cambiar al tema oscuro').replace('Switch to grove theme', 'Cambiar al tema bosque').replace('Switch to light theme', 'Cambiar al tema claro'));
+      document.title = article.dataset.title;
+      for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) document.querySelector(selector)?.setAttribute('content', article.dataset.description);
+      for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]']) document.querySelector(selector)?.setAttribute('content', article.dataset.title);
+      for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) document.querySelector(selector)?.setAttribute('content', article.dataset.ogImage);
+      document.querySelector('link[type="application/json+oembed"]')?.setAttribute('href', article.dataset.oembed);
+      document.querySelector('link[type="text/markdown"]')?.setAttribute('href', article.dataset.markdown);
+      const structured = document.querySelector('script[type="application/ld+json"]');
+      if (structured) {
+        const json = JSON.parse(structured.textContent);
+        const post = json['@graph'].find((node) => node['@type'] === 'BlogPosting');
+        if (post) Object.assign(post, { headline: article.dataset.headline, description: article.dataset.description, image: article.dataset.ogImage, inLanguage: article.lang });
+        structured.textContent = JSON.stringify(json).replace(/</g, '\\u003c');
+      }
+    });
+  </script>}
   <script is:inline>
     // Progressive enhancement: while an article image is still loading, show a
     // shimmer placeholder instead of empty space (or a half-painted image). The
@@ -107,17 +173,18 @@ if (pick) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'code-copy';
-        btn.textContent = 'copy';
-        btn.setAttribute('aria-label', 'Copy code to clipboard');
+        const es = document.documentElement.lang === 'es';
+        btn.textContent = es ? 'copiar' : 'copy';
+        btn.setAttribute('aria-label', es ? 'Copiar código' : 'Copy code to clipboard');
         btn.addEventListener('click', async () => {
           try {
             await navigator.clipboard.writeText((pre.querySelector('code') ?? pre).innerText.trimEnd() + '\n');
-            btn.textContent = 'copied ✓';
+            btn.textContent = es ? 'copiado ✓' : 'copied ✓';
             btn.classList.add('did');
           } catch {
-            btn.textContent = 'failed';
+            btn.textContent = es ? 'error' : 'failed';
           }
-          setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('did'); }, 1600);
+          setTimeout(() => { btn.textContent = es ? 'copiar' : 'copy'; btn.classList.remove('did'); }, 1600);
         });
         wrap.appendChild(btn);
       });

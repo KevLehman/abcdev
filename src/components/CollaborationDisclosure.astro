@@ -3,12 +3,13 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   collaboration: NonNullable<CollectionEntry<'articles'>['data']['collaboration']>;
+  lang?: 'en' | 'es';
 }
-const { collaboration } = Astro.props;
+const { collaboration, lang = 'en' } = Astro.props;
 ---
-<aside class="collaboration" aria-label="Collaboration disclosure">
-  <p class="eyebrow">// collaboration disclosure</p>
-  <p>This article was created in collaboration with {collaboration.url ? <a href={collaboration.url}>{collaboration.name}</a> : collaboration.name}.</p>
+<aside class="collaboration" aria-label={lang === 'es' ? 'Colaboración' : 'Collaboration disclosure'}>
+  <p class="eyebrow">// {lang === 'es' ? 'colaboración' : 'collaboration disclosure'}</p>
+  <p>{lang === 'es' ? 'Este artículo fue creado en colaboración con ' : 'This article was created in collaboration with '}{collaboration.url ? <a href={collaboration.url}>{collaboration.name}</a> : collaboration.name}.</p>
 </aside>
 <style>
   .collaboration { margin: 24px 0; padding: 16px 20px; border: 1px solid var(--hairline);

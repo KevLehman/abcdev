@@ -1,16 +1,20 @@
-<section class="subscribe" aria-labelledby="subscribe-heading">
-  <p class="eyebrow">// stay in the loop</p>
-  <h2 id="subscribe-heading">Keep learning</h2>
-  <p class="description">Get new posts by email.</p>
+---
+interface Props { lang?: 'en' | 'es'; }
+const { lang = 'en' } = Astro.props;
+---
+<section class="subscribe" aria-labelledby={`subscribe-heading-${lang}`}>
+  <p class="eyebrow">// {lang === 'es' ? 'mantente al día' : 'stay in the loop'}</p>
+  <h2 id={`subscribe-heading-${lang}`}>{lang === 'es' ? 'Sigue aprendiendo' : 'Keep learning'}</h2>
+  <p class="description">{lang === 'es' ? 'Recibe nuevos artículos por correo.' : 'Get new posts by email.'}</p>
   <form action="https://api.follow.it/subscription-form/WHZRMEtScUljSkY4UkNHSXM0c0ZraUU3OUQwbnRKcmpFa1JGZE5iNlgzZHpxZlVpVUxqTDZQcnROTyt6by80TXdvM2xlaTdSb1hObVJQdGJwQ3k1ZzlRblJackpwTGVWbDRVdERrVDhVS0p6UU56MkxUL0hYbmQzTzRDblQ2T2Z8eUR5UkZ5SkE3dzRORzI3bTd3dU9MQmhuVS9qTllVNWl0RGtOaVU1bThDZz0=/8" method="post">
-    <label for="subscribe-email">Email address</label>
+    <label for={`subscribe-email-${lang}`}>{lang === 'es' ? 'Correo electrónico' : 'Email address'}</label>
     <div class="controls">
-      <input id="subscribe-email" type="email" name="email" required
-        autocomplete="email" placeholder="Your email address" spellcheck="false" />
-      <button type="submit">Subscribe</button>
+      <input id={`subscribe-email-${lang}`} type="email" name="email" required
+        autocomplete="email" placeholder={lang === 'es' ? 'Tu correo electrónico' : 'Your email address'} spellcheck="false" />
+      <button type="submit">{lang === 'es' ? 'Suscribirse' : 'Subscribe'}</button>
     </div>
   </form>
-  <a class="powered-by" href="https://follow.it">Powered by follow.it</a>
+  <a class="powered-by" href="https://follow.it">{lang === 'es' ? 'Con tecnología de follow.it' : 'Powered by follow.it'}</a>
 </section>
 <style>
   .subscribe { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--hairline); }
