@@ -15,12 +15,16 @@ const items = [
   <div class="wrap masthead">
     <a class="wordmark" href={lang === 'es' ? '/es/' : '/'}>KEVIN&nbsp;ALEMAN <span>— LOGBOOK</span></a>
     <nav aria-label={lang === 'es' ? 'Sitio' : 'Site'}>
-      {items.map((i) => (
-        <a href={i.href} class={active === i.key ? 'active' : ''} data-en={i.en} data-es={i.es}>{i[lang]}</a>
-      ))}
-      <button id="search-open" type="button" hidden aria-label={lang === 'es' ? 'Buscar en la bitácora' : 'Search the logbook'}><span data-en="search" data-es="buscar">{lang === 'es' ? 'buscar' : 'search'}</span> <kbd>⌘k</kbd></button>
-      <a href={alternate ?? (lang === 'es' ? '/' : '/es/')} lang={lang === 'es' ? 'en' : 'es'} data-language-switch data-paired={!!alternate}>{lang === 'es' ? 'English' : 'Español'}</a>
-      <ThemeToggle lang={lang} />
+      <div class="nav-links">
+        {items.map((i) => (
+          <a href={i.href} class={active === i.key ? 'active' : ''} data-en={i.en} data-es={i.es}>{i[lang]}</a>
+        ))}
+      </div>
+      <div class="nav-tools">
+        <button id="search-open" type="button" hidden aria-label={lang === 'es' ? 'Buscar en la bitácora' : 'Search the logbook'}><span data-en="search" data-es="buscar">{lang === 'es' ? 'buscar' : 'search'}</span> <kbd>⌘k</kbd></button>
+        <a href={alternate ?? (lang === 'es' ? '/' : '/es/')} lang={lang === 'es' ? 'en' : 'es'} data-language-switch data-paired={!!alternate}>{lang === 'es' ? 'English' : 'Español'}</a>
+        <ThemeToggle lang={lang} />
+      </div>
     </nav>
   </div>
 </header>
@@ -37,6 +41,7 @@ const items = [
      mismatched baseline. */
   nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
     font-family: var(--font-mono); font-size: .8rem; }
+  .nav-links, .nav-tools { display: contents; }
   nav a { color: var(--graphite); text-decoration: none; }
   nav a:hover, nav a.active { color: var(--signal); }
   #search-open { font-family: var(--font-mono); font-size: .8rem; background: none; border: 0;
@@ -46,7 +51,8 @@ const items = [
     border: 1px solid var(--hairline); padding: 1px 5px; margin-left: 2px; }
   @media (max-width: 640px) {
     .masthead { flex-direction: column; align-items: flex-start; }
-    nav { gap: 10px 16px; }
+    nav { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nav-links, .nav-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
     #search-open kbd { display: none; }
   }
 </style>
