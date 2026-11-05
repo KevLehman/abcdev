@@ -1,0 +1,24 @@
+# Kev's logbook
+
+> Kevin Aleman's personal logbook about software engineering, AI, games, and life.
+
+Kevin is a backend and systems developer based in El Salvador. Articles are available in English, with some also available in Spanish. Listed articles have Markdown exports; each export includes the original article URL.
+
+## Explore
+
+- [Logbook](https://kevinaleman.com/): Browse the articles and their tags.
+- [Bitácora en español](https://kevinaleman.com/es/): Browse articles available in Spanish.
+- [Article search index](https://kevinaleman.com/search-index.json): Searchable data for listed articles.
+- [About Kevin](https://kevinaleman.com/about/): Background, work, and open source projects.
+- [Talks](https://kevinaleman.com/talks/): Talks and slides.
+
+## Selected articles
+
+- [Proof Driven Development](https://kevinaleman.com/markdown/proof-driven-development.md): Formal specifications and verification for AI-generated code.
+- [I used AI to cheat my way to a 156-day reading streak](https://kevinaleman.com/markdown/i-used-ai-to-cheat-my-way-to-a-156-day-reading-streak.md): An experiment with Apple Books, Swift, and private APIs.
+- [The future, after AI](https://kevinaleman.com/markdown/the-future-after-ai-2767.md): Thoughts on AI coding tools and learning to program.
+
+## Optional
+
+- [RSS feed](https://kevinaleman.com/feed.xml): Recent entries.
+- [Sitemap](https://kevinaleman.com/sitemap-index.xml): Indexable pages on the site.
