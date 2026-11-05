@@ -1,5 +1,6 @@
 ---
 import { serializeStructuredData } from '../lib/structured-data.mjs';
+import headlineFont from '@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2?url';
 interface Props { title: string; description: string; canonical?: string; ogImage?: string; oembed?: string; markdown?: string; noindex?: boolean; lang?: 'en' | 'es'; alternate?: string;
   article?: { title: string; publishedTime: Date; tags: string[] }; }
 const { title, description, canonical, ogImage, oembed, markdown, article, noindex = false, lang = 'en', alternate } = Astro.props;
@@ -16,6 +17,7 @@ const goatcounter = import.meta.env.PUBLIC_GOATCOUNTER;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+{(Astro.url.pathname === '/' || Astro.url.pathname === '/es/') && <link rel="preload" href={headlineFont} as="font" type="font/woff2" crossorigin="anonymous" />}
 <link rel="ard" href="/.well-known/ard.json" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
