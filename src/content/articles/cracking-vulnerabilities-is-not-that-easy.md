@@ -6,7 +6,7 @@ slug: cracking-vulnerabilities-is-not-that-easy
 tags: ["ai", "security", "programming", "softwareengineering"]
 excerpt: "AI is finding serious vulnerabilities and writing increasingly capable code. PHP2Shell and Firefox show why proving, fixing and shipping those findings is still hard work."
 draft: false
-unlisted: true
+unlisted: false
 featured: false
 featuredImage: "../../assets/images/ai-security-header.webp"
 ---

@@ -26,9 +26,9 @@ AI-assisted testing can make parts of both jobs faster. It can propose cases we 
 
 ## Test count is not the same as confidence
 
-This reminds me of the session validation example in my article about [proof-driven development](/proof-driven-development): tests for a valid session, an expired session and an invalid signature can all pass while the application still accepts a revoked session. Passing a suite tells us that the checks we wrote passed. It doesn't tell us what we forgot to check. AI can make that gap wider if we use the number of generated tests as a measure of quality. It can produce many plausible cases from an incomplete requirement, including cases that repeat the same assertion or miss the behavior users actually depend on.
+This reminds me of the session validation example in my article about [proof-driven development](/proof-driven-development/): tests for a valid session, an expired session and an invalid signature can all pass while the application still accepts a revoked session. Passing a suite tells us that the checks we wrote passed. It doesn't tell us what we forgot to check. AI can make that gap wider if we use the number of generated tests as a measure of quality. It can produce many plausible cases from an incomplete requirement, including cases that repeat the same assertion or miss the behavior users actually depend on.
 
-{% embed https://kevinaleman.com/proof-driven-development %}
+{% embed https://kevinaleman.com/proof-driven-development/ %}
 
 The [Google SRE book makes a similar point](https://sre.google/sre-book/testing-reliability/): passing tests doesn't necessarily prove that a system is reliable. The tests tell us something about the scenarios they cover; they can't tell us everything about the scenarios we didn't consider.
 

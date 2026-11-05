@@ -10,7 +10,7 @@ featured: false
 coverImage: "https://kevinaleman.com/images/dafny-binary-search-header.webp"
 ---
 
-In my [previous article about Proof Driven Development](/proof-driven-development), I wrote about using formal specifications to check whether code does what we agreed it should do. Microsoft Research's PDD Kit uses Verus for Rust, though, and most of my work is in JavaScript. So I was left with a question: what can I actually try without rewriting my whole application in Rust?
+In my [previous article about Proof Driven Development](/proof-driven-development/), I wrote about using formal specifications to check whether code does what we agreed it should do. Microsoft Research's PDD Kit uses Verus for Rust, though, and most of my work is in JavaScript. So I was left with a question: what can I actually try without rewriting my whole application in Rust?
 
 I ended up trying [Dafny](https://dafny.org/). With help from a coding agent, I wrote and verified a small binary search, deliberately broke it, and compiled the working version to JavaScript.
 
@@ -24,7 +24,7 @@ If you haven't heard of Dafny, it's an open-source programming language and veri
 
 ## Why binary search?
 
-If you don't know binary search, don't worry: the internet definitely doesn't have enough articles about it yet. I even wrote [one of them](/algorithms-in-real-life-binary-search) a few years ago, including the most important requirement:
+If you don't know binary search, don't worry: the internet definitely doesn't have enough articles about it yet. I even wrote [one of them](/algorithms-in-real-life-binary-search/) a few years ago, including the most important requirement:
 
 - Your list must be sorted.
 - Your list must be sorted.

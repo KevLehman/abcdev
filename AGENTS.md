@@ -22,7 +22,7 @@ Apply these rules to all writing and editing for this project, including article
 - Distinguish what an organization observed itself from reports it cited, and exploitation attempts from successful compromise. Date statements about exploitation status.
 - Explain what a benchmark actually tests, which models and version it used, and what its score means. Don't present secure implementation tasks as vulnerability-repair tasks or older results as current model failure rates.
 - Avoid unsupported claims that only humans can investigate or verify something. Describe the evidence required and who is responsible for accepting it.
-- Check runnable code examples with the narrowest meaningful test; label pseudocode and simplified examples, including material assumptions. Don't claim a source review reproduced an exploit.
+- Review runnable code examples for correctness; use the narrowest meaningful test when tests are in scope. Label pseudocode and simplified examples, including material assumptions. Don't claim a source review reproduced an exploit.
 
 ## Editing and delivery
 
@@ -30,6 +30,7 @@ Apply these rules to all writing and editing for this project, including article
 - Search before reading; use `rg`, focused ranges and existing repository patterns. Prefer LSP for symbols and ast-grep for structural changes. Don't use Python for routine scripts.
 - Before broad reading or editing, run `code-deep explore "<goal, paths and data flow or blast radius>" --path /absolute/git/root --detail minimal`. After changes, run `code-deep review /absolute/git/root --detail minimal --json`; add both `--base <ref>` and `--head <ref>` for a commit range. If unavailable, use `npx -y @team-harness/code-deep@3.0.2` in place of `code-deep`.
 - Process code-deep review items by descending risk. Follow omissions, low confidence or warnings with targeted exploration; use `--detail standard` for bounded context. Scores are leads, not proven defects: verify concrete failure paths against the diff before reporting them.
+- When a change consists solely of Markdown files or images, omit tests. Keep the applicable diff and build checks below.
 - For article edits, run `git diff --check` and `npm run build`, then confirm the relevant text appears in the generated article. Instruction-only edits need a diff review, not an application build or new tests.
 - Review and commit only the intended files. Leave unrelated work and generated exploration artifacts out. Use an explicit commit range for code-deep review when untracked work would otherwise pollute the result.
 - When pushing is authorized, finish the checks, commit and push without asking again. Report what changed, what passed and any relevant unchecked outcome; don't claim a live deployment was verified from a successful push alone.

@@ -35,7 +35,7 @@ const entries = await Promise.all(all.map(async (a) => {
         <ul class="picks">
           {featured.map((a) => (
             <li>
-              <a class="pick" href={`/${a.id}`}>
+              <a class="pick" href={`/${a.id}/`}>
                 <span class="pick-meta">log / {String(a.data.idx).padStart(3, '0')}</span>
                 <h3>{a.data.title}</h3>
                 <p>{a.data.excerpt}</p>

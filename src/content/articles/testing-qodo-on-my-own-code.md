@@ -13,7 +13,7 @@ collaboration:
   url: https://www.qodo.ai/
 ---
 
-In my [previous article](https://kevinaleman.com/the-future-after-ai-2767), I wrote about something that has been bothering me with AI coding tools: we're getting better at producing code, but that doesn't necessarily mean we're getting better at understanding it.
+In my [previous article](https://kevinaleman.com/the-future-after-ai-2767/), I wrote about something that has been bothering me with AI coding tools: we're getting better at producing code, but that doesn't necessarily mean we're getting better at understanding it.
 
 Part of that problem is reviewing what the agent produces. You can ask it to implement a feature, add tests and follow the repository patterns, and it will probably give you something reasonable. But how do you know which cases it didn't consider?
 

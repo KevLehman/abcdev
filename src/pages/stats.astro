@@ -89,7 +89,7 @@ const tiles = [
       {entries[0] && (
         <div class="archive">
           <p>The first entry in the logbook · {entries[0].date.toISOString().slice(0, 10)}</p>
-          <a href={`/${entries[0].id}`}>{entries[0].title} →</a>
+          <a href={`/${entries[0].id}/`}>{entries[0].title} →</a>
         </div>
       )}
     </section>
@@ -97,7 +97,7 @@ const tiles = [
     <section>
       <h2 class="eyebrow">records</h2>
       <ul class="records">
-        <li><span>longest entry</span><a href={`/${longest.id}`}>{longest.title}</a><span class="rec-val">{longest.minutes}m</span></li>
+        <li><span>longest entry</span><a href={`/${longest.id}/`}>{longest.title}</a><span class="rec-val">{longest.minutes}m</span></li>
         <li><span>busiest year</span><span class="rec-main">{busiest.year}</span><span class="rec-val">{busiest.count} entries</span></li>
         <li><span>most-used tag</span><a href={`/#${encodeURIComponent(topTags[0]?.[0] ?? '')}`}>{topTags[0]?.[0]}</a><span class="rec-val">{topTags[0]?.[1]}×</span></li>
       </ul>
