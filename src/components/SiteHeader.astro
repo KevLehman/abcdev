@@ -30,10 +30,10 @@ const items = [
 </header>
 <style>
   header { border-bottom: 1px solid var(--hairline); }
-  .masthead { display: flex; align-items: center; justify-content: space-between;
+  .masthead { max-width: 1280px; display: flex; align-items: center; justify-content: space-between;
     gap: 12px 20px; padding-block: 22px; }
   .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
-    letter-spacing: .02em; color: var(--graphite); text-decoration: none; }
+    letter-spacing: .02em; color: var(--graphite); text-decoration: none; white-space: nowrap; }
   .wordmark span { color: var(--slate); font-weight: 500; }
   /* Flex so every item is its own box: links wrap at item boundaries on narrow
      screens (inline links with no whitespace between them can't break), and the
@@ -49,10 +49,12 @@ const items = [
   #search-open:hover { color: var(--signal); }
   #search-open kbd { font-family: var(--font-mono); font-size: .68rem; color: var(--slate);
     border: 1px solid var(--hairline); padding: 1px 5px; margin-left: 2px; }
-  @media (max-width: 640px) {
+  @media (max-width: 1100px) {
     .masthead { flex-direction: column; align-items: flex-start; }
-    nav { flex-direction: column; align-items: flex-start; gap: 12px; }
     .nav-links, .nav-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  }
+  @media (max-width: 640px) {
+    nav { flex-direction: column; align-items: flex-start; gap: 12px; }
     #search-open kbd { display: none; }
   }
 </style>
