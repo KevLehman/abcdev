@@ -11,6 +11,8 @@ Kevin is a backend and systems developer based in El Salvador. Articles are avai
 - [Article search index](https://kevinaleman.com/search-index.json): Searchable data for listed articles.
 - [About Kevin](https://kevinaleman.com/about/): Background, work, and open source projects.
 - [Talks](https://kevinaleman.com/talks/): Talks and slides.
+- [Agent skills](https://kevinaleman.com/skills/): Reusable instructions for coding and learning agents.
+- [ARD catalog](https://kevinaleman.com/.well-known/ard.json): Machine-readable entries for the agent skills.
 
 ## Selected articles
 

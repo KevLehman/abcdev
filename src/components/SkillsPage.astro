@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { skills } from '../data/skills.mjs';
+const { lang = 'en' } = Astro.props;
+const es = lang === 'es';
+const repo = 'https://github.com/KevLehman/agent-skills';
+---
+<Base title={es ? 'Skills — Bitácora de Kev' : "Skills — Kev's logbook"} description={es ? 'Skills para agentes de programación, por Kevin Aleman.' : 'Agent skills for coding and learning, by Kevin Aleman.'} active="skills" lang={lang}>
+  <div class="wrap skills">
+    <p class="eyebrow">// skills</p>
+    <h1>{es ? 'Skills para agentes' : 'Agent skills'}</h1>
+    <p class="intro">{es ? 'Instrucciones reutilizables para agentes que leen archivos SKILL.md. Cada skill incluye su propósito y cómo usarlo.' : 'Reusable instructions for agents that read SKILL.md files. Each skill includes its purpose and how to use it.'}</p>
+    <p class="repo"><a href={repo}>{es ? 'Ver el repositorio e instrucciones de instalación' : 'View the repository and installation instructions'} ↗</a></p>
+    <ul class="list">
+      {skills.map((skill) => (
+        <li>
+          <a class="skill" href={`${repo}/tree/main/${skill.name}`}>
+            <h2>{skill.name}</h2>
+            <p>{es ? skill.descriptionEs : skill.description}</p>
+            <span>{es ? 'Ver skill' : 'View skill'} ↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>
+<style>
+  .skills { padding-top: 48px; }
+  h1 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 500; margin-top: 12px; }
+  .intro { color: var(--slate); margin-top: 12px; max-width: 62ch; }
+  .repo { margin-top: 20px; }
+  .list { list-style: none; padding: 0; margin: 40px 0 0; border-top: 1px solid var(--hairline); }
+  .skill { display: block; padding: 24px 0; border-bottom: 1px solid var(--hairline); color: var(--graphite); text-decoration: none; }
+  .skill:hover h2 { color: var(--signal); }
+  h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; overflow-wrap: anywhere; }
+  .skill p { color: var(--slate); margin-top: 8px; max-width: 70ch; }
+  .skill span { display: inline-block; color: var(--signal); font-size: .9rem; margin-top: 12px; }
+</style>
