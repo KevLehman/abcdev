@@ -45,11 +45,11 @@ En [este artículo de DZone](https://dzone.com/articles/how-to-reduce-tech-debt-
 
 ## Hay chocolates más difíciles de quitar que otros
 
-Como en la vida real, hay partes del código, decisiones de arquitectura y fechas de entrega que son muy difíciles —o casi imposibles— de cambiar. Veamos un ejemplo simplificado que representa una deuda técnica. Supongamos que el usuario tiene una empresa con un nombre:
+Como en la vida real, hay partes del código, decisiones de arquitectura y fechas de entrega que son muy difíciles —o casi imposibles— de cambiar. Veamos un ejemplo simplificado de deuda técnica. Supongamos que el usuario tiene una empresa con un nombre y que la función solo procesa a los usuarios que cumplen esta condición:
 
 ```javascript
 async function evaluateUser(user) {
-  if (user.act && !user.isNew && user.company.name !== 'fancy company') {
+  if (user.act && user.company.name !== 'fancy company') {
     /* hacer algo realmente complicado aquí */
   }
 }
