@@ -22,7 +22,7 @@ The goal is to destroy all the chocolate on the screen with the moves you have. 
 
 It made me think about something outside the game: agile projects and technical debt. What do they have in common with those levels? Let's see.
 
-## Chocolate multiplies. So does technical debt.
+## Chocolate multiplies as well as Technical Debt
 
 First, something worth accepting: it's almost impossible to have an agile project without accumulating technical debt at some point.
 
@@ -32,7 +32,7 @@ Technical debt can work the same way. Without a plan to reduce it, it can spread
 
 ![A screen almost full of chocolate blocks](https://dev-to-uploads.s3.amazonaws.com/i/9s3fbvh9881z9yga483s.png)
 
-## Without a strategy, you lose
+## If you don't have a strategy, you will lose.
 
 In these levels, you have to think before you move. The same goes for technical debt: you need to know what you're doing.
 
@@ -44,7 +44,7 @@ If the problem isn't in the code itself but in the project's architecture, chang
 
 This [DZone article](https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1) describes some strategies for reducing technical debt in a project.
 
-## Some chocolate is harder to clear
+## There are pieces of chocolate harder than others
 
 As in real life, some code, architecture decisions and product deadlines are very difficult — or nearly impossible — to change. Here's a simplified example of technical debt. Assume the user has a company with a name, and the function only processes users who pass this condition:
 
@@ -60,7 +60,7 @@ Maybe the team had a deadline and decided to hard-code the company name. And it 
 
 However simple the change looks, the team needs to be careful not to affect how users from `"fancy company"` are evaluated. If possible, it should also make future changes to that code easier: pay down the debt. Otherwise, changes take longer and mistakes become more likely.
 
-## Chocolate isn't always bad
+## Chocolate is not always bad
 
 Some people treat technical debt like the plague: they look at it from a distance and don't want to touch it with a stick. But that isn't realistic. We all have technical debt.
 
