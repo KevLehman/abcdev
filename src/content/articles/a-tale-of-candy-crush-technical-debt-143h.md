@@ -44,8 +44,6 @@ If the problem isn't in the code itself but in the project's architecture, chang
 
 This [DZone article](https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1) describes some strategies for reducing technical debt in a project.
 
-{% embed https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1 %}
-
 ## There are pieces of chocolate harder than others
 
 As in real life, some code, architecture decisions and product deadlines are very difficult — or nearly impossible — to change. Here's a simplified example of technical debt. Assume the user has a company with a name, and the function only processes users who pass this condition:

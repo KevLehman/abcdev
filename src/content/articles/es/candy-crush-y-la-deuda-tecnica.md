@@ -43,8 +43,6 @@ Por otro lado, si el problema no está en el código en sí, sino en la arquitec
 
 En [este artículo de DZone](https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1) se describen algunas estrategias para reducir la deuda técnica de un proyecto.
 
-{% embed https://dzone.com/articles/how-to-reduce-tech-debt-a-practical-experience-gui-1 %}
-
 ## Hay chocolates más difíciles de quitar que otros
 
 Como en la vida real, hay partes del código, decisiones de arquitectura y fechas de entrega que son muy difíciles —o casi imposibles— de cambiar. Veamos un ejemplo simplificado de deuda técnica. Supongamos que el usuario tiene una empresa con un nombre y que la función solo procesa a los usuarios que cumplen esta condición:
