@@ -66,7 +66,7 @@ export async function sync({ key, posts, apply = false, fetcher = fetch, log = c
   const plans = articles.map((article) => ({ article, post: matchArticle(article, posts) }));
   const results = [];
   for (const { article, post } of plans) {
-    const proposed = post ? `${SITE}${post.path}` : null;
+    const proposed = post ? `${SITE}${post.path}/` : null;
     let status = 'UNMATCHED';
     if (post && plans.filter((p) => p.post === post).length === 1) {
       status = 'INVALID TARGET';

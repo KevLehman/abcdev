@@ -149,7 +149,7 @@ and `OK`, `UPDATE`, `UNMATCHED`, or `INVALID TARGET`.
 For `UNMATCHED`, verify the original manually and set its local `devtoUrl` to the
 exact DEV article URL; rerun the dry-run. Do not change established local slugs.
 For future syndication, publish/deploy the local post first, set DEV's canonical
-URL to `https://kevinaleman.com/<local-slug>` in its editor, and save its `devtoUrl`
+URL to `https://kevinaleman.com/<local-slug>/` in its editor, and save its `devtoUrl`
 locally. Local pages derive canonical/OG URLs from their actual routes, regardless
 of imported canonical metadata. Imports default to the primary domain; do not
 set `SITE_URL` to the legacy deployment hostname.
