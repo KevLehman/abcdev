@@ -1,6 +1,6 @@
 ---
 idx: 13
-title: "En la era de la IA, el código es barato. La reputación no."
+title: "La IA puede escribir tu código. Tú construyes tu reputación."
 date: "2026-03-04T21:01:29Z"
 lang: es
 translationOf: "in-the-ai-era-code-is-cheap-reputation-isnt-3482"
