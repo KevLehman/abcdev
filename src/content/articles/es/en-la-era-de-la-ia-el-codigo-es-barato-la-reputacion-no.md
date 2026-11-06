@@ -5,7 +5,7 @@ date: "2026-03-04T21:01:29Z"
 lang: es
 translationOf: "in-the-ai-era-code-is-cheap-reputation-isnt-3482"
 tags: ["ia", "código abierto", "programación", "software"]
-excerpt: "La IA hace que contribuir al código abierto sea más fácil en lo mecánico, pero más difícil para tu reputación. Con agentes inundando repositorios de PRs, la reputación es lo que crece con el tiempo."
+excerpt: "Con la IA es más fácil enviar contribuciones al código abierto, pero ganarse la confianza de los maintainers es más difícil. En una avalancha de PRs, tu reputación importa."
 draft: false
 featured: false
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fm0b25t9rnk2hseb0o8qx.png"
@@ -15,7 +15,7 @@ En la era de la IA, ¡contribuir al código abierto es más fácil que nunca!
 
 Pero, al mismo tiempo y aunque parezca contradictorio, es más difícil que nunca.
 
-¿Por qué? Porque ahora es *más fácil en lo mecánico, pero más difícil para tu reputación*.
+¿Por qué? Porque ahora es más fácil enviar contribuciones, pero *más difícil ganarse la confianza de los maintainers*.
 
 Antes competías con otros voluntarios increíblemente inteligentes, con desarrolladores que aportaban su experiencia y tiempo libre al código abierto, o con personas que estaban empezando. Ahora compites con todos ellos y con un ejército de agentes de IA que generan pull requests, issues, refactorizaciones y reportes de vulnerabilidades más rápido que cualquier persona.
 
@@ -26,7 +26,9 @@ Es tentador. Un LLM puede reducir mucho el trabajo mental necesario para entende
 *La capacidad de los maintainers no aumentó.*
 *El costo de revisión no disminuyó.*
 
-Estas dos realidades ya han llevado a maintainers a tomar medidas drásticas, como ocurrió con `curl`. Daniel Stenberg escribió sobre el problema en [«Death by a thousand slops»](https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/).
+Estas dos realidades ya han llevado a maintainers a tomar medidas drásticas, como ocurrió con `curl`:
+
+{% embed https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/ %}
 
 Entonces, ¿cómo te conviertes en un contribuidor valioso de código abierto en la era de la generación infinita de código? Aquí van algunos consejos que he aprendido al lidiar con un gran volumen de contribuciones.
 
@@ -138,9 +140,13 @@ Esa es la definición de un DoS (denegación de servicio): envías más solicitu
 
 La capacidad de los maintainers es limitada. En el último mes cerramos alrededor de 700 issues que estaban abandonados, no eran válidos o ya estaban resueltos, pero al mismo tiempo recibimos 300 nuevos. Algunos eran válidos y otros no. El problema es que no lo sabemos de antemano: *tenemos que revisarlos todos*. No puedes confiar en que un LLM confirme si algo es slop, ¡porque la comprobación también podría ser slop!
 
-Un ejemplo relacionado es este [reporte de curl en HackerOne](https://hackerone.com/reports/3516186), sobre los reportes de vulnerabilidades generados con IA.
+Un ejemplo relacionado es este reporte de curl en HackerOne:
 
-El enlace anterior y esta hermosa [lista de reportes de seguridad de curl generados con IA](https://gist.github.com/bagder/07f7581f6e3d78ef37dfbfc81fd1d1cd) tienen algo en común:
+[Reporte de curl en HackerOne](https://hackerone.com/reports/3516186)
+
+El enlace anterior y esta hermosa lista tienen algo en común:
+
+{% embed https://gist.github.com/bagder/07f7581f6e3d78ef37dfbfc81fd1d1cd %}
 
 Parecen legítimos hasta que dejan de parecerlo. Pero para darte cuenta de que algo es slop tienes que revisarlo manualmente, y eso consume tiempo y esfuerzo. A los maintainers no les gusta que desperdicien su tiempo: tienen otras cosas que hacer.
 
@@ -221,4 +227,6 @@ Pero la idea principal es esta: la IA no es humana, pero los maintainers y contr
 
 ¡Bienvenido al código abierto!
 
-Si quieres leer más, aquí está [«AI is destroying Open Source, and it’s not even good yet», de Jeff Geerling](https://www.jeffgeerling.com/blog/2026/ai-is-destroying-open-source/).
+Si quieres leer más:
+
+{% embed https://www.jeffgeerling.com/blog/2026/ai-is-destroying-open-source/ %}
