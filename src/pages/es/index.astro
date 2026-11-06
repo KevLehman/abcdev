@@ -7,6 +7,7 @@ import { articlePath } from '../../lib/article-language.mjs';
 const articles = (await getCollection('articles', ({ data }) => data.lang === 'es' && !data.draft && !data.unlisted))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const startHere = [
+  'in-the-ai-era-code-is-cheap-reputation-isnt-3482',
   'a-tale-of-candy-crush-technical-debt-143h',
   'from-js-to-go-i',
 ];
