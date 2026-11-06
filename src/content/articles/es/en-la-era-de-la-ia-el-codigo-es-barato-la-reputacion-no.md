@@ -69,7 +69,7 @@ Después:
 		}
 ```
 
-Podrías decir: «¡Ese cambio es válido, queremos usar `logger` en lugar de `console`!». ¿Cuál es el problema?
+Podrías decir: «¡Ese cambio es válido, usar `logger` en lugar de `console` es mejor!». ¿Cuál es el problema?
 
 El LLM no sabía —y no lo comprobó, porque nadie se lo pidió— que recientemente habíamos cambiado los tipos de nuestras instancias de `logger`, por lo que el cambio no era válido.
 
@@ -81,7 +81,7 @@ Un cambio válido se habría visto así:
 		}
 ```
 
-Pero el LLM no lo sabía y habría necesitado bastante contexto para saberlo. Buenos LLMs (Claude, Codex, etc.) lo habrían detectado, pero otros no, a menos que se lo pidieras. ¿Cómo vas a pedir algo que no sabías que existía? Ahí es donde entra tu capacidad para programar.
+Pero el LLM no lo sabía y habría necesitado bastante contexto para saberlo. Buenos LLMs o harnesses (Claude, Codex, etc.) lo habrían detectado, pero otros no, a menos que se lo pidieras. Pero ¿cómo vas a pedir algo que no sabías que existía? Ahí es donde entra tu capacidad para programar.
 
 Este es el punto: *no puedes pedir en un prompt lo que no sabes que existe*.
 
@@ -91,7 +91,7 @@ Para estos programadores, *los LLMs son una herramienta poderosa*: les ayudan co
 
 Esto también protege tu reputación. Si los maintainers ven que constantemente envías PRs que aportan poco, con el tiempo dejarán de revisarlos. O algo peor.
 
-Los LLMs hacen que contribuir sea más rápido, pero no reemplazan tu cerebro, a menos que tú se lo permitas.
+Los LLMs hacen que contribuir sea más rápido, pero no reemplazan tu capacidad de pensar, a menos que tú se lo permitas.
 
 <span id="2-respeta-el-volumen-revisar-no-es-gratis"></span>
 <span id="revisar-también-cuesta"></span>
@@ -129,7 +129,7 @@ Y esta es la dura realidad:
 
 Si interactuar contigo les resulta costoso, podrían darle menos prioridad a tu trabajo sin darse cuenta. Eso significa menos revisiones, menos PRs integrados y menos menciones en las notas de lanzamiento.
 
-Esto es especialmente importante cuando usas LLMs o agentes, porque son rápidos, mucho más rápidos que los humanos. Podrías terminar haciendo 100 PRs que crees válidos, ¡y quizás lo sean! Pero si los maintainers no tienen capacidad para revisarlos todos, simplemente no lo harán.
+Esto es especialmente importante cuando usas LLMs o agentes, porque son rápidos, mucho más rápidos que los humanos. Podrías terminar haciendo 100 PRs que crees válidos, ¡y quizás lo sean! Pero si los maintainers no tienen capacidad para revisarlos todos, pues no va a pasar.
 
 Esa es la definición de un DoS (denegación de servicio): envías más solicitudes de las que el servidor —los maintainers— puede procesar.
 
@@ -150,7 +150,7 @@ El enlace anterior y esta hermosa lista tienen algo en común:
 
 Parecen legítimos hasta que dejan de parecerlo. Pero para darte cuenta de que algo es slop tienes que revisarlo manualmente, y eso consume tiempo y esfuerzo. A los maintainers no les gusta que desperdicien su tiempo: tienen otras cosas que hacer.
 
-Así que sé humano, respeta el tiempo y el trabajo de los maintainers. ¿Cómo? *Ayudándolos a reducir el costo de revisar tu código*.
+Así que sé humano, respeta el tiempo y el trabajo de los maintainers. ¿Cómo? *Reduciendo el costo de revisar tu código*.
 
 Antes de enviar tu contribución:
 
@@ -168,14 +168,14 @@ Si propones una funcionalidad, *pregunta primero*.
 Las contribuciones de calidad se revisan más rápido.
 Las contribuciones que aportan poco se acumulan.
 
-En la era de la IA, *la reputación se acumula*. Si los maintainers pueden confiar en ti, revisarán tus PRs más rápido y tú estarás más feliz. ¡Todos ganan!
+En la era de la IA, *la reputación se acumula exponencialmente*. Si los maintainers pueden confiar en ti, revisarán tus PRs más rápido y tú estarás más feliz. ¡Todos ganan!
 
 <span id="4-agrupa-los-cambios-triviales"></span>
 <span id="agrupa-los-cambios-pequeños"></span>
 
 ## Usa tu criterio al agrupar los cambios
 
-Los errores tipográficos pasan. Los pequeños errores pasan. Por ejemplo:
+Los typos pasan. Somos humanos, ¿no? Por ejemplo:
 
 Antes:
 
@@ -193,7 +193,7 @@ Después:
 		}
 ```
 
-¿Ves el error? Sí, falta una `r` en `subscription`. La contribución es válida: queremos escribir correctamente en inglés.
+¿Ves el error? Sí, falta una `r` en `subscription`. La contribución es válida: tenemos que escribir inglés correctamente.
 
 ¿Merece un PR? Por sí sola, no. Quizás si la combinas con algunas más. Imagina que encuentras 10 errores como ese. ¿Qué es más fácil para los maintainers: un PR con 10 cambios o 10 PRs con un cambio cada uno? Jeje.
 
@@ -201,7 +201,7 @@ Después:
 
 Cada PR tiene un costo adicional: ejecución de CI, notificaciones, tiempo de revisión, tiempo para integrarlo, cambio de contexto mental, etc. Reduce ese costo agrupando el trabajo trivial.
 
-La IA puede encontrar una enorme lista de arreglos como este en un repositorio. Y si usas un agente como Claude o Clawd, puedes decirle «crea un PR por cada problema» y convertirte en el contribuidor más odiado del proyecto :(
+La IA puede encontrar una enorme lista de arreglos como este en un repositorio. Y si usas un agente como Claude o Codex, puedes decirle «crea un PR por cada problema» y convertirte en el contribuyente más odiado del proyecto :(
 
 No hagas eso. Por favor. Sé considerado. *Sé humano*.
 
@@ -210,11 +210,11 @@ No hagas eso. Por favor. Sé considerado. *Sé humano*.
 
 ## No dejes que la IA reemplace tu capacidad de pensar
 
-Estamos en la era de la IA. Ya no podemos luchar contra ella: llegó para quedarse. Lo que sí podemos cambiar es cómo la usamos.
+Estamos en la era de la IA. Por mucho que pataleemos, llegó para quedarse. Lo que sí podemos cambiar es cómo la usamos.
 
-En GSoC, por ejemplo, valoramos las contribuciones humanas. Ese es el objetivo del programa: ¡que más personas se conviertan en contribuidores de código abierto!
+En GSoC, por ejemplo, valoramos las contribuciones humanas. Ese es el objetivo del programa: ¡que más personas participen en el código abierto!
 
-Necesitamos nuevas generaciones de maintainers, de personas inteligentes que usen los LLMs con criterio. Puedes hacer cosas increíbles con ellos si los usas bien, pero nada reemplazará tu capacidad de hacer cosas increíbles como persona. Recuerda eso.
+Necesitamos nuevas generaciones de maintainers, de personas inteligentes que usen los LLMs con criterio. Puedes hacer cosas increíbles con ellos si los usas bien, pero recuerda: los humanos también podemos hacer cosas increíbles. No lo olvides.
 
 Es más fácil contribuir, pero más difícil destacar entre la multitud.
 La reputación importa.
@@ -223,7 +223,7 @@ La construyes haciendo buen trabajo.
 
 Como nota final, esto se basa principalmente en mi experiencia personal. Algunos proyectos pueden tener reglas distintas. Quizás a algunos les guste recibir 1,000 PRs al día. ¿Quién sabe?
 
-Pero la idea principal es esta: la IA no es humana, pero los maintainers y contribuidores sí. No lo olvides.
+Pero la idea principal es esta: la IA no es humana, pero los maintainers y los que contribuyen sí. Tenlo en mente.
 
 ¡Bienvenido al código abierto!
 
