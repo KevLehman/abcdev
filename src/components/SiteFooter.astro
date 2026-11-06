@@ -7,7 +7,7 @@ const { lang = 'en' } = Astro.props;
   <div class="wrap foot">
     <span>© 2026 Kevin Aleman</span>
     <div class="foot-links">
-      <a href="/feed.xml" data-en="Subscribe via RSS" data-es="Suscribirse por RSS">{lang === 'es' ? 'Suscribirse por RSS' : 'Subscribe via RSS'}</a>
+      <a href={lang === 'es' ? '/es/feed.xml' : '/feed.xml'} data-rss-link data-en="Subscribe via RSS" data-es="Suscribirse por RSS">{lang === 'es' ? 'Suscribirse por RSS' : 'Subscribe via RSS'}</a>
       <span>{socialProfiles.map((s, i) => (<>{i > 0 && ' · '}<a href={s.href}>{s.label}</a></>))}</span>
     </div>
   </div>

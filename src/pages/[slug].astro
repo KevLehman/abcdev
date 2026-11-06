@@ -110,6 +110,8 @@ const { lang, ogImage, oembed } = variants[0];
       });
       document.documentElement.lang = article.lang;
       document.querySelectorAll('[data-en][data-es]').forEach((node) => { node.textContent = node.dataset[article.lang]; });
+      document.querySelector('[data-rss-link]').href = article.lang === 'es' ? '/es/feed.xml' : '/feed.xml';
+      document.querySelector('link[type="application/rss+xml"]').href = article.lang === 'es' ? '/es/feed.xml' : '/feed.xml';
       const switcher = document.querySelector('[data-language-switch]');
       switcher.href = article.lang === 'es' ? '?lang=en' : '?lang=es';
       switcher.lang = article.lang === 'es' ? 'en' : 'es';
