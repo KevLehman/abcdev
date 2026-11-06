@@ -30,7 +30,9 @@ Estas dos realidades ya han llevado a maintainers a tomar medidas drásticas, co
 
 Entonces, ¿cómo te conviertes en un contribuidor valioso de código abierto en la era de la generación infinita de código? Aquí van algunos consejos que he aprendido al lidiar con un gran volumen de contribuciones.
 
-## 1. Piensa. Y luego vuelve a pensar
+<span id="1-piensa-y-luego-vuelve-a-pensar"></span>
+
+## Piensa antes de enviar código
 
 La IA puede producir código excelente, pero también puede producir el peor código que la humanidad haya visto. Depende mucho de:
 
@@ -88,7 +90,9 @@ Esto también protege tu reputación. Si los maintainers ven que constantemente 
 
 Los LLMs hacen que contribuir sea más rápido, pero no reemplazan tu cerebro, a menos que tú se lo permitas.
 
-## 2. Respeta el volumen. Revisar no es gratis.
+<span id="2-respeta-el-volumen-revisar-no-es-gratis"></span>
+
+## Revisar también cuesta
 
 Estás feliz. Y nosotros también estamos felices de que quieras contribuir al código abierto. Es una actividad noble que puede hacer más seguro al repositorio y ayudarte a mejorar. ¡Todos ganan!
 
@@ -125,7 +129,9 @@ Esto es especialmente importante cuando usas LLMs o agentes, porque son rápidos
 
 Esa es la definición de un DoS (denegación de servicio): envías más solicitudes de las que el servidor —los maintainers— puede procesar.
 
-## 3. Calidad sin tomar atajos (Wendy's, por favor no me demandes)
+<span id="3-calidad-sin-tomar-atajos-wendys-por-favor-no-me-demandes"></span>
+
+## Haz tu parte antes de enviar
 
 La capacidad de los maintainers es limitada. En el último mes cerramos alrededor de 700 issues que estaban abandonados, no eran válidos o ya estaban resueltos, pero al mismo tiempo recibimos 300 nuevos. Algunos eran válidos y otros no. El problema es que no lo sabemos de antemano: *tenemos que revisarlos todos*. No puedes confiar en que un LLM confirme si algo es slop, ¡porque la comprobación también podría ser slop!
 
@@ -155,7 +161,9 @@ Las contribuciones que aportan poco se acumulan.
 
 En la era de la IA, *la reputación se acumula*. Si los maintainers pueden confiar en ti, revisarán tus PRs más rápido y tú estarás más feliz. ¡Todos ganan!
 
-## 4. Agrupa los cambios triviales
+<span id="4-agrupa-los-cambios-triviales"></span>
+
+## Agrupa los cambios pequeños
 
 Los errores tipográficos pasan. Los pequeños errores pasan. Por ejemplo:
 
@@ -187,7 +195,9 @@ La IA puede encontrar una enorme lista de arreglos como este en un repositorio. 
 
 No hagas eso. Por favor. Sé considerado. *Sé humano*.
 
-## Los LLMs son divertidos, pero el trabajo humano es mejor
+<span id="los-llms-son-divertidos-pero-el-trabajo-humano-es-mejor"></span>
+
+## Usa la IA sin dejar de pensar
 
 Estamos en la era de la IA. Ya no podemos luchar contra ella: llegó para quedarse. Lo que sí podemos cambiar es cómo la usamos.
 
