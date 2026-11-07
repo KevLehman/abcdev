@@ -59,7 +59,7 @@ Avoid having only managers giving recognition. Foster p2p recognition, since tha
 
 So, as conclusion, thanks for what you're doing to improve the community :) and thanks for sharing your knowledge with the rest of the people using this platform.
 
-![Simpsons' Monstromart: we love you](http://i.imgur.com/dzkyANm.jpg)
+![Simpsons' Monstromart: we love you](https://i.imgur.com/dzkyANm.jpg)
 
 Now, go there and recognize people for what they're doing :)
 
