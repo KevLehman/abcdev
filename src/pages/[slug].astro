@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro';
 import KeepReading from '../components/KeepReading.astro';
 import SeriesNavigation from '../components/SeriesNavigation.astro';
 import CollaborationDisclosure from '../components/CollaborationDisclosure.astro';
+import MurderMystery from '../components/MurderMystery.astro';
 import Subscribe from '../components/Subscribe.astro';
 import { oembedHref } from '../lib/oembed.mjs';
 import { pickRelatedArticle } from '../lib/related-articles.mjs';
@@ -94,6 +95,7 @@ const { lang, ogImage, oembed } = variants[0];
       </nav>
     )}
     <div class="prose"><Content /></div>
+    {article.id === 'can-ai-solve-a-murder-mystery' && <MurderMystery />}
     <Subscribe lang={lang} />
     {series && <SeriesNavigation series={series} lang={lang} />}
     {rec && <KeepReading {...rec} lang={lang} />}

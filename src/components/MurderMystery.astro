@@ -1,0 +1,250 @@
+---
+import { leads, suspects, solution } from '../lib/murder-mystery-case.mjs';
+import recordedRun from '../data/murder-mystery-jev.json';
+const jev = recordedRun as { recordedAt: string, discovered: string[], accusation: { suspect: string, evidence: string | null }, trace: { response: { model: string } }[] } | null;
+---
+<section class="case" aria-labelledby="case-title">
+  <div class="case-hero">
+    <img src="/images/observatory-mystery.webp" alt="A stone observatory on a stormy night, with one window lit" width="1536" height="1024" />
+    <div class="case-hero-copy">
+      <span class="case-kicker">An interactive mystery</span>
+      <h2 id="case-title">The last night<br />at the observatory</h2>
+      <p>One victim. Four suspects. A storm that won't let anyone leave.</p>
+    </div>
+    <span class="case-stamp" aria-hidden="true">CASE<br />01</span>
+  </div>
+
+  <noscript><p class="case-noscript">This interactive mystery needs JavaScript. Enable it to investigate the case.</p></noscript>
+  <div class="case-body" data-game hidden>
+    <div class="case-intro">
+      <div>
+        <span class="case-label">The case</span>
+        <h3>Who killed Adrian Vale?</h3>
+        <p>The astronomer was found dead beside his telescope at 9:20 p.m. Everyone had a reason to be angry. Not everyone had the opportunity.</p>
+      </div>
+      <div class="case-counter" aria-live="polite"><strong data-count>0</strong><span>of 4 leads<br />investigated</span></div>
+    </div>
+
+    <section class="suspects" aria-labelledby="suspects-title">
+      <div class="section-heading"><div><span class="case-label">The people</span><h3 id="suspects-title">Four suspects</h3></div><p>Everyone has a story.</p></div>
+      <div class="suspect-grid">
+        {suspects.map((person, index) => <article class="suspect"><div class="portrait" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span><svg viewBox="0 0 80 86" focusable="false"><circle cx="40" cy="27" r="15"/><path d="M14 84c0-22 10-35 26-35s26 13 26 35"/></svg></div><div><span>{person.role}</span><h4>{person.name}</h4><p>{person.detail}</p></div></article>)}
+      </div>
+    </section>
+
+    <section class="investigation" aria-labelledby="leads-title">
+      <div class="section-heading"><div><span class="case-label">The investigation</span><h3 id="leads-title">Follow a lead</h3></div><p>Choose up to four.</p></div>
+      <div class="investigation-grid">
+        <div class="lead-grid" aria-label="Available leads">
+          {leads.map((lead) => <button class="lead" type="button" data-lead={lead.id}><span class="lead-number">{lead.number}</span><span><small>{lead.place}</small><strong>{lead.title}</strong></span><span class="lead-arrow" aria-hidden="true">↗</span></button>)}
+        </div>
+        <aside class="notebook" aria-labelledby="notebook-title">
+          <span class="case-label">Your notebook</span><h4 id="notebook-title">What you know</h4>
+          <div data-notebook aria-live="polite"><p class="empty-note">Your clues will appear here. Start with any lead.</p></div>
+        </aside>
+      </div>
+      <p class="limit-message" data-limit hidden>That's four leads. It's time to make your accusation.</p>
+    </section>
+
+    <section class="accusation" aria-labelledby="accuse-title" data-accusation>
+      <div><span class="case-label">The decision</span><h3 id="accuse-title">Ready to name a suspect?</h3><p>You can accuse at any time. Pick a clue, or admit you're guessing.</p></div>
+      <form data-form>
+        <label for="mystery-suspect">Who did it?</label>
+        <select id="mystery-suspect" name="suspect" required><option value="">Choose a suspect</option>{suspects.map((person) => <option value={person.id}>{person.name}</option>)}</select>
+        <label for="mystery-evidence">What convinced you?</label>
+        <select id="mystery-evidence" name="evidence"><option value="">I'm guessing</option></select>
+        <button class="case-primary" type="submit">Make my accusation <span aria-hidden="true">↗</span></button>
+      </form>
+    </section>
+
+    <section class="case-result" data-result hidden tabindex="-1" aria-labelledby="result-title">
+      <span class="case-label">Case closed</span><h3 id="result-title" data-result-title></h3><p class="result-summary" data-summary></p>
+      <div class="solution"><span class="case-label">What happened</span><p data-solution></p></div>
+      <div class="jev-note"><span class="case-label">The AI detective</span>{jev ? <><h4>Jev's recorded investigation</h4><p>Recorded {jev.recordedAt.slice(0, 10)} using {jev.trace[0]?.response.model || 'Jev'}. Jev investigated {jev.discovered.length} {jev.discovered.length === 1 ? 'lead' : 'leads'} and accused {suspects.find((person) => person.id === jev.accusation.suspect)?.name}: {jev.accusation.suspect === solution.suspect ? 'the correct suspect' : 'the wrong suspect'}.</p><ol>{jev.discovered.map((id) => <li>{leads.find((lead) => lead.id === id)?.title}</li>)}</ol><p>{jev.accusation.evidence ? `Jev selected “${leads.find((lead) => lead.id === jev.accusation.evidence)?.title}” as its supporting clue.` : 'Jev accused without selecting a supporting clue.'}</p></> : <><h4>Jev's investigation is still pending.</h4><p>This is a playable draft. A real Jev run will be added after it has investigated the same case under the same rules.</p></>}</div>
+      <div class="result-actions"><button class="case-primary" type="button" data-replay>Play again</button><button class="case-secondary" type="button" data-share>Copy spoiler-free result</button></div>
+      <label class="share-fallback" data-share-fallback hidden>Copy your result <textarea data-share-text readonly rows="3"></textarea></label><p data-share-status role="status"></p>
+      <div class="experiment-notes"><h4>About the experiment</h4><p>Jev is a model designed to make structured choices. The planned comparison gives it the same starting information and a maximum of four leads. One case and one run can be entertaining; they won't prove that an AI is a good detective.</p></div>
+    </section>
+  </div>
+</section>
+
+<script>
+  import { leads, solution, suspects } from '../lib/murder-mystery-case.mjs';
+  import { newGame, investigate, accuse, result } from '../lib/murder-mystery-game.mjs';
+
+  const root = document.querySelector<HTMLElement>('.case');
+  if (root) {
+    const app = root.querySelector<HTMLElement>('[data-game]')!;
+    const notebook = root.querySelector<HTMLElement>('[data-notebook]')!;
+    const count = root.querySelector<HTMLElement>('[data-count]')!;
+    const limit = root.querySelector<HTMLElement>('[data-limit]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const evidence = root.querySelector<HTMLSelectElement>('#mystery-evidence')!;
+    const suspect = root.querySelector<HTMLSelectElement>('#mystery-suspect')!;
+    const accusation = root.querySelector<HTMLElement>('[data-accusation]')!;
+    const resultPanel = root.querySelector<HTMLElement>('[data-result]')!;
+    const shareStatus = root.querySelector<HTMLElement>('[data-share-status]')!;
+    const fallback = root.querySelector<HTMLElement>('[data-share-fallback]')!;
+    const shareText = root.querySelector<HTMLTextAreaElement>('[data-share-text]')!;
+    let game = newGame();
+
+    function render() {
+      count.textContent = String(game.discovered.length);
+      limit.hidden = game.discovered.length < 4;
+      root!.querySelectorAll<HTMLButtonElement>('[data-lead]').forEach((button) => {
+        const discovered = game.discovered.includes(button.dataset.lead ?? '');
+        button.disabled = Boolean(game.accusation) || (!discovered && game.discovered.length >= 4);
+        button.classList.toggle('is-discovered', discovered);
+        button.setAttribute('aria-pressed', String(discovered));
+      });
+      notebook.replaceChildren();
+      if (!game.discovered.length) {
+        const empty = document.createElement('p'); empty.className = 'empty-note'; empty.textContent = 'Your clues will appear here. Start with any lead.'; notebook.append(empty);
+      }
+      for (const id of game.discovered) {
+        const lead = leads.find((item) => item.id === id)!;
+        const entry = document.createElement('div'); entry.className = 'notebook-entry';
+        const title = document.createElement('strong'); title.textContent = `${lead.number} / ${lead.title}`;
+        const text = document.createElement('p'); text.textContent = lead.text;
+        entry.append(title, text); notebook.append(entry);
+      }
+      const selected = evidence.value;
+      evidence.replaceChildren(new Option("I'm guessing", ''));
+      for (const id of game.discovered) {
+        const lead = leads.find((item) => item.id === id)!;
+        evidence.add(new Option(lead.title, lead.id));
+      }
+      evidence.value = game.discovered.includes(selected) ? selected : '';
+    }
+
+    root.querySelectorAll<HTMLButtonElement>('[data-lead]').forEach((button) => button.addEventListener('click', () => {
+      const before = game.discovered.length;
+      game = investigate(game, button.dataset.lead);
+      render();
+      if (game.discovered.length > before) notebook.lastElementChild?.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+    }));
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const person = suspects.find((item) => item.id === suspect.value);
+      if (!person || !window.confirm(`Accuse ${person.name}? This will reveal the solution.`)) return;
+      game = accuse(game, person.id, evidence.value || null);
+      const outcome = result(game);
+      if (!outcome) return;
+      root.querySelector<HTMLElement>('[data-result-title]')!.textContent = outcome.correct ? 'You found the killer.' : 'The wrong suspect.';
+      root.querySelector<HTMLElement>('[data-summary]')!.textContent = `You accused ${person.name} after investigating ${outcome.clues} ${outcome.clues === 1 ? 'lead' : 'leads'}.${outcome.guessed ? ' You made a guess without selecting a clue.' : ''}`;
+      root.querySelector<HTMLElement>('[data-solution]')!.textContent = solution.text;
+      accusation.hidden = true; resultPanel.hidden = false; render(); resultPanel.focus();
+    });
+
+    root.querySelector<HTMLButtonElement>('[data-replay]')!.addEventListener('click', () => {
+      game = newGame(); form.reset(); resultPanel.hidden = true; accusation.hidden = false; fallback.hidden = true; shareStatus.textContent = ''; render();
+      root.querySelector<HTMLElement>('#leads-title')!.scrollIntoView({ block: 'start', behavior: 'auto' });
+    });
+
+    root.querySelector<HTMLButtonElement>('[data-share]')!.addEventListener('click', async () => {
+      const outcome = result(game);
+      if (!outcome) return;
+      const text = `I ${outcome.correct ? 'solved' : 'tried to solve'} the observatory murder in ${outcome.clues} ${outcome.clues === 1 ? 'lead' : 'leads'}. Can you solve it? ${location.origin}${location.pathname}`;
+      try { await navigator.clipboard.writeText(text); shareStatus.textContent = 'Spoiler-free result copied.'; fallback.hidden = true; }
+      catch { shareText.value = text; fallback.hidden = false; shareText.focus(); shareText.select(); shareStatus.textContent = 'Copy the text below to share your result.'; }
+    });
+    app.hidden = false;
+    render();
+  }
+</script>
+
+<style>
+  .case { width: min(920px, calc(100vw - 40px)); position: relative; left: 50%; transform: translateX(-50%); margin: 44px 0 64px; background: #f1ede1; color: #172c38; font-family: var(--font-display); box-shadow: 0 14px 45px #14243518; }
+  .case [hidden] { display: none !important; }
+  .case * { box-sizing: border-box; }
+  .case-hero { position: relative; min-height: 430px; overflow: hidden; display: flex; align-items: flex-end; color: #fffaf0; background: #142737; }
+  .case-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; }
+  .case-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #10202de8 0%, #142534b3 46%, #14253405 100%), linear-gradient(0deg, #10202d9c, transparent 70%); }
+  .case-hero-copy { position: relative; z-index: 1; padding: 50px; max-width: 610px; }
+  .case-kicker, .case-label { font: 600 .66rem/1.4 var(--font-mono); letter-spacing: .11em; text-transform: uppercase; }
+  .case-kicker { color: #edc27c; }
+  .case-hero h2 { font: 600 clamp(2.5rem, 5vw, 4.1rem)/1.03 var(--font-display); letter-spacing: -.045em; margin: 18px 0; }
+  .case-hero-copy p { font: 1.2rem/1.45 var(--font-body); margin: 0; max-width: 360px; color: #f0eee8; }
+  .case-stamp { z-index: 1; position: absolute; top: 32px; right: 35px; border: 1px solid #ead1a5ad; color: #f0d19c; padding: 10px; text-align: center; font: .65rem/1.4 var(--font-mono); letter-spacing: .1em; }
+  .case-body { padding: 46px 50px 52px; }
+  .case-intro { display: flex; justify-content: space-between; gap: 30px; align-items: center; padding-bottom: 36px; border-bottom: 1px solid #bcb9ad; }
+  .case-label { color: #846238; }
+  .case h3 { font: 600 clamp(1.6rem, 3vw, 2.05rem)/1.12 var(--font-display); letter-spacing: -.035em; margin: 9px 0 10px; }
+  .case-intro p, .accusation p { font: 1.08rem/1.5 var(--font-body); max-width: 490px; margin: 0; color: #3e4f54; }
+  .case-counter { min-width: 145px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #bcb9ad; padding-left: 24px; }
+  .case-counter strong { font: 500 3.3rem/1 var(--font-display); color: #a66c2c; }
+  .case-counter span { font: .66rem/1.5 var(--font-mono); color: #45575b; }
+  .suspects, .investigation { padding-top: 39px; }
+  .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 15px; margin-bottom: 19px; }
+  .section-heading h3 { margin-bottom: 0; }
+  .section-heading > p { margin: 0; color: #526265; font: .72rem var(--font-mono); }
+  .suspect-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border: 1px solid #c7c4b8; background: #c7c4b8; }
+  .suspect { min-width: 0; background: #e9e5da; }
+  .suspect > div:last-child { padding: 13px 14px 18px; }
+  .portrait { position: relative; background: #cdd4cf; height: 105px; overflow: hidden; color: #506866; }
+  .suspect:nth-child(2) .portrait { background: #d7cabc; color: #846c5a; }
+  .suspect:nth-child(3) .portrait { background: #c7d0d4; color: #4b6571; }
+  .suspect:nth-child(4) .portrait { background: #ddd2b6; color: #84775b; }
+  .portrait span { position: absolute; top: 10px; left: 12px; font: .62rem var(--font-mono); }
+  .portrait svg { display: block; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); height: 105px; width: 100px; fill: currentColor; opacity: .8; }
+  .suspect > div > span { color: #60706f; font: .63rem var(--font-mono); }
+  .suspect h4 { font: 600 1rem/1.2 var(--font-display); margin: 5px 0 8px; }
+  .suspect p { margin: 0; font: .93rem/1.35 var(--font-body); color: #475658; }
+  .investigation-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(220px, 1fr); border: 1px solid #b6b9ad; }
+  .lead-grid { display: grid; grid-template-columns: 1fr 1fr; background: #1c3542; gap: 1px; }
+  .lead { color: #f3eee2; text-align: left; border: 0; border-radius: 0; background: #284653; min-height: 94px; padding: 15px; display: flex; gap: 12px; cursor: pointer; font: inherit; transition: background .15s; }
+  .lead:hover:not(:disabled), .lead:focus-visible { background: #345966; }
+  .lead:focus-visible, .case button:focus-visible, .case select:focus-visible, .case textarea:focus-visible { outline: 3px solid #d79035; outline-offset: -3px; }
+  .lead:disabled { opacity: .5; cursor: default; }
+  .lead.is-discovered { background: #3c5b57; }
+  .lead-number { color: #e2bc7e; font: .68rem var(--font-mono); padding-top: 3px; }
+  .lead small { display: block; color: #becdc8; font: .62rem var(--font-mono); margin-bottom: 6px; }
+  .lead strong { display: block; font: 500 .91rem/1.25 var(--font-display); }
+  .lead-arrow { margin-left: auto; color: #d8ba84; }
+  .notebook { background: #faf8f0; padding: 23px; max-height: 480px; overflow: auto; }
+  .notebook h4 { margin: 7px 0 22px; font: 600 1.2rem var(--font-display); }
+  .notebook :global(.empty-note) { color: #65716e; font: italic 1rem/1.45 var(--font-body); }
+  .notebook :global(.notebook-entry) { border-top: 1px solid #d5d7cc; padding: 14px 0 4px; }
+  .notebook :global(.notebook-entry strong) { font: 600 .68rem/1.4 var(--font-mono); color: #846238; }
+  .notebook :global(.notebook-entry p) { font: 1rem/1.45 var(--font-body); margin: 7px 0 10px; color: #263e44; }
+  .limit-message { margin: 12px 0 0; color: #805523; font: .75rem/1.5 var(--font-mono); }
+  .accusation { margin-top: 40px; border-top: 1px solid #bcb9ad; padding-top: 35px; display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
+  .accusation form { display: grid; gap: 8px; }
+  .accusation label, .share-fallback { font: .72rem/1.4 var(--font-mono); color: #354d50; margin-top: 6px; }
+  .accusation select, .share-fallback textarea { width: 100%; background: #faf8f0; color: #172c38; border: 1px solid #9eaaa4; border-radius: 0; padding: 12px; font: .9rem var(--font-display); }
+  .case-primary, .case-secondary { border: 1px solid #233e48; border-radius: 0; padding: 13px 18px; font: 500 .85rem var(--font-display); cursor: pointer; }
+  .case-primary { color: #fffaf0; background: #233e48; }
+  .case-primary span { float: right; }
+  .accusation .case-primary { margin-top: 10px; text-align: left; }
+  .case-primary:hover { background: #365966; }
+  .case-secondary { color: #233e48; background: transparent; }
+  .case-secondary:hover { background: #e2e5da; }
+  .case-result { margin-top: 40px; padding: 32px; background: #dfe7df; border-left: 4px solid #476a5b; }
+  .case-result:focus { outline: none; }
+  .case-result h3 { font-size: 2rem; }
+  .result-summary, .solution p, .jev-note p, .experiment-notes p { font: 1.05rem/1.55 var(--font-body); margin: 10px 0 0; }
+  .solution, .jev-note, .experiment-notes { margin-top: 25px; padding-top: 20px; border-top: 1px solid #aebdb0; }
+  .jev-note h4, .experiment-notes h4 { margin: 8px 0 0; font: 600 1.05rem var(--font-display); }
+  .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .share-fallback { display: block; margin-top: 15px; }
+  .share-fallback textarea { display: block; margin-top: 8px; }
+  .case-noscript { padding: 25px; font-family: var(--font-body); }
+  @media (max-width: 680px) {
+    .case { margin-top: 30px; }
+    .case-hero { min-height: 380px; }
+    .case-hero img { object-position: 60% 50%; }
+    .case-hero-copy { padding: 30px; }
+    .case-stamp { top: 20px; right: 20px; }
+    .case-body { padding: 30px 22px 36px; }
+    .case-intro { align-items: flex-start; flex-direction: column; gap: 20px; }
+    .case-counter { border-left: 0; padding: 0; }
+    .suspect-grid { grid-template-columns: 1fr 1fr; }
+    .investigation-grid, .accusation { grid-template-columns: 1fr; }
+    .notebook { max-height: 340px; }
+    .accusation { gap: 20px; }
+    .case-result { padding: 24px; }
+  }
+  @media (max-width: 370px) { .lead-grid { grid-template-columns: 1fr; } .lead { min-height: 74px; } }
+  @media (prefers-reduced-motion: reduce) { .lead { transition: none; } }
+</style>
