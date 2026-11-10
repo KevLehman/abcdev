@@ -1,6 +1,6 @@
 ---
 idx: 27
-title: "Can you solve a murder before AI?"
+title: "Can you solve a murder mystery better than AI?"
 date: 2026-11-09
 slug: "can-ai-solve-a-murder-mystery"
 tags: ["ai", "games", "experiments"]
@@ -14,4 +14,6 @@ The storm has cut off the road to the observatory. At 9:20 p.m., an astronomer i
 
 You can investigate **four leads** before making your accusation. You don't have to use them all. Choose carefully: motive is interesting, but you'll need evidence to put someone in the room.
 
-I want to give [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) the same case and see how its choices compare with yours. This draft lets you solve the mystery and will show whether Jev's investigation is ready after you make your accusation.
+**The model comparison will use exactly the clues you select.** Each model gets the same case and suspects you see, then makes an accusation from your chosen clues. Its answers are calculated in advance; the clues are presented in a consistent order.
+
+You can play the mystery even if model results are still being prepared.

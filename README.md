@@ -92,6 +92,23 @@ date. Leave `series` out for standalone posts.
 Published parts with duplicate orders or conflicting titles for the same series
 ID fail the build with an error identifying the affected entries.
 
+### Murder mystery model comparison
+
+The mystery uses prerecorded answers for every combination of up to four clues.
+To record a model, put its provider's key in the ignored `.env` file as
+`TYPESAFE_API_KEY` or `OPENAI_API_KEY`, then run one of:
+
+```sh
+node --env-file-if-exists=.env scripts/record-murder-mystery-models.mjs typesafe jev-latest
+node --env-file-if-exists=.env scripts/record-murder-mystery-models.mjs openai MODEL_ID
+```
+
+Replace `MODEL_ID` with the model you want to test. Each run makes 163 paid API
+requests and writes results only when all succeed.
+Check provider pricing before running. The script prints overall and four-clue
+accuracy; these are results for one fictional case, not a general benchmark.
+Results for an older version of the case are hidden until re-recorded.
+
 Talks are listed in `src/content/talks/talks.json`.
 Each talk's `preview` points to a first-slide image in `public/talks/`, and `url`
 links to the original deck. Dates are Drive modification dates, displayed as

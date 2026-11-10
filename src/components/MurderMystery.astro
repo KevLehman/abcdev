@@ -1,7 +1,9 @@
 ---
-import { leads, suspects, solution } from '../lib/murder-mystery-case.mjs';
-import recordedRun from '../data/murder-mystery-jev.json';
-const jev = recordedRun as { recordedAt: string, discovered: string[], accusation: { suspect: string, evidence: string | null }, trace: { response: { model: string } }[] } | null;
+import { leads, suspects, premise } from '../lib/murder-mystery-case.mjs';
+import { caseFingerprint } from '../lib/murder-mystery-evaluation.mjs';
+import { currentModels } from '../lib/murder-mystery-comparison.mjs';
+import recordedModels from '../data/murder-mystery-models.json';
+const models = currentModels(recordedModels as { name: string, caseFingerprint: string, guesses: Record<string, string> }[], caseFingerprint);
 ---
 <section class="case" aria-labelledby="case-title">
   <div class="case-hero">
@@ -20,7 +22,8 @@ const jev = recordedRun as { recordedAt: string, discovered: string[], accusatio
       <div>
         <span class="case-label">The case</span>
         <h3>Who killed Adrian Vale?</h3>
-        <p>The astronomer was found dead beside his telescope at 9:20 p.m. Everyone had a reason to be angry. Not everyone had the opportunity.</p>
+        <p>{premise}</p>
+        <p class="comparison-disclaimer"><strong>For the model comparison:</strong> Each model receives the same case and suspects you see, plus exactly the clues you select. Answers are calculated in advance using a consistent clue order.</p>
       </div>
       <div class="case-counter" aria-live="polite"><strong data-count>0</strong><span>of 4 leads<br />investigated</span></div>
     </div>
@@ -59,18 +62,20 @@ const jev = recordedRun as { recordedAt: string, discovered: string[], accusatio
 
     <section class="case-result" data-result hidden tabindex="-1" aria-labelledby="result-title">
       <span class="case-label">Case closed</span><h3 id="result-title" data-result-title></h3><p class="result-summary" data-summary></p>
+      <div class="jev-note"><span class="case-label">The model comparison</span><h4>Same clues. Different detectives.</h4><div data-model-results></div></div>
       <div class="solution"><span class="case-label">What happened</span><p data-solution></p></div>
-      <div class="jev-note"><span class="case-label">The AI detective</span>{jev ? <><h4>Jev's recorded investigation</h4><p>Recorded {jev.recordedAt.slice(0, 10)} using {jev.trace[0]?.response.model || 'Jev'}. Jev investigated {jev.discovered.length} {jev.discovered.length === 1 ? 'lead' : 'leads'} and accused {suspects.find((person) => person.id === jev.accusation.suspect)?.name}: {jev.accusation.suspect === solution.suspect ? 'the correct suspect' : 'the wrong suspect'}.</p><ol>{jev.discovered.map((id) => <li>{leads.find((lead) => lead.id === id)?.title}</li>)}</ol><p>{jev.accusation.evidence ? `Jev selected “${leads.find((lead) => lead.id === jev.accusation.evidence)?.title}” as its supporting clue.` : 'Jev accused without selecting a supporting clue.'}</p></> : <><h4>Jev's investigation is still pending.</h4><p>This is a playable draft. A real Jev run will be added after it has investigated the same case under the same rules.</p></>}</div>
       <div class="result-actions"><button class="case-primary" type="button" data-replay>Play again</button><button class="case-secondary" type="button" data-share>Copy spoiler-free result</button></div>
       <label class="share-fallback" data-share-fallback hidden>Copy your result <textarea data-share-text readonly rows="3"></textarea></label><p data-share-status role="status"></p>
-      <div class="experiment-notes"><h4>About the experiment</h4><p>Jev is a model designed to make structured choices. The planned comparison gives it the same starting information and a maximum of four leads. One case and one run can be entertaining; they won't prove that an AI is a good detective.</p></div>
+      <div class="experiment-notes"><h4>About the experiment</h4><p>Each answer is calculated in advance from the case, the suspect descriptions, and exactly your selected clues. Models don't choose their own leads. One case and one answer per clue set can be entertaining; they won't prove that a model is a good detective.</p></div>
     </section>
   </div>
 </section>
+<script type="application/json" id="murder-mystery-models" set:html={JSON.stringify(models).replace(/</g, '\\u003c')}></script>
 
 <script>
   import { leads, solution, suspects } from '../lib/murder-mystery-case.mjs';
   import { newGame, investigate, accuse, result } from '../lib/murder-mystery-game.mjs';
+  import { modelGuesses } from '../lib/murder-mystery-comparison.mjs';
 
   const root = document.querySelector<HTMLElement>('.case');
   if (root) {
@@ -86,6 +91,8 @@ const jev = recordedRun as { recordedAt: string, discovered: string[], accusatio
     const shareStatus = root.querySelector<HTMLElement>('[data-share-status]')!;
     const fallback = root.querySelector<HTMLElement>('[data-share-fallback]')!;
     const shareText = root.querySelector<HTMLTextAreaElement>('[data-share-text]')!;
+    const models = JSON.parse(document.getElementById('murder-mystery-models')!.textContent || '[]');
+    const modelResults = root.querySelector<HTMLElement>('[data-model-results]')!;
     let game = newGame();
 
     function render() {
@@ -133,6 +140,20 @@ const jev = recordedRun as { recordedAt: string, discovered: string[], accusatio
       if (!outcome) return;
       root.querySelector<HTMLElement>('[data-result-title]')!.textContent = outcome.correct ? 'You found the killer.' : 'The wrong suspect.';
       root.querySelector<HTMLElement>('[data-summary]')!.textContent = `You accused ${person.name} after investigating ${outcome.clues} ${outcome.clues === 1 ? 'lead' : 'leads'}.${outcome.guessed ? ' You made a guess without selecting a clue.' : ''}`;
+      modelResults.replaceChildren();
+      const predictions = modelGuesses(models, game.discovered);
+      if (!predictions.length) {
+        const pending = document.createElement('p'); pending.textContent = 'No model results have been recorded for this clue set yet.'; modelResults.append(pending);
+      } else {
+        const list = document.createElement('ul');
+        for (const prediction of predictions) {
+          const item = document.createElement('li');
+          const chosen = suspects.find((entry) => entry.id === prediction.suspect);
+          item.textContent = `${prediction.name}: ${chosen?.name ?? 'unknown suspect'}${chosen ? (prediction.suspect === solution.suspect ? ' — correct' : ' — incorrect') : ''}`;
+          list.append(item);
+        }
+        modelResults.append(list);
+      }
       root.querySelector<HTMLElement>('[data-solution]')!.textContent = solution.text;
       accusation.hidden = true; resultPanel.hidden = false; render(); resultPanel.focus();
     });
@@ -172,6 +193,7 @@ const jev = recordedRun as { recordedAt: string, discovered: string[], accusatio
   .case-label { color: #846238; }
   .case h3 { font: 600 clamp(1.6rem, 3vw, 2.05rem)/1.12 var(--font-display); letter-spacing: -.035em; margin: 9px 0 10px; }
   .case-intro p, .accusation p { font: 1.08rem/1.5 var(--font-body); max-width: 490px; margin: 0; color: #3e4f54; }
+  .case-intro .comparison-disclaimer { margin-top: 14px; padding-left: 12px; border-left: 2px solid #a66c2c; font-size: .95rem; }
   .case-counter { min-width: 145px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #bcb9ad; padding-left: 24px; }
   .case-counter strong { font: 500 3.3rem/1 var(--font-display); color: #a66c2c; }
   .case-counter span { font: .66rem/1.5 var(--font-mono); color: #45575b; }
