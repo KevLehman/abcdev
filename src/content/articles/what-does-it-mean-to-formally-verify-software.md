@@ -8,7 +8,7 @@ excerpt: "Formal verification checks software against precise properties. Here's
 draft: false
 unlisted: false
 featured: false
-coverImage: "https://kevinaleman.com/images/formal-verification-cover.webp"
+coverImage: "https://kevinaleman.com/images/formal-verification-cover-illustrated.webp"
 ---
 
 You ask an agent to implement a feature. It changes the code, adds tests, runs them and gives you a nice summary. Everything is green. Then you open the pull request and realize you still have to answer a question: **how do I know this actually works?**
@@ -19,11 +19,16 @@ This is where formal verification gets interesting. Not because it's new, or bec
 
 ## So, what are we verifying?
 
-Before we can verify that software is correct, we have to say what *correct* means. That sounds obvious, but “the permissions should work” leaves a lot of room for interpretation. Who gets access? To what? What should happen when their membership is removed?
+Before anything else, what's *correct*?. Well, as any experienced software developer would say, *it depends*. On what? Well, on you, or your product. *Correct* can mean a lot of things to different people, so before verifying something, we have to be sure that the behavior we're verifying is *the right one*.
 
-A **specification** makes the behavior we care about precise enough for a tool to reason about it. A **property** is a particular claim we want to check against that specification or the implementation. For example: a user without access to a document must not be allowed to delete it.
+For that, let me introduce you to some terms:
 
-Formal verification uses mathematical reasoning to check whether the thing we're examining satisfies those properties, within the model and assumptions used for the check. Sometimes that thing is a design; sometimes it's an implementation or part of one. [NASA's introduction to formal methods](https://shemesh.larc.nasa.gov/fm/fm-what.html) gives a useful overview of the family of techniques behind this work.
+1. A **specification** makes the behavior we care about precise enough for a tool to reason about it.
+2. A **property** is a particular claim we want to check against that specification or the implementation.
+
+For example: "a user without access to a document must not be allowed to delete it". That contains both: the specification and the property. Now that we have this clear, we can start to verify stuff.
+
+Formal verification uses mathematical reasoning to check whether the thing we're examining satisfies those properties, within the model and assumptions used for the check. Sometimes that "thing" is a design; sometimes it's an implementation; sometimes is an Jira message you received at 3am... Anyways, [NASA's introduction to formal methods](https://shemesh.larc.nasa.gov/fm/fm-what.html) gives a useful overview of the family of techniques behind this work.
 
 {% embed https://shemesh.larc.nasa.gov/fm/fm-what.html %}
 
@@ -39,35 +44,37 @@ The verifier checks whether the rule holds for the behavior it's examining. Depe
 
 But a failed verification doesn't always mean the code is wrong. Sometimes the tool can't establish the claim with the information it has, or can't complete the proof. You might need to give it more detail before it can tell you either way.
 
-![A mechanical maze with illuminated paths branching through it, representing possible behaviors in a model.](/images/formal-verification-model.webp)
+![A hand-drawn network of branching paths, representing possible behaviors in a model.](/images/formal-verification-model-illustrated.webp)
 
 You don't have to verify an entire application to get value from this. A team can focus on a critical decision, algorithm or design where a mistake would be particularly expensive.
 
 ## Wait, don't we already have tests?
 
-We do, and we still need them. A test runs the software with particular inputs and checks what happens. Formal verification reasons about properties over the behaviors covered by its model or proof. That can let us make a stronger claim about those properties than a handful of passing examples can.
+We do, and if you have a decent testing coverage, then you should be proud. Take a medal (not really). Now, since we already have, what can we gain from Formal Verification? Formal verification reasons about properties over the behaviors covered by its model or proof. That can let us make a stronger claim about those properties than a handful of passing examples can.
 
-But the proof has a boundary. If we've verified a function that makes a permission decision, we still need to know whether the rest of the application calls it when it should, and whether it gives the function the right information. A proof of the decision doesn't automatically establish either of those things.
+But the proof has a boundary. If we've verified a function that makes a permission decision, we still need to know whether the rest of the application calls it when it should, and whether it gives the function the right information. A proof of the decision doesn't automatically establish either of those things. (This may sound very familiar to what a unit test is, but trust me, it's different... a bit).
 
 [NIST makes this point when discussing formal methods and testing](https://csrc.nist.gov/Projects/automated-combinatorial-testing-for-software/autonomous-systems-assurance/formal-methods): assumptions used in a proof may not hold when the specification is connected to the implementation and its dependencies. Tests can help us check those connections and exercise the actual application.
 
-![A small mechanism inside a glass enclosure, connected by pipes to a larger machine outside it.](/images/formal-verification-boundary.webp)
+![A checked group of connected nodes inside a rectangle, with other nodes outside it.](/images/formal-verification-boundary-illustrated.webp)
 
 This is also why I'd be careful with “the software is verified.” Verified against *what*, and how much of it? Those questions are more useful than the label on its own.
 
 ## Where does AI fit in?
 
-Writing specifications and proofs takes work. The verifier needs precise statements, and some properties need more guidance before the tool can establish them. That's a different skill from writing the implementation, and it's one reason this isn't something most of us add to every pull request.
+Writing specifications and proofs takes work. The verifier needs precise statements, and some properties need more guidance before the tool can establish them. That's a different skill from writing the implementation, and it's one reason this isn't something most of us add to every pull request. Just imagine if 5 years ago you had a Jira task for a feature, and then a sub task for unit tests, and then a sub task for a formal verification of your work... Workflows defined by the utterly deranged.
 
-An agent can help with parts of that work: discussing requirements, proposing a specification, writing an implementation and working through feedback from a verifier. The important part is that the verifier checks the formal claim according to its rules. We're not relying only on the agent telling us it got the answer right.
+But now, we have agents! An agent can help with parts of that work: discussing requirements, proposing a specification, writing an implementation and working through feedback from a verifier. The important part is that the verifier checks the formal claim according to its rules. We're not relying only on the agent telling us it got the answer right.
 
-That's the idea that interested me in [Proof Driven Development](/proof-driven-development/). The agent helps produce the work, and a verification tool checks it against an agreed specification. I also [tried proving binary search with Dafny](/proving-binary-search-with-dafny/), which gave me a better appreciation for the amount of detail involved in stating and checking even a familiar algorithm.
+That's the idea that interested me in [Proof Driven Development](/proof-driven-development/). The agent helps produce the work, and a verification tool checks it against an agreed specification. I also [tried proving binary search with Dafny](/proving-binary-search-with-dafny/), which gave me a better appreciation for the amount of detail involved in checking one damn function.
 
-But AI doesn't remove the need to review the specification. An agent can help surface missing questions, but it can miss requirements too. If the property never mentions revoked access, a proof of that property won't establish that revocation works. The code can follow the written rule perfectly and still miss what the product needs.
+But, as everything humans do, Formal Verification would be as good as the people that define what *correct* means. An agent can help you understand a codebase, identify possible issues and ask you questions for scenarios you hadn't thought (sometimes even for scenarios that are only possible in 1 out of 200M universes...). If your property definition never mentions a key detail, or how a special behavior should behave, a proof generated by an agent won't add it magically to your work. The code can follow the written rules perfectly, and the agent may have wrote the most beautiful proof your eyes have seen, but if you didn't know all the details...
+
+![Checked paths inside a circle, with another branch outside the boundary.](/images/formal-verification-missing-requirement-illustrated.webp)
 
 ## Is this only for critical systems?
 
-Formal methods are useful in critical systems, but the ideas aren't limited to them. In a [2015 paper on formal methods at AWS](https://www.amazon.science/publications/how-amazon-web-services-uses-formal-methods), the authors describe using a model checker on a DynamoDB design. It found a sequence of failures and recovery steps that could lead to data loss, after the team had already done extensive testing. They were checking a model of the design, not claiming that the whole service had been proved correct.
+Formal methods are useful in critical systems, but the ideas aren't limited to them. In a [2015 paper on formal methods at AWS](https://www.amazon.science/publications/how-amazon-web-services-uses-formal-methods), the authors describe using a model checker on a DynamoDB design. It found a sequence of failures and recovery steps that could lead to data loss, after the team had already done extensive testing. So there is some value!
 
 {% embed https://www.amazon.science/publications/how-amazon-web-services-uses-formal-methods %}
 
