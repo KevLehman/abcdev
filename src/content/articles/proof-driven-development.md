@@ -15,6 +15,8 @@ One of the problems with using agents is that you can ask them to implement some
 
 So I found [this announcement from GitHub Next](https://x.com/GitHubNext/status/2112936525457740139) pretty interesting. Microsoft Research is working on **Proof Driven Development Kit**, or PDD Kit, which brings formal verification into the agent's development workflow. The idea is that we can ask for a mathematical proof that the implementation satisfies a specification, and have a separate verifier check that claim. What makes this interesting to me is that the correctness argument has to survive something more demanding than the agent's own explanation of why its code is correct.
 
+If formal verification is new to you, I wrote an [introduction to how it works and why it matters for AI-generated code](/what-does-it-mean-to-formally-verify-software/).
+
 {% embed https://x.com/GitHubNext/status/2112936525457740139 %}
 
 ## Ok, what are they doing?
