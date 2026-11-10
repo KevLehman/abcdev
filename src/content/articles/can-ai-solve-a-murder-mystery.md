@@ -16,4 +16,4 @@ You can investigate **four leads** before making your accusation. You don't have
 
 **The model comparison will use exactly the clues you select.** Each model gets the same case and suspects you see, then makes an accusation from your chosen clues. Its answers are calculated in advance; the clues are presented in a consistent order.
 
-You can play the mystery even if model results are still being prepared.
+So far, I've tested GPT-6 Luna once for each four-clue combination, using a fresh Codex subagent each time. There isn't a Luna result yet if you accuse with fewer than four clues.
