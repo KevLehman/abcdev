@@ -58,7 +58,7 @@ But the proof has a boundary. If we've verified a function that makes a permissi
 
 ![A checked group of connected nodes inside a rectangle, with other nodes outside it.](/images/formal-verification-boundary-illustrated.webp)
 
-This is also why I'd be careful with “the software is verified.” Verified against *what*, and how much of it? Those questions are more useful than the label on its own.
+_This is also why I'd be careful with “the software is verified.” Verified against *what*, and how much of it? Those questions are more useful than the label on its own._
 
 ## Where does AI fit in?
 

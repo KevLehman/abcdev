@@ -288,7 +288,15 @@ const { lang, ogImage, oembed } = variants[0];
   .prose :global(p), .prose :global(li),
   .prose :global(h2), .prose :global(h3), .prose :global(h4),
   .prose :global(blockquote) { width: fit-content; max-width: 100%; }
-  .prose :global(p:has(> img:only-child)) { width: 100%; }
+  .prose :global(p:has(> img:only-child)) {
+    width: 100%; margin: 1.5rem 0; padding: 10px; border: 1px solid var(--hairline); background: var(--surface);
+  }
+  .prose :global(p:has(> img:only-child) > img) { margin: 0; }
+  .prose :global(p:has(> img:only-child):has(+ p > em:only-child)) { margin-bottom: 0; border-bottom: 0; }
+  .prose :global(p:has(> img:only-child) + p:has(> em:only-child)) {
+    width: 100%; margin: 0 0 1.5rem; padding: 4px 14px 14px; border: 1px solid var(--hairline);
+    border-top: 0; background: var(--surface); color: var(--slate); font-size: .9rem; line-height: 1.5;
+  }
   .prose :global(a) { color: var(--signal); }
   .prose :global(pre) { font-family: var(--font-mono); font-size: .9rem; padding: 16px;
     border: 1px solid var(--hairline); overflow-x: auto; margin: 0 0 1.2rem; }
