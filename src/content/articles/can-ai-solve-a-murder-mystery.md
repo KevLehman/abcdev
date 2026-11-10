@@ -12,7 +12,7 @@ featured: false
 
 The storm has cut off the road to the observatory. At 9:20 p.m., an astronomer is found dead beside his telescope. Four guests are still inside, and none of them is particularly sorry to see him go.
 
-You can investigate **four leads** before making your accusation. You don't have to use them all. Choose carefully: motive is interesting, but you'll need evidence to put someone in the room.
+You can investigate **four leads** before making your accusation. You don't have to use them all. Choose carefully: motive is interesting, but you'll need evidence to put someone in the room. Some combinations won't be enough to prove who did it, so you may have to guess.
 
 **The model comparison will use exactly the clues you select.** Each model gets the same case and suspects you see, then makes an accusation from your chosen clues. Its answers are calculated in advance; the clues are presented in a consistent order.
 
