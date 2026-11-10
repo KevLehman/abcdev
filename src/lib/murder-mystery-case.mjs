@@ -20,5 +20,5 @@ export const leads = [
 
 export const solution = {
   suspect: 'nina',
-  text: 'Nina poisoned the tea in Adrian’s cup. The clean pot rules out poison in the tea before it was poured. Adrian kept the freshly rinsed cup with him except between 9:12 and 9:14. The door log places card 27 in the observatory during that interval, and the register assigns that card to Nina. The kitchen and generator alibis also place the other three suspects elsewhere during those two minutes. Nina’s research dispute gives her a possible motive, but motive alone is not proof.',
+  text: 'Nina poisoned Adrian’s tea. The pot was clean, and Adrian had rinsed the cup himself. He kept it with him until 9:12, when he left it on his desk to take a call. Two minutes later he returned, picked it up, and eventually drank. During those two minutes, card 27 entered the observatory. The register assigns that card to Nina. The other three suspects were accounted for in the kitchen and generator room. The dispute over the research gave Nina a motive; the door log puts her in the room.',
 };

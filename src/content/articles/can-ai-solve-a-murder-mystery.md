@@ -10,7 +10,11 @@ unlisted: true
 featured: false
 ---
 
-The storm has cut off the road to the observatory. At 9:20 p.m., an astronomer is found dead beside his telescope. Four guests are still inside, and none of them is particularly sorry to see him go.
+At 9:20 p.m., Dr. Adrian Vale is found dead beside his telescope. The storm has cut off the road to the observatory, and four guests are still inside.
+
+His sister had been cut out of his will. The engineer had been blamed for a costly failure. The archivist believed Adrian was about to publish her research under his own name, and the caterer was facing a cancelled contract.
+
+Someone had a reason to kill him. The question is who had the chance.
 
 You can investigate **four leads** before making your accusation. You don't have to use them all. Choose carefully: motive is interesting, but you'll need evidence to put someone in the room. Some combinations won't be enough to prove who did it, so you may have to guess.
 

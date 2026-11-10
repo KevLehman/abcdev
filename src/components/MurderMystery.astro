@@ -4,6 +4,8 @@ import { caseFingerprint } from '../lib/murder-mystery-evaluation.mjs';
 import { currentModels } from '../lib/murder-mystery-comparison.mjs';
 import recordedModels from '../data/murder-mystery-models.json';
 const models = currentModels(recordedModels as { name: string, caseFingerprint: string, guesses: Record<string, string> }[], caseFingerprint);
+// Keep the premise used in the recorded runs while removing its closing aside.
+const storyPremise = premise.replace(', but not the questions', '');
 ---
 <section class="case" aria-labelledby="case-title">
   <div class="case-hero">
@@ -11,7 +13,7 @@ const models = currentModels(recordedModels as { name: string, caseFingerprint: 
     <div class="case-hero-copy">
       <span class="case-kicker">An interactive mystery</span>
       <h2 id="case-title">The last night<br />at the observatory</h2>
-      <p>One victim. Four suspects. A storm that won't let anyone leave.</p>
+      <p>A dead astronomer. Four guests. A road closed by the storm.</p>
     </div>
     <span class="case-stamp" aria-hidden="true">CASE<br />01</span>
   </div>
@@ -22,7 +24,7 @@ const models = currentModels(recordedModels as { name: string, caseFingerprint: 
       <div>
         <span class="case-label">The case</span>
         <h3>Who killed Adrian Vale?</h3>
-        <p>{premise}</p>
+        <p>{storyPremise}</p>
         <p class="comparison-disclaimer"><strong>For the model comparison:</strong> Each model receives the same case and suspects you see, plus exactly the clues you select. Answers are calculated in advance using a consistent clue order.</p>
       </div>
       <div class="case-counter" aria-live="polite"><strong data-count>0</strong><span>of 4 leads<br />investigated</span></div>
