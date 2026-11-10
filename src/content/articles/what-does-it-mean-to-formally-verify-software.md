@@ -29,13 +29,15 @@ Formal verification uses mathematical reasoning to check whether the thing we're
 
 ## How does a verifier check that?
 
-The short version: it turns the program, model and properties into precise statements and uses logic to check whether the property follows. The details depend on the technique. A model checker can examine possible states and transitions in a model; a program verifier can use a theorem prover to reason about code and its specifications.
+The verifier needs two things: something to check and a precise rule to check it against. How it does that depends on the tool. A model checker can look at the possible states in a model and how the system moves between them. A program verifier can use a theorem prover to reason about the code and its specification.
 
-You might tell a verifier what must be true before a function runs and what must be true afterward. Those are called a **precondition** and a **postcondition**. For a larger process, you might also describe an **invariant**: something that should remain true as the system changes. The [Dafny tutorial](https://dafny.org/v4.8.1/OnlineTutorial/guide) introduces these ideas with small examples.
+For a function, you can describe what must be true before it runs and what it should guarantee afterward. Those are a **precondition** and a **postcondition**. You can also describe an **invariant**: a property that should remain true as the system changes. The [Dafny tutorial](https://dafny.org/v4.8.1/OnlineTutorial/guide) explains these with small examples.
 
 {% embed https://dafny.org/v4.8.1/OnlineTutorial/guide %}
 
-The tool can then check whether the behavior follows the rules, rather than relying only on a collection of inputs someone selected. Depending on the method and the model, the result may cover all the behaviors described by that model, or a bounded set of them. If a check fails, some tools can show a counterexample: a case or sequence that breaks the property. Other times, a verifier simply can't establish the claim. That doesn't automatically mean the code is wrong; the tool may need more information, or the proof may be beyond what it can establish.
+The verifier checks whether the rule holds for the behavior it's examining. Depending on the method, that might mean all the behaviors described by a model, or only a bounded set. If it finds a violation, it may show you a **counterexample**: an input or sequence of events that breaks the rule. That's useful because you get something specific to investigate.
+
+But a failed verification doesn't always mean the code is wrong. Sometimes the tool can't establish the claim with the information it has, or can't complete the proof. You might need to give it more detail before it can tell you either way.
 
 ![A mechanical maze with illuminated paths branching through it, representing possible behaviors in a model.](/images/formal-verification-model.webp)
 
