@@ -18,6 +18,6 @@ Someone had a reason to kill him. The question is who had the chance.
 
 You can investigate **four leads** before making your accusation. You don't have to use them all. Choose carefully: motive is interesting, but you'll need evidence to put someone in the room. Some combinations won't be enough to prove who did it, so you may have to guess.
 
-**The model comparison will use exactly the clues you select.** Each model gets the same case and suspects you see, then makes an accusation from your chosen clues. Its answers are calculated in advance; the clues are presented in a consistent order.
+**The model comparison will use exactly the clues you select.** Each model gets the same case and suspects you see, then makes an accusation from your chosen clues. Its answers are calculated in advance; the clues are presented in a consistent order. The illustrations set the scene and contain no evidence beyond the text.
 
 So far, I've tested GPT-6 Luna once for each four-clue combination, using a fresh Codex subagent each time. There isn't a Luna result yet if you accuse with fewer than four clues.

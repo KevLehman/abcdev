@@ -4,8 +4,6 @@ import { caseFingerprint } from '../lib/murder-mystery-evaluation.mjs';
 import { currentModels } from '../lib/murder-mystery-comparison.mjs';
 import recordedModels from '../data/murder-mystery-models.json';
 const models = currentModels(recordedModels as { name: string, caseFingerprint: string, guesses: Record<string, string> }[], caseFingerprint);
-// Keep the premise used in the recorded runs while removing its closing aside.
-const storyPremise = premise.replace(', but not the questions', '');
 ---
 <section class="case" aria-labelledby="case-title">
   <div class="case-hero">
@@ -24,8 +22,8 @@ const storyPremise = premise.replace(', but not the questions', '');
       <div>
         <span class="case-label">The case</span>
         <h3>Who killed Adrian Vale?</h3>
-        <p>{storyPremise}</p>
-        <p class="comparison-disclaimer"><strong>For the model comparison:</strong> Each model receives the same case and suspects you see, plus exactly the clues you select. Answers are calculated in advance using a consistent clue order.</p>
+        <p>{premise}</p>
+        <p class="comparison-disclaimer"><strong>For the model comparison:</strong> Each model receives the same case and suspects you see, plus exactly the clues you select. Answers are calculated in advance using a consistent clue order. The illustrations are decorative; all evidence is in the text.</p>
       </div>
       <div class="case-counter" aria-live="polite"><strong data-count>0</strong><span>of 4 leads<br />investigated</span></div>
     </div>
@@ -114,8 +112,9 @@ const storyPremise = premise.replace(', but not the questions', '');
         const lead = leads.find((item) => item.id === id)!;
         const entry = document.createElement('div'); entry.className = 'notebook-entry';
         const title = document.createElement('strong'); title.textContent = `${lead.number} / ${lead.title}`;
+        const illustration = document.createElement('img'); illustration.className = 'clue-illustration'; illustration.src = `/images/mystery-clues/${lead.id}.webp`; illustration.alt = ''; illustration.width = 480; illustration.height = 320; illustration.loading = 'lazy';
         const text = document.createElement('p'); text.textContent = lead.text;
-        entry.append(title, text); notebook.append(entry);
+        entry.append(title, illustration, text); notebook.append(entry);
       }
       const selected = evidence.value;
       evidence.replaceChildren(new Option("I'm guessing", ''));
@@ -231,6 +230,7 @@ const storyPremise = premise.replace(', but not the questions', '');
   .notebook :global(.empty-note) { color: #65716e; font: italic 1rem/1.45 var(--font-body); }
   .notebook :global(.notebook-entry) { border-top: 1px solid #d5d7cc; padding: 14px 0 4px; }
   .notebook :global(.notebook-entry strong) { font: 600 .68rem/1.4 var(--font-mono); color: #846238; }
+  .notebook :global(.clue-illustration) { display: block; width: 100%; height: 115px; object-fit: cover; margin-top: 10px; }
   .notebook :global(.notebook-entry p) { font: 1rem/1.45 var(--font-body); margin: 7px 0 10px; color: #263e44; }
   .limit-message { margin: 12px 0 0; color: #805523; font: .75rem/1.5 var(--font-mono); }
   .accusation { margin-top: 40px; border-top: 1px solid #bcb9ad; padding-top: 35px; display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
