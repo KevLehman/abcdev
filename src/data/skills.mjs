@@ -1,8 +1,8 @@
 export const skills = [
   {
     name: 'publish-devto',
-    description: 'Publish or update a DEV Community article syndicated from your blog, or prepare a draft.',
-    descriptionEs: 'Publica o actualiza en DEV Community un artículo de tu blog, o prepara un borrador.',
+    description: 'Publish or update articles on DEV Community, or prepare a draft. Requires a DEV API key.',
+    descriptionEs: 'Publica o actualiza artículos en DEV Community, o prepara un borrador. Requiere una clave API de DEV.',
     queries: ['Publish this blog article on DEV', 'Prepare a DEV draft of this article'],
   },
   {
