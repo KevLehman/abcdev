@@ -1,5 +1,11 @@
 export const skills = [
   {
+    name: 'publish-devto',
+    description: 'Publish or update a DEV Community article syndicated from your blog, or prepare a draft.',
+    descriptionEs: 'Publica o actualiza en DEV Community un artículo de tu blog, o prepara un borrador.',
+    queries: ['Publish this blog article on DEV', 'Prepare a DEV draft of this article'],
+  },
+  {
     name: 'managing-github-prs',
     description: 'Work with GitHub pull requests using the gh CLI: check out branches, review diffs, handle review threads, manage stacked PRs, and watch CI.',
     descriptionEs: 'Trabaja con pull requests de GitHub desde gh: cambia de rama, revisa diffs y comentarios, maneja PRs apilados y monitorea CI.',

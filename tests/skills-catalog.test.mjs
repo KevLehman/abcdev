@@ -7,7 +7,7 @@ describe('ARD skills manifest', () => {
     const manifest = await response.json();
     expect(response.headers.get('content-type')).toContain('application/json');
     expect(manifest.entries.map((entry) => entry.displayName)).toEqual([
-      'managing-github-prs', 'root-cause-analysis', 'teach-me', 'translate-article',
+      'publish-devto', 'managing-github-prs', 'root-cause-analysis', 'teach-me', 'translate-article',
     ]);
     for (const entry of manifest.entries) {
       expect(entry.identifier).toBe(`urn:air:kevinaleman.com:skill:${entry.displayName}`);
