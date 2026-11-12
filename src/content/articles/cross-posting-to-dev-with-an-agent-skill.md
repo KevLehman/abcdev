@@ -8,22 +8,24 @@ excerpt: "A small agent skill for publishing an article on DEV while keeping the
 draft: false
 unlisted: true
 featured: false
+coverImage: "https://kevinaleman.com/images/dev-cross-posting-skill.webp"
+coverDimensions: { width: 1672, height: 941 }
 ---
 
-Publishing an article on my blog is only part of the work. I also want to share it on DEV, which means copying the article, checking the links and making sure DEV points back to the original. It's not complicated, but it's the kind of thing that's easy to get wrong when you repeat it for every post.
+I publish articles on my blog, and I also want to share them on DEV. That means copying the post, fixing the links that only work on my site, and remembering to point DEV back to the original. None of that is hard. I just don't want to do it by hand every time.
 
-So I made [a skill for publishing to DEV](https://github.com/KevLehman/agent-skills/tree/main/publish-devto). A skill is a set of instructions an agent can follow for a particular task. In this case, I can ask the agent to prepare a DEV draft or publish an article, and the skill gives it a workflow for doing that through the [Forem API](https://developers.forem.com/api/v1).
+So I made a [DEV publishing skill](https://github.com/KevLehman/agent-skills/tree/main/publish-devto). It's a set of instructions for an agent: give it an article and ask for a DEV draft or a published post. The agent then uses the [Forem API](https://developers.forem.com/api/v1) to do the work.
 
-![An article travels from a writer's desk to a community board, with a thread connecting the two copies.](/images/dev-cross-posting-skill.webp)
+## Where's the original?
 
-## One original, two places to read it
+The original lives on my blog. Before cross-posting it, the skill checks that the original URL is public and sets it as the canonical URL on DEV. That tells search engines which version I prefer them to treat as the original, though they still decide how to index it.
 
-My blog is the original, and DEV is another place to read the article. For a cross-post, the skill checks that the original URL is publicly accessible and sets it as DEV's canonical URL. That tells search engines which URL is the preferred original; it doesn't guarantee how they'll index either page.
+It also checks my existing DEV posts and drafts. If the article is already there, the agent should update that post instead of making a duplicate. And those relative image paths that work on my blog? They need public URLs on DEV, so the skill handles that too.
 
-The skill also checks the account's existing drafts and published articles before creating anything. If the article is already there, the agent should update the matching post instead of creating another copy. It converts relative links and images to public URLs too, so a link that works on my blog doesn't accidentally point somewhere else on DEV.
+The same goes for relative links. I'd rather catch those before someone clicks a link in the DEV post and ends up somewhere unexpected.
 
-## A draft is still a draft
+## How to use it
 
-The skill needs a [DEV API key](https://dev.to/settings/extensions), supplied through `DEVTO_API_KEY` in the environment or an ignored `.env` file. Keep that key private. The agent checks the account and reports the resulting URL and publication state after a write.
+You'll need a [DEV API key](https://dev.to/settings/extensions), available to the agent as `DEVTO_API_KEY` in your environment or an ignored `.env` file. Keep it private. The skill checks the account before making changes and reports the URL and publication state afterward.
 
-You can ask for a draft first. Asking for a draft doesn't authorize publishing it; asking to publish does. I'd still read the DEV version before sharing it: the skill can handle the repetitive steps, but I want to see that the article and its links look right where readers will find them.
+I can ask for a draft if I want to review it first. The agent shouldn't publish it unless I ask it to. Either way, I'll check the DEV version before sharing it. I still want to know what readers are going to see.
