@@ -8,6 +8,8 @@ excerpt: "How does attribute-based access control work in Rocket.Chat?"
 draft: false
 unlisted: true
 featured: false
+coverImage: "https://kevinaleman.com/images/abac-cover.png"
+coverDimensions: { width: 1752, height: 897 }
 ---
 
 While working on attribute-based access control (ABAC) for Rocket.Chat, I had to deal with a question that sounds pretty simple: does this user have the attributes this room requires? That's the basis of ABAC: who can access the data, but letting the data itself being the judge.
