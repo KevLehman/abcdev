@@ -6,8 +6,9 @@ slug: "how-abac-works-in-rocketchat"
 tags: ["rocketchat", "security", "authorization", "architecture"]
 excerpt: "How does attribute-based access control work in Rocket.Chat?"
 draft: false
-unlisted: true
+unlisted: false
 featured: false
+devtoUrl: "https://dev.to/kaleman15/how-abac-works-in-rocketchat-obp"
 coverImage: "https://kevinaleman.com/images/abac-cover.png"
 coverDimensions: { width: 1752, height: 897 }
 ---
