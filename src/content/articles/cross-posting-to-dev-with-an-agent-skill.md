@@ -8,6 +8,7 @@ excerpt: "A small agent skill for publishing an article on DEV while keeping the
 draft: false
 unlisted: true
 featured: false
+devtoUrl: "https://dev.to/kaleman15/cross-posting-to-dev-with-an-agent-skill-31jp"
 coverImage: "https://kevinaleman.com/images/dev-cross-posting-skill.webp"
 coverDimensions: { width: 1672, height: 941 }
 ---
