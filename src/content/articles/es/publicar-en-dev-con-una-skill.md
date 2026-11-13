@@ -30,3 +30,5 @@ Lo mismo pasa con los enlaces relativos. Prefiero arreglarlos antes de que algui
 Necesitas una [clave API de DEV](https://dev.to/settings/extensions), disponible para el agente como `DEVTO_API_KEY` en tu entorno o en un archivo `.env` excluido de Git. Mantén esa clave privada. La skill comprueba la cuenta antes de hacer cambios e informa la URL y el estado de publicación después.
 
 Si quiero revisarlo primero, puedo pedir un borrador. El agente no debería publicarlo a menos que se lo pida. De cualquier forma, voy a revisar la versión de DEV antes de compartirla. Quiero saber qué van a ver los lectores.
+
+Esta skill y las demás en las que he estado trabajando están en [mi colección de skills](/es/skills/).

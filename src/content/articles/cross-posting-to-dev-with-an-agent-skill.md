@@ -29,3 +29,5 @@ The same goes for relative links. I'd rather catch those before someone clicks a
 You'll need a [DEV API key](https://dev.to/settings/extensions), available to the agent as `DEVTO_API_KEY` in your environment or an ignored `.env` file. Keep it private. The skill checks the account before making changes and reports the URL and publication state afterward.
 
 I can ask for a draft if I want to review it first. The agent shouldn't publish it unless I ask it to. Either way, I'll check the DEV version before sharing it. I still want to know what readers are going to see.
+
+You can find this and the others I've been working on in [my skills collection](/skills/).
