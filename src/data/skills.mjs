@@ -12,10 +12,22 @@ export const skills = [
     queries: ['Check out a pull request without losing my changes', 'Find unresolved review threads on this PR', 'Keep a stacked pull request up to date'],
   },
   {
+    name: 'reviewing-code',
+    description: 'Review a pull request, branch, or diff for correctness and common code quality issues.',
+    descriptionEs: 'Revisa un pull request, una rama o un diff para detectar errores y problemas comunes de calidad del código.',
+    queries: ['Review this pull request', 'Check my changes before committing'],
+  },
+  {
     name: 'root-cause-analysis',
     description: 'Investigate bugs and incidents with a 5-whys analysis that separates verified evidence from assumptions.',
     descriptionEs: 'Investiga errores e incidentes con los 5 porqués, separando la evidencia verificada de las suposiciones.',
     queries: ['Find the root cause of this production incident', 'Run a 5-whys analysis of this bug'],
+  },
+  {
+    name: 'security-audit',
+    description: 'Review code for security vulnerabilities or run a full codebase security audit.',
+    descriptionEs: 'Revisa código en busca de vulnerabilidades o realiza una auditoría de seguridad completa.',
+    queries: ['Review this code for security vulnerabilities', 'Run a security audit of this codebase'],
   },
   {
     name: 'teach-me',
