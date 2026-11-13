@@ -7,7 +7,7 @@ translationOf: "cross-posting-to-dev-with-an-agent-skill"
 tags: ["ia", "devto", "escritura", "automatización"]
 excerpt: "Una pequeña skill para publicar un artículo en DEV y mantener el original en tu propio sitio."
 draft: false
-unlisted: true
+unlisted: false
 featured: false
 coverImage: "https://kevinaleman.com/images/dev-cross-posting-skill.webp"
 coverDimensions: { width: 1672, height: 941 }

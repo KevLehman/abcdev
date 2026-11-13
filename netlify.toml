@@ -46,6 +46,12 @@
   status = 301
   force = true
 
+# Preserve the Spanish article's former unlisted URL.
+[[redirects]]
+  from = "/publicar-en-dev-con-una-skill/"
+  to = "/cross-posting-to-dev-with-an-agent-skill/?lang=es"
+  status = 301
+
 # Serve static article exports as Markdown, without an HTML wrapper.
 [[headers]]
   for = "/markdown/*.md"

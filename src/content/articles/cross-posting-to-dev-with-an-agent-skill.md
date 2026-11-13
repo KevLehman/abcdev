@@ -6,7 +6,7 @@ slug: "cross-posting-to-dev-with-an-agent-skill"
 tags: ["ai", "devto", "writing", "automation"]
 excerpt: "A small agent skill for publishing an article on DEV while keeping the original on your own site."
 draft: false
-unlisted: true
+unlisted: false
 featured: false
 devtoUrl: "https://dev.to/kaleman15/cross-posting-to-dev-with-an-agent-skill-31jp"
 coverImage: "https://kevinaleman.com/images/dev-cross-posting-skill.webp"
