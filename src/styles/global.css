@@ -26,6 +26,26 @@ a { color: var(--signal); }
 .sel-custom .prose ::selection { background: transparent; }
 .sel-prose-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .sel-prose-layer > i { position: absolute; background: var(--signal); }
+
+/* Markdown figures share the logbook's rules, surface and accent. */
+.prose .article-figure {
+  margin: 1.5rem 0; padding: 16px 20px; border: 1px solid var(--hairline);
+  border-top: 2px solid var(--signal); background: var(--surface); overflow-x: auto;
+}
+.prose .article-figure .article-figure__label {
+  margin: 0 0 .85rem; color: var(--signal); font: 500 .85rem/1.4 var(--font-display);
+}
+.prose .article-figure > :last-child { margin-bottom: 0; }
+.prose .article-figure.article-figure--timeline > ul,
+.prose .article-figure.article-figure--timeline > ol { list-style: none; padding-left: 1.15rem; border-left: 1px solid var(--hairline); }
+.prose .article-figure--timeline > ul > li,
+.prose .article-figure--timeline > ol > li { position: relative; margin-bottom: .75rem; }
+.prose .article-figure--timeline > ul > li::before,
+.prose .article-figure--timeline > ol > li::before {
+  content: ''; position: absolute; left: -1.42rem; top: .65em; width: .48rem; height: .48rem;
+  background: var(--signal); border-radius: 50%;
+}
+.prose .article-figure.article-figure--chart pre { background: transparent !important; border: 0; padding: 0; }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
 @media (max-width: 640px) { .wrap { padding: 0 20px; } }

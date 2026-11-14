@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import readingTime from './src/lib/reading-time.mjs';
 import remarkEmbed from './src/lib/remark-embed.mjs';
+import remarkFigures from './src/lib/remark-figures.mjs';
 import { copyFile, readFile } from 'node:fs/promises';
 
 let buildDirectory;
@@ -36,6 +37,6 @@ export default defineConfig({
       wrap: true,
     },
     // readingTime first so its word count ignores the injected card markup.
-    remarkPlugins: [readingTime, remarkEmbed],
+    remarkPlugins: [readingTime, remarkFigures, remarkEmbed],
   },
 });

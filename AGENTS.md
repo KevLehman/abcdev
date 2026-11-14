@@ -26,6 +26,7 @@ Apply these rules to all writing and editing for this project, including article
 
 ## Editing and delivery
 
+- For article figures, use Markdown blockquotes starting with `[!NOTE]`, `[!TIP]`, `[!WARNING]`, `[!STEPS]`, `[!TIMELINE]`, `[!TABLE]`, or `[!CHART]` and an optional title. Follow the marker with a blank quoted line and ordinary Markdown: prose for notes, lists for steps and timelines, tables for comparisons, or labeled text for charts. Use figures only when they clarify the adjacent text; retain real values and a readable text alternative.
 - Make the smallest complete edit. Preserve existing public slugs and publication flags (`draft`, `unlisted`, `featured`) unless the user asks to change them. A request to push prose does not mean to list an unlisted article.
 - Search before reading; use `rg`, focused ranges and existing repository patterns. Prefer LSP for symbols and ast-grep for structural changes. Don't use Python for routine scripts.
 - Before broad reading or editing, run `code-deep explore "<goal, paths and data flow or blast radius>" --path /absolute/git/root --detail minimal`. After changes, run `code-deep review /absolute/git/root --detail minimal --json`; add both `--base <ref>` and `--head <ref>` for a commit range. If unavailable, use `npx -y @team-harness/code-deep@3.0.2` in place of `code-deep`.
