@@ -7,7 +7,7 @@ translationOf: "from-js-to-go-ii"
 tags: ["golang", "javascript", "tutorial", "opinión"]
 excerpt: "Seguimos explorando Go desde JavaScript: arreglos, slices, diccionarios, conjuntos y funciones."
 draft: false
-unlisted: true
+unlisted: false
 featured: false
 series:
   id: js-to-go
