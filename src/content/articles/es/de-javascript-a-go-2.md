@@ -5,7 +5,7 @@ date: 2019-11-02T17:12:33.962Z
 lang: es
 translationOf: "from-js-to-go-ii"
 tags: ["golang", "javascript", "tutorial", "opinión"]
-excerpt: "Continuamos la serie de JavaScript a Go: comparamos arreglos, slices, diccionarios, conjuntos y funciones."
+excerpt: "Seguimos explorando Go desde JavaScript: arreglos, slices, diccionarios, conjuntos y funciones."
 draft: false
 unlisted: true
 featured: false
@@ -16,9 +16,9 @@ series:
 featuredImage: "../../../assets/images/node-vs-go.png"
 ---
 
-En el [artículo anterior](https://dev.to/kaleman15/from-javascript-to-go-50ef) vimos algunas diferencias entre JS y Go y empezamos a familiarizarnos con la lectura de código en Go.
+En el [artículo anterior](https://dev.to/kaleman15/from-javascript-to-go-50ef) vimos algunas diferencias entre JS y Go y empezamos a familiarizarnos con el código de Go.
 
-Esta vez compararemos tipos y funciones. En concreto:
+Esta vez vamos a comparar cómo trabajan ambos lenguajes con:
 
 - Arreglos y slices
 - Diccionarios
@@ -29,7 +29,7 @@ Esta vez compararemos tipos y funciones. En concreto:
 
 ### ¿Cómo funcionan en JavaScript?
 
-Un arreglo de JS tiene tamaño dinámico: no necesitas definir su longitud al crearlo.
+En JS, los arreglos tienen tamaño dinámico. No necesitas definir su longitud al crearlos:
 
 ```javascript
 const myArr = ['this', 'is', 'good'];
@@ -37,7 +37,7 @@ const myArr = ['this', 'is', 'good'];
 console.log(myArr); // ['this', 'is', 'good']
 ```
 
-El prototipo de `Array` incluye métodos útiles:
+El prototipo de `Array` tiene varios métodos útiles:
 
 ```javascript
 myArr.push('b'); // Agrega un valor al final
@@ -46,18 +46,18 @@ myArr.pop(); // Elimina el último elemento
 const combined = myArr.concat(['c']); // Devuelve un arreglo nuevo; no modifica myArr
 ```
 
-Y la lista sigue. El prototipo de los arreglos de JS incluye muchas funciones y también puedes extenderlo:
+Y hay muchos más. Incluso puedes extender el prototipo con tus propios métodos:
 
 ```javascript
 Array.prototype.sayHello = function() { return 'hello' }
 myArr.sayHello(); // ¡Imprime 'hello'!
 ```
 
-La API de arreglos de JS es amplia y muy útil.
+La API de arreglos de JS tiene mucho que ofrecer.
 
 ### ¿Cómo funcionan en Go?
 
-Go tiene dos tipos: arreglos y slices. La diferencia está en la longitud: los arreglos tienen un tamaño fijo que no puede cambiar después de definirlos.
+En Go tenemos arreglos y slices. Los arreglos tienen un tamaño fijo: una vez definidos, no pueden crecer.
 
 ```go
 a1 := [3]int{1,2,3} // Crea un arreglo con [1,2,3]
@@ -77,7 +77,7 @@ aDummyFunction(arr1) // No se puede usar [2]int como [3]int
 aDummyFunction(arr2) // ¡Correcto!
 ```
 
-Con los slices es distinto: no tienen una longitud fija y pueden crecer. Cada slice se apoya en un arreglo subyacente:
+Los slices son distintos: pueden crecer, aunque cada uno se apoya en un arreglo subyacente. Por ejemplo:
 
 ```go
 var s1 []int // Declara un slice vacío
@@ -85,7 +85,7 @@ var s2 = []int{1,2,3} // Declara un slice con [1,2,3]
 s3 := []int{1,2,3} // Declara un slice con [1,2,3]
 ```
 
-Eso no significa que no puedas definir su longitud:
+También puedes crear un slice con una longitud determinada:
 
 ```go
 s4 := make([]int, 10) // Slice con longitud 10 y valores inicializados en cero
@@ -95,9 +95,9 @@ s5 := make([]int, 10, 20) // Longitud 10 y capacidad 20
 ¿Cuál es la diferencia entre longitud y capacidad?
 
 - La longitud es la cantidad de elementos del slice. `s4 := make([]int, 10)` crea uno con longitud 10.
-- La capacidad es la longitud máxima que puede alcanzar usando su arreglo subyacente actual. En `s5 := make([]int, 10, 20)`, todavía hay espacio para agregar un elemento número 11. Cuando `append` supera la capacidad, Go asigna un arreglo nuevo y copia los elementos existentes. La nueva capacidad no necesariamente será el doble.
+- La capacidad es la longitud máxima que puede alcanzar el slice sin cambiar de arreglo subyacente. En `s5 := make([]int, 10, 20)` hay espacio para agregar un elemento más. Cuando `append` supera la capacidad, Go asigna un arreglo nuevo y copia los elementos existentes. La nueva capacidad no necesariamente será el doble.
 
-Para conocer más detalles sobre su funcionamiento interno, consulta el [artículo del blog de Go](https://blog.golang.org/go-slices-usage-and-internals). Ahora veamos algunas operaciones con slices.
+El [blog de Go](https://blog.golang.org/go-slices-usage-and-internals) explica con más detalle cómo funcionan por dentro. Por ahora, veamos algunas operaciones con slices.
 
 Agregar un valor:
 
@@ -116,7 +116,7 @@ s8 := []int{3,4}
 s7 = append(s7, s8...)
 ```
 
-Obtener slices de un arreglo:
+Crear slices a partir de un arreglo:
 
 ```go
 arr := [10]int{1,2,3,4,5,6,7,8,9,0}
@@ -127,15 +127,15 @@ s11 := arr[7:] // s11 contendrá [8,9,0]
 
 > [!NOTE] El arreglo subyacente
 >
-> Un slice hace referencia a elementos del arreglo subyacente: si modificas un elemento a través del slice, también modificas el arreglo. Si hay suficiente capacidad, `append` puede seguir usando ese arreglo; de lo contrario, asigna uno nuevo.
+> Un slice apunta a elementos del arreglo subyacente. Si modificas uno de esos elementos a través del slice, también cambias el arreglo. Al usar `append`, Go puede seguir usando el mismo arreglo si hay suficiente capacidad; de lo contrario, asigna uno nuevo.
 
-Puedes encontrar más operaciones útiles con slices [aquí](https://github.com/golang/go/wiki/SliceTricks).
+Encontrarás más operaciones útiles en esta [guía de slices](https://github.com/golang/go/wiki/SliceTricks).
 
 ## Diccionarios
 
 ### ¿Cómo funcionan en JS?
 
-Puedes usar `Object`, `Map` o `WeakMap` para crear diccionarios. Veamos `Object`, que es común entre desarrolladores de JS:
+En JS puedes usar `Object`, `Map` o `WeakMap` como diccionarios. Veamos `Object`, que se usa con frecuencia:
 
 ```javascript
 const x = {
@@ -154,7 +154,7 @@ x.newValue = 'value3'; // Equivalente; suele preferirse cuando ya conoces la cla
 
 ### ¿Cómo funcionan en Go?
 
-Go usa el tipo `map`. Puedes inicializar un mapa con `make` o con un literal; puedes leer un mapa nil, pero no escribir en él. Asignar un mapa a otra variable no copia su contenido.
+En Go usamos `map`. Puedes inicializar un mapa con `make` o con un literal. También puedes leer un mapa nil, pero no escribir en él. Si asignas un mapa a otra variable, su contenido no se copia.
 
 ```go
 // Crear mapas
@@ -190,13 +190,15 @@ set.clear() // Elimina todos los valores y devuelve undefined
 
 ### ¿Cómo funcionan en Go?
 
-Cuando escribí este artículo, Go no tenía soporte nativo para conjuntos. Aun así, puedes usar un mapa para representar uno. Encontrarás más detalles en [este artículo](https://blog.golang.org/go-maps-in-action).
+Cuando escribí este artículo, Go no tenía conjuntos como tipo integrado. Aun así, puedes usar un mapa para representar uno. El [blog de Go](https://blog.golang.org/go-maps-in-action) explica cómo.
 
 ## Funciones
 
 ### ¿Cómo funcionan en JS?
 
-JS trata las funciones como valores de primera clase. Puedes asignarlas a variables, pasarlas como parámetros y devolverlas desde otras funciones, lo que permite crear *closures*. También puedes usar funciones lambda. Estas son formas alternativas de declarar una función:
+En JS, las funciones son valores de primera clase: puedes asignarlas a variables, pasarlas como parámetros y devolverlas desde otras funciones. Esto también te permite crear *closures*.
+
+Estas son algunas formas de definir una función, incluida una función flecha:
 
 ```javascript
 function x() {};
@@ -215,13 +217,13 @@ function y() {
 }
 ```
 
-Un closure es como una mochila: la función interna lleva consigo los valores de la función exterior, en este caso la variable `i`.
+Un closure es como una mochila: la función interna puede llevarse variables de la función exterior. En este caso, se lleva `i`.
 
 En JS, una función devuelve un solo valor. Para devolver varios, puedes ponerlos en un arreglo o un objeto; `return a, b` usa el operador coma y devuelve solo `b`.
 
 ### ¿Cómo funcionan en Go?
 
-Go también trata las funciones como valores de primera clase. Además, permite devolver varios valores con `return`. Estas declaraciones son alternativas:
+En Go, las funciones también son valores de primera clase. Además, una función puede devolver varios valores con `return`. Estas son dos formas de definir una función:
 
 ```go
 func x() {}
@@ -240,7 +242,7 @@ func y() func() int {
 }
 ```
 
-La lógica es la misma. Recuerda que una función que devuelve otra función debe declarar su tipo de retorno, incluidos los parámetros de la función interna:
+La idea es la misma. Recuerda que, si una función devuelve otra función, debes declarar el tipo de retorno, incluidos los parámetros de la función interna:
 
 ```go
 func y() func(int, string, rune) rune {
@@ -250,6 +252,6 @@ func y() func(int, string, rune) rune {
 }
 ```
 
-Hasta aquí aprendimos a declarar arreglos y slices, crear mapas, construir estructuras similares a conjuntos y usar funciones y closures en Go.
+Ya vimos cómo declarar arreglos y slices, crear mapas, representar conjuntos y usar funciones y closures en Go.
 
-En el próximo artículo exploraremos el contexto de ejecución y el alcance en Go. ¡Sigamos con Go!
+En el próximo artículo exploraremos el contexto de ejecución y el alcance en Go. ¡Seguimos!
