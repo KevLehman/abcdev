@@ -77,7 +77,7 @@ aDummyFunction(arr1) // No se puede usar [2]int como [3]int
 aDummyFunction(arr2) // ¡Correcto!
 ```
 
-Los slices son distintos: pueden crecer, aunque cada uno se apoya en un arreglo subyacente. Por ejemplo:
+Los slices son distintos: pueden crecer. Un slice describe una parte de un arreglo donde se guardan los elementos. A ese arreglo lo llamamos **arreglo subyacente**. Por ejemplo:
 
 ```go
 var s1 []int // Declara un slice vacío
@@ -127,7 +127,30 @@ s11 := arr[7:] // s11 contendrá [8,9,0]
 
 > [!NOTE] El arreglo subyacente
 >
-> Un slice apunta a elementos del arreglo subyacente. Si modificas uno de esos elementos a través del slice, también cambias el arreglo. Al usar `append`, Go puede seguir usando el mismo arreglo si hay suficiente capacidad; de lo contrario, asigna uno nuevo.
+> Un slice comparte los elementos de su arreglo subyacente. Si cambias un elemento desde el slice, también cambia en el arreglo:
+>
+> ```go
+> numeros := [3]int{10, 20, 30}
+> primeros := numeros[:2] // Slice con [10, 20]; capacidad: 3
+> primeros[0] = 99
+> fmt.Println(numeros) // [99 20 30]
+> ```
+>
+> Todavía queda espacio en el arreglo. Por eso, al agregar un tercer elemento, `append` usa ese mismo espacio:
+>
+> ```go
+> primeros = append(primeros, 40)
+> fmt.Println(numeros) // [99 20 40]
+> ```
+>
+> Al agregar un cuarto elemento, ya no cabe en el arreglo original. Go crea otro arreglo y copia los valores. A partir de ahí, modificar el slice ya no cambia `numeros`:
+>
+> ```go
+> primeros = append(primeros, 50)
+> primeros[0] = 42
+> fmt.Println(primeros) // [42 20 40 50]
+> fmt.Println(numeros)  // [99 20 40]
+> ```
 
 Encontrarás más operaciones útiles en esta [guía de slices](https://github.com/golang/go/wiki/SliceTricks).
 
