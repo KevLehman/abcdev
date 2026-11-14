@@ -30,11 +30,26 @@ a { color: var(--signal); }
 /* Markdown figures share the logbook's rules, surface and accent. */
 .prose .article-figure {
   margin: 1.5rem 0; padding: 16px 20px; border: 1px solid var(--hairline);
-  border-top: 2px solid var(--signal); background: var(--surface); overflow-x: auto;
+  border-top: 2px solid var(--slate); background: var(--surface); overflow-x: auto;
 }
 .prose .article-figure .article-figure__label {
-  margin: 0 0 .85rem; color: var(--signal); font: 500 .85rem/1.4 var(--font-display);
+  margin: 0 0 .85rem; color: var(--slate); font: 500 .85rem/1.4 var(--font-display);
 }
+.prose .article-figure--note { border-top-color: var(--signal); }
+.prose .article-figure--note .article-figure__label { color: var(--signal); }
+.prose .article-figure--tip { border-top-color: #39836b; }
+.prose .article-figure--warning { border-top-color: #c28935; }
+.prose .article-figure--quote { border: 0; border-left: 3px solid var(--slate); background: transparent; font-style: italic; }
+.prose .article-figure--terminal, .prose .article-figure--env { border-top-style: dashed; }
+.prose .article-figure--flow, .prose .article-figure--stat { border-width: 1px 0; background: transparent; }
+.prose .article-figure.article-figure--stat > ul { display: flex; flex-wrap: wrap; gap: 1rem 2rem; list-style: none; padding: 0; font-family: var(--font-display); }
+.prose .article-figure--stat > ul > li { flex: 1 1 9rem; }
+.prose .article-figure.article-figure--board > ul { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0; }
+.prose .article-figure--board > ul > li { flex: 1 1 9rem; padding: .75rem; border: 1px solid var(--hairline); }
+.prose .article-figure--flow > p:not(.article-figure__label) { font-family: var(--font-mono); }
+.prose .article-figure--tree ul { list-style-type: '↳  '; }
+.prose .article-figure.article-figure--rank ul { list-style: none; padding-left: 0; }
+.prose .article-figure__bar { display: block; color: var(--slate); font: .8rem/1.6 var(--font-mono); white-space: pre; letter-spacing: 0; }
 .prose .article-figure > :last-child { margin-bottom: 0; }
 .prose .article-figure.article-figure--timeline > ul,
 .prose .article-figure.article-figure--timeline > ol { list-style: none; padding-left: 1.15rem; border-left: 1px solid var(--hairline); }
