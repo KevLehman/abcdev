@@ -37,8 +37,8 @@ The `array` type on JS has some very handful functions on its prototype:
 ```javascript
 myArr.push('b'); // Will add a new value at the end
 myArr.shift(); // Will remove the first element of the array
-myArr.pop(); // Will remove the first element of the array
-myArr.concat(['c']); // This will append ['c'] at the end of myArr
+myArr.pop(); // Will remove the last element of the array
+const combined = myArr.concat(['c']); // Returns a new array; myArr is unchanged
 ```
 And the list goes on! JS has a lot of functionality predefined on array prototype. And you can extend it also:
 ```javascript
@@ -73,7 +73,7 @@ The history changes with Slices. Slices are not tied to any length, so they can 
 
 ```go
 var s1 []int // Will define an empty slice
-var s2 []int{1,2,3} // Will define an slice with [1,2,3]
+var s2 = []int{1,2,3} // Will define a slice with [1,2,3]
 s3 := []int{1,2,3} // Will define an slice with [1,2,3]
 ```
 
@@ -88,8 +88,8 @@ Hmmm... length, capacity, what's the difference between them?
 
 Well, remember that I mentioned early that every slice is backed up by an array? So, slices are, underneath the hood, fancy arrays! Let's dig this a little deeper:
 
-- A slice's length is the number of items the underlying array has. So when you declare `s4 := make([]int, 10)` you are telling Go that the underlying array should start with 10 elements.
-- A slice's capacity is the max amount of elements the underlying array can hold _without having to reallocate_. So here `s5 := make([]int, 10, 20)`, when you `append` to `s5` the element number `21`, Go will copy the underlying array to a new array with the double of `capacity` (so it doesn't have to reallocate in a while).
+- A slice's length is the number of elements in the slice. `s4 := make([]int, 10)` creates a slice with length 10.
+- A slice's capacity is the maximum length it can reach using its current underlying array. For `s5 := make([]int, 10, 20)`, appending an eleventh element still fits. Once an append exceeds capacity, Go allocates a new underlying array and copies the existing elements. The new capacity is not guaranteed to be double the old one.
 
 You can find a more detailed explanation (and how they work internally) in this [blog post](https://blog.golang.org/go-slices-usage-and-internals). For now, let's see how do we work with slices:
 
@@ -118,7 +118,7 @@ s10 := arr[:3] // Same as above
 s11 := arr[7:] // s11 will have [8,9,0]
 ```
 
-> An important detail to have in mind while slicing arrays is that slices are just references to the sliced array. So, if you change the value of the slice, the value of the array will change in consequence. This is true while you don't _append_ values to the slice since that action will force Go to create a new array to hold the values of the slice.
+> An important detail: a slice refers to elements of the underlying array, so changing an element through the slice changes the array. An `append` can keep using that array if there is enough capacity; otherwise it allocates a new one.
 
 You can find more useful operations with slices [here](https://github.com/golang/go/wiki/SliceTricks)
 
@@ -134,7 +134,7 @@ const x = {
 
 // Retrieving key/values
 x['key1'] // 'value1'
-x.key2 // 'value2
+x.key2 // 'value2'
 
 // Adding new elements
 x['newValue'] = 'value3';
@@ -142,13 +142,13 @@ x.newValue = 'value3'; // Both are the same, however, this is the preffered appr
 ```
 
 ### How are they made in Go?
-In Go, there's just one type for maps: `Map`. A `Map` is a reference type, so it should be `make`d before using it. Also, assigning a `Map` to a new variable _WILL NOT_ copy the internal data.
+In Go, maps use the `map` type. You can initialize one with `make` or a map literal; a nil map can be read but cannot be written to. Assigning a map to a new variable does not copy its contents.
 
 ```go
 // Create maps
 // Using make
 m1 := make(map[string]int)
-// Using a struct literal
+// Using a map literal
 m2 := map[string]string {
   "key1": "value1",
   "key2": "value2",
@@ -157,8 +157,8 @@ m2 := map[string]string {
 // Accessing values
 
 value := m2["key1"] // "value1"
-value, ok := m2["key2"] // "value2". The second value defines if the key was found, so
-value, ok := m2["nonValid"] // "", false, since the key is not present on m2
+value, ok := m2["key2"] // "value2", true: the key was found
+value, ok = m2["nonValid"] // "", false: the key is not present
 ```
 
 ## Sets
@@ -170,10 +170,10 @@ Let's see the `Set` type.
 const set = new Set([1,1,2,2,3,3,4,4,5,5])
 console.log(set) // 1,2,3,4,5 since Set values should be unique.
 
-set.size() // 5
-set.add(9) // [1,2,3,4,5,9]
-set.remove(9) // [1,2,3,4,5]
-set.clear() // []
+set.size // 5
+set.add(9) // Adds 9 and returns the set
+set.delete(9) // Removes 9 and returns true
+set.clear() // Removes all values and returns undefined
 ```
 
 ### How are they made in Go?
@@ -191,7 +191,7 @@ const x = () => {};
 And, let's see closures:
 ```javascript
 function y() {
-  const i = 0;
+  let i = 0;
   return function() {
     return i++;
   }
@@ -200,7 +200,7 @@ function y() {
 
 As you can see from the above example, a `closure` is like a backpack, where the innermost function carries the values from the outer function, in this case, the `i` variable.
 
-In JS, a function can only return a single value, so `return a, b` is not permitted.
+In JS, a function returns one value. To return several values, you can put them in an array or object; `return a, b` uses the comma operator and returns only `b`.
 
 ## How are they made in Go?
 Go also treats functions as first-class citizens. And also allows the return statement to return multiple values.
