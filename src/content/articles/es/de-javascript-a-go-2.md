@@ -77,7 +77,7 @@ aDummyFunction(arr1) // No se puede usar [2]int como [3]int
 aDummyFunction(arr2) // ¡Correcto!
 ```
 
-Los slices son distintos: pueden crecer. Un slice describe una parte de un arreglo donde se guardan los elementos. A ese arreglo lo llamamos **arreglo subyacente**. Por ejemplo:
+Los slices son distintos: pueden crecer. Un slice hace referencia a una parte de un arreglo, que es donde se guardan sus elementos. A ese arreglo se le llama **arreglo subyacente**. Veamos cómo declarar algunos slices:
 
 ```go
 var s1 []int // Declara un slice vacío
@@ -95,7 +95,7 @@ s5 := make([]int, 10, 20) // Longitud 10 y capacidad 20
 ¿Cuál es la diferencia entre longitud y capacidad?
 
 - La longitud es la cantidad de elementos del slice. `s4 := make([]int, 10)` crea uno con longitud 10.
-- La capacidad es la longitud máxima que puede alcanzar el slice sin cambiar de arreglo subyacente. En `s5 := make([]int, 10, 20)` hay espacio para agregar un elemento más. Cuando `append` supera la capacidad, Go asigna un arreglo nuevo y copia los elementos existentes. La nueva capacidad no necesariamente será el doble.
+- La capacidad indica hasta cuántos elementos puede crecer el slice usando el mismo arreglo. Por ejemplo, `s5` tiene 10 elementos y capacidad para 20. Si un `append` supera esa capacidad, Go crea otro arreglo y copia los elementos. La nueva capacidad no necesariamente será el doble.
 
 El [blog de Go](https://blog.golang.org/go-slices-usage-and-internals) explica con más detalle cómo funcionan por dentro. Por ahora, veamos algunas operaciones con slices.
 
@@ -127,7 +127,7 @@ s11 := arr[7:] // s11 contendrá [8,9,0]
 
 > [!NOTE] El arreglo subyacente
 >
-> Un slice comparte los elementos de su arreglo subyacente. Si cambias un elemento desde el slice, también cambia en el arreglo:
+> El slice no tiene una copia de los elementos: usa los del arreglo. Por eso, si cambiamos un elemento del slice, también cambia en el arreglo:
 >
 > ```go
 > numeros := [3]int{10, 20, 30}
@@ -136,14 +136,14 @@ s11 := arr[7:] // s11 contendrá [8,9,0]
 > fmt.Println(numeros) // [99 20 30]
 > ```
 >
-> Todavía queda espacio en el arreglo. Por eso, al agregar un tercer elemento, `append` usa ese mismo espacio:
+> El slice tiene dos elementos, pero el arreglo tiene espacio para tres. Si agregamos uno más, `append` lo guarda en ese espacio y reemplaza el `30`:
 >
 > ```go
 > primeros = append(primeros, 40)
 > fmt.Println(numeros) // [99 20 40]
 > ```
 >
-> Al agregar un cuarto elemento, ya no cabe en el arreglo original. Go crea otro arreglo y copia los valores. A partir de ahí, modificar el slice ya no cambia `numeros`:
+> ¿Y si agregamos un cuarto elemento? Ya no cabe en el arreglo original, así que Go crea uno nuevo y copia los valores. Desde ese momento, los cambios al slice ya no afectan a `numeros`:
 >
 > ```go
 > primeros = append(primeros, 50)
