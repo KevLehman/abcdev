@@ -8,6 +8,7 @@ excerpt: "LLMs can give us answers in seconds. We can still make room for curios
 draft: false
 unlisted: false
 featured: false
+devtoUrl: "https://dev.to/kaleman15/you-dont-have-to-let-ai-think-for-you-55k"
 featuredImage: "../../assets/images/ai-thinking-cover.webp"
 ---
 
