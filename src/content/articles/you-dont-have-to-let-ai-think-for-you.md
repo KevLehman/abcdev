@@ -6,7 +6,7 @@ slug: "you-dont-have-to-let-ai-think-for-you"
 tags: ["ai", "learning", "career"]
 excerpt: "LLMs can give us answers in seconds. We can still make room for curiosity, judgment and the satisfaction of figuring things out."
 draft: false
-unlisted: true
+unlisted: false
 featured: false
 featuredImage: "../../assets/images/ai-thinking-cover.webp"
 ---
