@@ -93,6 +93,6 @@ And when you are tired, under pressure, or dealing with a task outside your expe
 
 An LLM can offer a starting point, explain something in a different way, or help us find a mistake. It can make it easier to explore a question we wouldn't have had the time or confidence to approach alone.
 
-What we want, as humans, is the future where we get *augmented* by AI, not the one where we end up serving an AI overlord cause we don't know how to sum anymore.
+What we want, as humans, is the future where we get *augmented* by AI, not the one where we end up serving an AI overlord cause we don't know how to add or subtract anymore.
 
 Keep curious.
