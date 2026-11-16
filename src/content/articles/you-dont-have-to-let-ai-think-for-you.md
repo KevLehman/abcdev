@@ -31,9 +31,9 @@ This distinction shows up in a [2025 field experiment with high school math stud
 
 {% embed https://www.pnas.org/doi/10.1073/pnas.2422633122 %}
 
-That's one school, one subject, and a short-term result from a particular setup. It doesn't prove that using a chatbot makes everyone worse at thinking. Well, I mean, sometimes chatbots can drive you crazy, especially the customer support ones. But the study does suggest that **getting through practice and learning from it are different outcomes**. The hint-based tutor also had correct solutions supplied by teachers, so asking a general chatbot for hints doesn't guarantee the same result.
+That's one school, one subject, and a short-term result from a particular setup. It doesn't prove that using a chatbot makes everyone worse at thinking. Well, I mean, sometimes chatbots can drive you crazy, especially the customer support ones. But the study does suggest that **getting through practice and learning from it are different outcomes**.
 
-There's encouraging evidence too. In a [2025 study of a Harvard physics course](https://doi.org/10.1038/s41598-025-97652-6), students who used a specially designed AI tutor scored higher on immediate post-lesson tests than students taught the same material in an active-learning classroom. The tutor guided students through problems instead of simply giving them answers. To me, that's an example of what *augmenting* human abilities can look like. The study covered two lessons and doesn't establish the cause of the difference or the long-term effects.
+There's encouraging evidence too. In a [2025 study of a Harvard physics course](https://doi.org/10.1038/s41598-025-97652-6), students who used a specially designed AI tutor scored higher on immediate post-lesson tests than students taught the same material in an active-learning classroom. The tutor guided students through problems instead of simply giving them answers. To me, that's an example of what *augmenting* human abilities can look like.
 
 {% embed https://doi.org/10.1038/s41598-025-97652-6 %}
 
