@@ -6,16 +6,29 @@ export function GET() {
     name: 'kevinaleman',
     description: 'Agent skills for coding and learning, by Kevin Aleman.',
     owner: { name: 'Kevin Aleman', url: 'https://kevinaleman.com' },
-    plugins: skills.map((skill) => ({
-      name: skill.name,
-      description: skill.description,
-      source: {
-        source: 'git-subdir',
-        url: 'https://github.com/KevLehman/agent-skills.git',
-        path: skill.name,
+    plugins: [
+      ...skills.map((skill) => ({
+        name: skill.name,
+        description: skill.description,
+        source: {
+          source: 'git-subdir',
+          url: 'https://github.com/KevLehman/agent-skills.git',
+          path: skill.name,
+        },
+        homepage: 'https://kevinaleman.com/skills/',
+        repository: 'https://github.com/KevLehman/agent-skills',
+      })),
+      {
+        name: 'ts7-lsp',
+        description: 'TypeScript/JavaScript code intelligence from the native TypeScript 7 language server (tsc --lsp), using the project\'s own tsc.',
+        source: {
+          source: 'git-subdir',
+          url: 'https://github.com/KevLehman/ts7-lsp.git',
+          path: 'plugins/ts7-lsp',
+        },
+        category: 'development',
+        repository: 'https://github.com/KevLehman/ts7-lsp',
       },
-      homepage: 'https://kevinaleman.com/skills/',
-      repository: 'https://github.com/KevLehman/agent-skills',
-    })),
+    ],
   }), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
 }
