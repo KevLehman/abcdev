@@ -1,5 +1,11 @@
 export const skills = [
   {
+    name: 'filling-jira-tickets',
+    description: 'Create and fill CORE Jira tickets, including priority, fix versions, and bug root causes.',
+    descriptionEs: 'Crea y completa tickets de Jira para CORE, incluida la prioridad, las versiones de corrección y la causa raíz de errores.',
+    queries: ['Create a CORE Jira ticket', 'Fill in the root cause and versions for this CORE bug'],
+  },
+  {
     name: 'publish-devto',
     description: 'Publish or update articles on DEV Community, or prepare a draft. Requires a DEV API key.',
     descriptionEs: 'Publica o actualiza artículos en DEV Community, o prepara un borrador. Requiere una clave API de DEV.',
