@@ -19,6 +19,13 @@ export function GET() {
         repository: 'https://github.com/KevLehman/agent-skills',
       })),
       {
+        name: 'memory-tinder',
+        description: 'Keep, remove, or correct local Codex and Claude Code memories in chat or in a swipe deck.',
+        source: { source: 'github', repo: 'KevLehman/memory-tinder' },
+        category: 'productivity',
+        repository: 'https://github.com/KevLehman/memory-tinder',
+      },
+      {
         name: 'ts7-lsp',
         description: 'TypeScript/JavaScript code intelligence from the native TypeScript 7 language server (tsc --lsp), using the project\'s own tsc.',
         source: {

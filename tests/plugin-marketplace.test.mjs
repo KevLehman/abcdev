@@ -28,4 +28,12 @@ describe('Claude Code plugin marketplace', () => {
       source: { source: 'git-subdir', url: 'https://github.com/KevLehman/ts7-lsp.git', path: 'plugins/ts7-lsp' },
     });
   });
+
+  it('lists Memory Tinder from the root of its plugin repository', async () => {
+    const marketplace = await GET().json();
+    expect(marketplace.plugins.filter((plugin) => plugin.name === 'memory-tinder')).toMatchObject([{
+      source: { source: 'github', repo: 'KevLehman/memory-tinder' },
+      repository: 'https://github.com/KevLehman/memory-tinder',
+    }]);
+  });
 });
