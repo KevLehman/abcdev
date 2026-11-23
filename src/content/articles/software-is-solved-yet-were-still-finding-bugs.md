@@ -43,7 +43,7 @@ Think of a coffee machine. Mine (a Ninja Luxe, btw) has a bunch of presets for d
 
 That makes _solving_ software a difficult problem. It's like saying that because we have a bunch of machines that produce food we have solved it...
 
-Carlini had GCC compile most of the Linux kernel and used the new compiler for the rest. By changing which files went to each compiler, he tracked down failures involving *pairs of files*. The kernel worked when GCC compiled one file and the new compiler compiled the other, either way around. It failed when the new compiler compiled both. To catch that bug again, I'd keep the pair together in the regression test.
+Carlini had GCC compile most of the Linux kernel and used the new compiler for the rest. By changing which files went to each compiler, he tracked down failures involving *pairs of files*. The kernel worked when GCC compiled one file and the new compiler compiled the other, either way around. It failed when the new compiler compiled both. So which file was broken? Checking them one at a time, you'd say neither.
 
 ![Two wooden gears, one mint and one lilac, meet tooth to tooth instead of meshing.](/images/compiler-mismatched-gears.webp)
 
