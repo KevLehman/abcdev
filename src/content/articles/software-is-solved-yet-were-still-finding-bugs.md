@@ -37,3 +37,13 @@ Other mistakes are harder for an agent to see. Carlini tracked down failures inv
 At Materialize, Dennis Felsing caught an agent introducing the very bug it claimed to have reproduced. It had changed which path the program took. For some reports, Felsing had a simpler check: run the SQL query himself and see whether the database returned the wrong answer.
 
 When a bug report lands on my next rewrite, I'll run the same input through both versions. If only the new one gets it wrong, I know where to start looking. If they agree, I still want to know what the answer should have been. The old version might have had the same bug all along.
+
+## What about the compiler we trusted?
+
+GCC got the startup code small enough. I'd have used it too. But in 2011, a [University of Utah team](https://dl.acm.org/doi/10.1145/1993498.1993532) showed what happened when the GCC shipped with Ubuntu 8.04.1 on x86 compared a signed char holding 1 with an unsigned char holding 255. Was 1 greater than 255? The compiled function said yes, at every optimization level. The bug was in Ubuntu's patched version, not upstream GCC. Nobody needed to ask the client which answer they preferred.
+
+{% embed https://dl.acm.org/doi/10.1145/1993498.1993532 %}
+
+The team spent three years generating C programs, building each one with different compilers and running the results to see where they disagreed. They reported more than 325 previously unknown compiler bugs. That doesn't tell me whether we write buggier software now. It tells me how much there was to find once somebody started asking the old compilers different questions.
+
+I'd read the Materialize numbers the same way. Going back through yesterday's commits can give you more bugs to fix today without making the software any worse. When the next report comes in, my first question is pretty simple: did we just break this, or did we finally try the thing that was already broken?
