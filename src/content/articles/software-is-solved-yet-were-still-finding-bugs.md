@@ -8,7 +8,7 @@ excerpt: "Materialize found bugs by looking through old commits. A team building
 draft: false
 unlisted: true
 featured: false
-featuredImage: "../../assets/images/bugs-raking-light.webp"
+featuredImage: "../../assets/images/compiler-workbench.webp"
 ---
 
 Sixteen Claude agents wrote a C compiler that could build Linux on x86. I would've guessed that meant it could compile the little bit of 16-bit code Linux needs to boot, too. [Nicholas Carlini explains what happened there](https://www.anthropic.com/research/building-c-compiler): the agents' compiler produced over 60 KB of startup code, but Linux only had room for 32 KB. Fortunately for the new C compiler, the old one was still around. GCC built the startup code small enough to fit and everyone was happy after, except for the agents.
@@ -45,7 +45,7 @@ That makes _solving_ software a difficult problem. It's like saying that because
 
 And that's not the only problem. There are some issues that are just hard to spot. Carlini, for example, tracked down failures involving *certain pairs of files*. The compiler worked for single files, but, when a pair of files was provided, the new compiler just broke apart. Why? Well, maybe the agent just tested its work with single files, which, if you ask me, is full AGI cause that's exactly what a regular developer would do. So, there could be issues the agent just doesn't think about, and the code it builds it's just not prepared for.
 
-![The kernel boots when either file uses the new compiler and the other uses GCC, but fails when both use the new compiler.](/images/compiler-pair-outcomes.svg)
+![Two wooden gears, one mint and one lilac, meet tooth to tooth instead of meshing.](/images/compiler-mismatched-gears.webp)
 
 ## Ok, so, is software solved?
 
