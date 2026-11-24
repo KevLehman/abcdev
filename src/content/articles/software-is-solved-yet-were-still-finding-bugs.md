@@ -8,6 +8,7 @@ excerpt: "Materialize found bugs by looking through old commits. A team building
 draft: false
 unlisted: false
 featured: false
+devtoUrl: "https://dev.to/kaleman15/if-software-is-solved-why-do-we-keep-finding-bugs-amc"
 featuredImage: "../../assets/images/compiler-workbench.webp"
 ---
 
