@@ -6,7 +6,7 @@ slug: "software-is-solved-yet-were-still-finding-bugs"
 tags: ["ai", "programming", "softwareengineering", "testing"]
 excerpt: "Materialize found bugs by looking through old commits. A team building a C compiler found regressions as it went. A new bug report can mean either."
 draft: false
-unlisted: true
+unlisted: false
 featured: false
 featuredImage: "../../assets/images/compiler-workbench.webp"
 ---

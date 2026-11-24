@@ -1,0 +1,12 @@
+---
+interface Props { lang: 'en' | 'es' }
+const { lang } = Astro.props;
+---
+<a class="badge" href="https://adplist.org/mentors/kevin-aleman-mwh8htyp">
+  <img src="/images/adplist-mentoring.webp" width="624" height="465" loading="lazy"
+    alt={lang === 'es' ? 'Ver mi perfil de mentor en ADPList' : 'View my mentor profile on ADPList'} />
+</a>
+<style>
+  .badge { display: block; width: min(13rem, 100%); }
+  img { display: block; width: 100%; height: auto; }
+</style>
